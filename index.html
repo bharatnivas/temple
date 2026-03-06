@@ -320,6 +320,31 @@
       <div class="tree" style="left:200px;top:3050px;"></div>
       <div class="tree" style="left:1750px;top:3050px;"></div>
 
+      <!-- ===== SHOPS near Gopuram ===== -->
+      <div class="structure shop" style="left:720px;top:2900px;">
+        <div class="shop-roof"></div>
+        <div class="shop-body"><div class="shop-items shop-flowers"></div></div>
+        <div class="structure-label">Flower Shop</div>
+      </div>
+      <div class="structure shop" style="left:600px;top:2900px;">
+        <div class="shop-roof shop-roof-green"></div>
+        <div class="shop-body"><div class="shop-items shop-fruits"></div></div>
+        <div class="structure-label">Fruit Stall</div>
+      </div>
+      <div class="structure shop" style="left:1150px;top:2900px;">
+        <div class="shop-roof shop-roof-red"></div>
+        <div class="shop-body"><div class="shop-items shop-pooja"></div></div>
+        <div class="structure-label">Pooja Items</div>
+      </div>
+      <div class="structure shop" style="left:1270px;top:2900px;">
+        <div class="shop-roof shop-roof-blue"></div>
+        <div class="shop-body"><div class="shop-items shop-prasad"></div></div>
+        <div class="structure-label">Prasad Shop</div>
+      </div>
+
+      <!-- NPC container -->
+      <div id="npcs"></div>
+
       <!-- Player -->
       <div id="player">
         <div class="player-head"></div>
@@ -331,7 +356,28 @@
     <div id="hud">
       <div id="location-name">Temple Entrance</div>
       <div id="time-display"></div>
-      <div id="instructions">Arrow keys / WASD to explore</div>
+    </div>
+
+    <!-- D-Pad Controls (right side) -->
+    <div id="dpad">
+      <button class="dpad-btn dpad-up" data-dir="up">&#9650;</button>
+      <div class="dpad-mid-row">
+        <button class="dpad-btn dpad-left" data-dir="left">&#9664;</button>
+        <div class="dpad-center"></div>
+        <button class="dpad-btn dpad-right" data-dir="right">&#9654;</button>
+      </div>
+      <button class="dpad-btn dpad-down" data-dir="down">&#9660;</button>
+    </div>
+
+    <!-- Shrine Action Menu -->
+    <div id="shrine-actions" class="hidden">
+      <div id="shrine-actions-title"></div>
+      <div id="shrine-actions-btns">
+        <button class="shrine-btn" data-action="darshan"><span class="btn-icon">&#128591;</span>Darshan</button>
+        <button class="shrine-btn" data-action="arati"><span class="btn-icon">&#128293;</span>Perform Arati</button>
+        <button class="shrine-btn" data-action="flowers"><span class="btn-icon">&#127804;</span>Offer Flowers</button>
+        <button class="shrine-btn" data-action="namaskaram"><span class="btn-icon">&#127785;</span>Namaskaram</button>
+      </div>
     </div>
 
     <!-- Darshan Overlay -->
@@ -343,9 +389,22 @@
           <div class="d-lamp d-lamp-r"></div>
           <div id="darshan-deity"></div>
           <div class="darshan-flowers"></div>
+          <!-- Arati plate (hidden by default) -->
+          <div id="arati-plate" class="hidden">
+            <div class="arati-handle"></div>
+            <div class="arati-tray">
+              <div class="arati-flame"></div>
+              <div class="arati-flame af-2"></div>
+              <div class="arati-flame af-3"></div>
+              <div class="arati-camphor"></div>
+            </div>
+          </div>
+          <!-- Flower shower (hidden by default) -->
+          <div id="flower-shower" class="hidden"></div>
         </div>
         <div id="darshan-mantra"></div>
-        <div id="darshan-close">Press ESC or click to close</div>
+        <div id="darshan-action-label"></div>
+        <div id="darshan-close">Press ESC or click outside to close</div>
       </div>
     </div>
   </div>

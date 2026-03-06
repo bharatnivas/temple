@@ -197,6 +197,37 @@ body{overflow:hidden;background:#1a1a2e;font-family:'Segoe UI',sans-serif;}
 .tree::after{content:'';position:absolute;top:0;left:0;width:50px;height:50px;background:radial-gradient(circle at 40% 40%,#2d8b2d,#1a5c1a,#0d3d0d);border-radius:50%;border:1px solid #0d3d0d;box-shadow:2px 3px 5px rgba(0,0,0,0.3);}
 .night-mode .tree::after{background:radial-gradient(circle at 40% 40%,#1a5c1a,#0d3d0d,#061f06);}
 
+/* ===== Shops ===== */
+.shop{width:100px;display:flex;flex-direction:column;align-items:center;}
+.shop-roof{width:100px;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:20px solid #c4522a;}
+.shop-roof-green{border-bottom-color:#2a8844;}
+.shop-roof-red{border-bottom-color:#cc3322;}
+.shop-roof-blue{border-bottom-color:#2255aa;}
+.shop-body{width:90px;height:45px;background:linear-gradient(to bottom,#d4a060,#b08040);border:2px solid #8b6914;display:flex;align-items:center;justify-content:center;position:relative;}
+.shop-body::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:24px;height:30px;background:#2a1a0a;border-radius:4px 4px 0 0;}
+.shop-items{position:absolute;top:4px;left:6px;right:6px;height:16px;display:flex;gap:3px;justify-content:center;align-items:center;flex-wrap:wrap;}
+.shop-flowers .shop-items::before,.shop-flowers::before{content:'';width:6px;height:6px;border-radius:50%;}
+.shop-flowers::before{content:'';position:absolute;top:5px;left:8px;width:6px;height:6px;background:#ff6699;border-radius:50%;box-shadow:8px 0 0 #ffcc00,16px 0 0 #ff4444,24px 0 0 #ff9933,32px 0 0 #ff6699,40px 0 0 #ffcc00,4px 8px 0 #ff4444,12px 8px 0 #ffcc00,20px 8px 0 #ff6699,28px 8px 0 #ff9933,36px 8px 0 #ff4444;}
+.shop-fruits::before{content:'';position:absolute;top:5px;left:10px;width:7px;height:7px;background:#ffcc00;border-radius:50%;box-shadow:10px 0 0 #ff6600,20px 0 0 #44bb00,30px 0 0 #ffcc00,40px 0 0 #ff6600,5px 8px 0 #44bb00,15px 8px 0 #ffcc00,25px 8px 0 #ff3300,35px 8px 0 #44bb00;}
+.shop-pooja::before{content:'';position:absolute;top:5px;left:8px;width:6px;height:8px;background:#ff9900;border-radius:2px;box-shadow:10px 0 0 #daa520,20px 0 0 #ff6600,30px 0 0 #cc3300,40px 0 0 #ff9900,5px 8px 0 #ffd700,15px 8px 0 #ff6600,25px 8px 0 #daa520,35px 8px 0 #cc3300;}
+.shop-prasad::before{content:'';position:absolute;top:5px;left:10px;width:8px;height:6px;background:#f5deb3;border-radius:50%;box-shadow:10px 0 0 #daa520,20px 0 0 #f5deb3,30px 0 0 #daa520,5px 8px 0 #f5deb3,15px 8px 0 #daa520,25px 8px 0 #f5deb3,35px 8px 0 #daa520;}
+
+/* ===== NPCs (Devotees) ===== */
+.npc{position:absolute;width:16px;height:22px;z-index:50;display:flex;flex-direction:column;align-items:center;transition:none;}
+.npc-head{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,0.3);z-index:1;}
+.npc-body{width:12px;height:12px;border-radius:3px;border:1px solid rgba(0,0,0,0.2);margin-top:-2px;}
+.npc-shadow{position:absolute;bottom:-2px;width:14px;height:4px;background:rgba(0,0,0,0.15);border-radius:50%;}
+/* Sari colors */
+.npc-skin-1 .npc-head{background:#e8c090;}.npc-skin-2 .npc-head{background:#d4a06a;}.npc-skin-3 .npc-head{background:#c08850;}
+.npc-cloth-1 .npc-body{background:#ff6633;}.npc-cloth-2 .npc-body{background:#2266aa;}
+.npc-cloth-3 .npc-body{background:#cc2288;}.npc-cloth-4 .npc-body{background:#22aa66;}
+.npc-cloth-5 .npc-body{background:#dd8800;}.npc-cloth-6 .npc-body{background:#8833cc;}
+.npc-cloth-7 .npc-body{background:#ffffff;border-color:#ccc;}
+
+/* Walking animation */
+@keyframes npc-bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-1.5px);}}
+.npc-walking{animation:npc-bob 0.6s ease-in-out infinite;}
+
 /* ===== Player ===== */
 #player{position:absolute;width:20px;height:26px;z-index:100;display:flex;flex-direction:column;align-items:center;}
 .player-head{width:12px;height:12px;background:#ffcc99;border-radius:50%;border:2px solid #cc9966;z-index:1;}
@@ -206,7 +237,13 @@ body{overflow:hidden;background:#1a1a2e;font-family:'Segoe UI',sans-serif;}
 #hud{position:fixed;top:12px;left:50%;transform:translateX(-50%);text-align:center;z-index:200;pointer-events:none;}
 #location-name{background:rgba(0,0,0,0.75);color:#ffd700;padding:6px 18px;border-radius:5px;font-size:15px;font-weight:bold;border:1px solid #c4952a;min-width:200px;}
 #time-display{color:rgba(255,255,255,0.7);font-size:11px;margin-top:3px;}
-#instructions{color:rgba(255,255,255,0.5);font-size:10px;margin-top:2px;}
+
+/* ===== D-Pad Controls ===== */
+#dpad{position:fixed;bottom:30px;right:20px;z-index:200;display:flex;flex-direction:column;align-items:center;gap:4px;user-select:none;-webkit-user-select:none;}
+.dpad-mid-row{display:flex;align-items:center;gap:4px;}
+.dpad-btn{width:52px;height:52px;border:2px solid rgba(255,215,0,0.5);border-radius:10px;background:rgba(0,0,0,0.55);color:rgba(255,215,0,0.8);font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent;transition:background .1s,transform .1s;}
+.dpad-btn:active,.dpad-btn.pressed{background:rgba(255,215,0,0.25);transform:scale(0.92);}
+.dpad-center{width:20px;height:20px;background:rgba(255,215,0,0.15);border-radius:50%;}
 
 /* ===== Darshan Overlay ===== */
 #darshan-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:300;display:flex;align-items:center;justify-content:center;transition:opacity .6s;cursor:pointer;}
@@ -232,6 +269,42 @@ body{overflow:hidden;background:#1a1a2e;font-family:'Segoe UI',sans-serif;}
 #darshan-deity{z-index:5;display:flex;align-items:flex-end;justify-content:center;transform:perspective(400px) rotateX(-5deg);transform-origin:bottom center;min-height:250px;}
 #darshan-mantra{color:#ffd700;font-size:20px;font-weight:bold;text-align:center;margin-top:18px;text-shadow:0 0 10px rgba(255,215,0,0.5);font-style:italic;letter-spacing:2px;}
 #darshan-close{color:rgba(255,255,255,0.4);font-size:11px;margin-top:12px;}
+#darshan-action-label{color:#ff9900;font-size:16px;font-weight:bold;text-align:center;margin-top:8px;min-height:22px;text-shadow:0 0 8px rgba(255,150,0,0.4);}
+
+/* ===== Shrine Action Menu ===== */
+#shrine-actions{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:250;display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity .3s;pointer-events:auto;}
+#shrine-actions.hidden{opacity:0;pointer-events:none;}
+#shrine-actions.visible{opacity:1;}
+#shrine-actions-title{color:#ffd700;font-size:14px;font-weight:bold;text-shadow:0 0 8px rgba(255,215,0,0.5);background:rgba(0,0,0,0.8);padding:4px 14px;border-radius:4px;border:1px solid #8b6914;}
+#shrine-actions-btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.shrine-btn{background:linear-gradient(to bottom,#2a1a08,#1a0e00);color:#ffd700;border:2px solid #8b6914;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:bold;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:80px;transition:all .2s;font-family:inherit;box-shadow:0 2px 8px rgba(0,0,0,0.5);}
+.shrine-btn:hover{background:linear-gradient(to bottom,#3d2a10,#2a1a08);border-color:#ffd700;transform:translateY(-2px);box-shadow:0 4px 12px rgba(255,215,0,0.2);}
+.shrine-btn:active{transform:translateY(0);box-shadow:0 1px 4px rgba(0,0,0,0.5);}
+.btn-icon{font-size:20px;line-height:1;}
+
+/* ===== Arati Plate ===== */
+#arati-plate{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:20;display:flex;flex-direction:column;align-items:center;transition:opacity .3s;}
+#arati-plate.hidden{opacity:0;pointer-events:none;}
+#arati-plate.visible{opacity:1;animation:arati-swing 1.8s ease-in-out infinite;}
+.arati-handle{width:6px;height:30px;background:linear-gradient(to right,#8b6914,#c4952a,#8b6914);border:1px solid #6b4f10;border-radius:2px;}
+.arati-tray{width:70px;height:20px;background:linear-gradient(to bottom,#c4952a,#8b6914);border:2px solid #6b4f10;border-radius:50%;position:relative;display:flex;justify-content:center;align-items:flex-start;gap:8px;box-shadow:0 0 10px rgba(255,200,50,0.3);}
+.arati-flame{width:10px;height:20px;background:radial-gradient(ellipse at bottom,#ff6600,#ff9900,#ffcc00,transparent);border-radius:50% 50% 20% 20%;animation:arati-flicker .3s ease-in-out infinite alternate;margin-top:-16px;}
+.arati-flame.af-2{animation-delay:.1s;height:18px;}.arati-flame.af-3{animation-delay:.2s;height:16px;}
+.arati-camphor{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:40px;height:40px;background:radial-gradient(circle,rgba(255,200,100,0.4),rgba(255,150,50,0.15),transparent);border-radius:50%;animation:camphor-glow 1s ease-in-out infinite alternate;}
+@keyframes arati-swing{0%,100%{transform:translateX(-50%) rotate(-15deg);}50%{transform:translateX(-50%) rotate(15deg);}}
+@keyframes arati-flicker{0%{transform:scaleY(1) scaleX(1);opacity:.8;}100%{transform:scaleY(1.3) scaleX(.8);opacity:1;}}
+@keyframes camphor-glow{0%{opacity:.5;transform:translateX(-50%) scale(1);}100%{opacity:1;transform:translateX(-50%) scale(1.2);}}
+
+/* ===== Flower Shower ===== */
+#flower-shower{position:absolute;top:0;left:0;right:0;bottom:0;z-index:15;pointer-events:none;overflow:hidden;}
+#flower-shower.hidden{display:none;}
+#flower-shower.visible{display:block;}
+.shower-petal{position:absolute;border-radius:50%;animation:petal-fall linear forwards;}
+@keyframes petal-fall{0%{top:-10px;opacity:1;transform:rotate(0deg) scale(1);}80%{opacity:1;}100%{top:100%;opacity:0;transform:rotate(720deg) scale(0.5);}}
+
+/* ===== Namaskaram glow ===== */
+@keyframes namaskaram-pulse{0%{box-shadow:0 0 20px rgba(255,215,0,0.2);}50%{box-shadow:0 0 60px rgba(255,215,0,0.5),0 0 100px rgba(255,180,50,0.2);}100%{box-shadow:0 0 20px rgba(255,215,0,0.2);}}
+.darshan-sanctum.namaskaram-active{animation:namaskaram-pulse 2s ease-in-out 3;}
 
 /* ===== Darshan Large Deity Styles ===== */
 .dd{display:flex;flex-direction:column;align-items:center;position:relative;}
@@ -262,16 +335,10 @@ body{overflow:hidden;background:#1a1a2e;font-family:'Segoe UI',sans-serif;}
 
 /* ===== Per-deity darshan colors & features ===== */
 
-/* Ganesha - orange halo, ears, trunk */
-.dd-ganesha .dd-halo{background:radial-gradient(circle,rgba(255,150,50,0.3),transparent)!important;}
-.dd-ganesha .dd-ear-big{width:38px;height:44px;background:linear-gradient(135deg,#111,#222);border-radius:50%;border:2px solid #333;position:absolute;top:30px;z-index:3;}
-.dd-ganesha .dd-ear-big-l{left:14px;}.dd-ganesha .dd-ear-big-r{right:14px;}
-.dd-ganesha .dd-trunk{width:12px;height:44px;background:linear-gradient(to right,#111,#222,#111);border:2px solid #333;border-radius:0 0 18px 6px;margin-top:-12px;margin-left:-22px;transform:rotate(12deg);z-index:6;}
-.dd-ganesha .dd-tusk{width:5px;height:14px;background:#e8e8e8;border-radius:0 0 3px 3px;position:absolute;z-index:7;box-shadow:0 0 3px rgba(255,255,255,0.3);}
-.dd-ganesha .dd-tusk-l{left:48px;top:72px;transform:rotate(8deg);}
-.dd-ganesha .dd-tusk-r{right:50px;top:72px;transform:rotate(-8deg);}
-.dd-ganesha .dd-belly{width:50px;height:30px;background:linear-gradient(to bottom,#181818,#111);border-radius:50%;border:1px solid #333;position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:5;}
-.dd-ganesha .dd-modak{width:14px;height:12px;background:radial-gradient(circle,#ffd700,#daa520);border-radius:50%;position:absolute;left:10px;bottom:35px;z-index:7;box-shadow:0 0 6px rgba(255,215,0,0.4);}
+/* ===== Ganesha (Vinayagar) - Real Image ===== */
+.dd-ganesha{width:230px;height:310px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.dd-ganesha .dd-halo{position:absolute;width:240px;height:240px;background:radial-gradient(circle,rgba(255,180,50,0.3),rgba(255,150,0,0.1),transparent)!important;border-radius:50%;top:10px;left:50%;transform:translateX(-50%);animation:hglow 2s ease-in-out infinite;z-index:0;}
+.g-statue-img{width:100%;height:100%;object-fit:contain;border-radius:6px;z-index:2;filter:brightness(1.05) contrast(1.05);}
 
 /* Shiva Lingam */
 .dd-shiva{justify-content:flex-end;height:240px;}

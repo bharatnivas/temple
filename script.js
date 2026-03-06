@@ -2,7 +2,8 @@
 const S = {
   px: 980, py: 3050, speed: 4, keys: {},
   ww: 2000, wh: 3200,
-  loc: '', shrine: null, bellOn: false, darshan: false
+  loc: '', shrine: null, bellOn: false, darshan: false,
+  menuShown: false, currentZone: null, aratiActive: false
 };
 
 const $ = id => document.getElementById(id);
@@ -10,21 +11,15 @@ const world = $('world'), player = $('player'), locName = $('location-name');
 const timeDisp = $('time-display'), dOverlay = $('darshan-overlay');
 const dDeity = $('darshan-deity'), dMantra = $('darshan-mantra');
 const sky = $('sky'), sun = $('sun'), moon = $('moon'), stars = $('stars');
+const shrineActions = $('shrine-actions'), shrineTitle = $('shrine-actions-title');
+const aratiPlate = $('arati-plate'), flowerShower = $('flower-shower');
+const dActionLabel = $('darshan-action-label');
+const dSanctum = document.querySelector('.darshan-sanctum');
 
-// ===== Audio =====
+// ===== Audio (only on explicit user action) =====
 let actx = null;
 function bell() {
-  if (S.bellOn) return; S.bellOn = true;
-  if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
-  const t = actx.currentTime, g = actx.createGain();
-  g.gain.setValueAtTime(0.25, t); g.gain.exponentialRampToValueAtTime(0.01, t + 2.5);
-  [800, 1200, 1600].forEach(f => {
-    const o = actx.createOscillator(); o.type = 'sine';
-    o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f * 0.7, t + 2);
-    o.connect(g); o.start(t); o.stop(t + 2.5);
-  });
-  g.connect(actx.destination);
-  setTimeout(() => S.bellOn = false, 3000);
+  // no-op: sound removed
 }
 
 // ===== Darshan HTML for each god =====
@@ -33,17 +28,10 @@ function ddBase(cls, inner) {
 }
 
 const dHTML = {
-  ganesha: ddBase('dd-ganesha', `
-    <div class="dd-crown"><div class="dd-crown-gem"></div></div>
-    <div class="dd-ear-big dd-ear-big-l"></div><div class="dd-ear-big dd-ear-big-r"></div>
-    <div class="dd-head"><div class="dd-eyes"><div class="dd-eye"></div><div class="dd-eye"></div></div></div>
-    <div class="dd-trunk"></div>
-    <div class="dd-tusk dd-tusk-l"></div><div class="dd-tusk dd-tusk-r"></div>
-    <div class="dd-body"><div class="dd-belly"></div></div>
-    <div class="dd-arm dd-arm-l"></div><div class="dd-arm dd-arm-r"></div>
-    <div class="dd-modak"></div>
-    <div class="dd-earring dd-ear-l"></div><div class="dd-earring dd-ear-r"></div>
-    <div class="dd-legs"><div class="dd-leg"></div><div class="dd-leg"></div></div>`),
+  ganesha: `<div class="dd dd-ganesha">
+    <div class="dd-halo"></div>
+    <img class="g-statue-img" src="vinayagar.jpg" alt="Sri Vinayagar">
+  </div>`,
 
   shiva: ddBase('dd-shiva', `
     <div class="dd-naga"></div>
@@ -175,29 +163,158 @@ const zones = [
   { id:'pond', name:'Temple Tank (Kulam)', x:85,y:1485,w:230,h:190 },
 ];
 
+// (sounds removed)
+
+// ===== Shrine Action Menu =====
+function showActionMenu(zone) {
+  if (S.darshan || S.menuShown) return;
+  S.menuShown = true;
+  S.currentZone = zone;
+  shrineTitle.textContent = zone.name;
+  shrineActions.classList.remove('hidden');
+  shrineActions.classList.add('visible');
+}
+
+function hideActionMenu() {
+  S.menuShown = false;
+  S.currentZone = null;
+  shrineActions.classList.remove('visible');
+  shrineActions.classList.add('hidden');
+}
+
 // ===== Darshan =====
-function openD(key, mantra) {
+function openD(key, mantra, actionType) {
   if (S.darshan) return;
   S.darshan = true;
   dDeity.innerHTML = dHTML[key];
   dMantra.textContent = mantra;
+  dActionLabel.textContent = '';
+  aratiPlate.classList.remove('visible');
+  aratiPlate.classList.add('hidden');
+  flowerShower.classList.remove('visible');
+  flowerShower.classList.add('hidden');
+  flowerShower.innerHTML = '';
+  dSanctum.classList.remove('namaskaram-active');
   dOverlay.classList.remove('hidden');
   dOverlay.classList.add('visible');
+  hideActionMenu();
+
+  if (actionType === 'arati') startArati();
+  else if (actionType === 'flowers') startFlowers();
+  else if (actionType === 'namaskaram') startNamaskaram();
 }
+
 function closeD() {
   if (!S.darshan) return;
   S.darshan = false;
+  S.aratiActive = false;
+  aratiPlate.classList.remove('visible');
+  aratiPlate.classList.add('hidden');
+  flowerShower.classList.remove('visible');
+  flowerShower.classList.add('hidden');
+  flowerShower.innerHTML = '';
+  dSanctum.classList.remove('namaskaram-active');
   dOverlay.classList.remove('visible');
   dOverlay.classList.add('hidden');
+  // Re-show action menu if still near a shrine
+  if (S.loc) {
+    const z = zones.find(z => z.id === S.loc);
+    if (z && z.dk) showActionMenu(z);
+  }
 }
-dOverlay.addEventListener('click', closeD);
+
+function startArati() {
+  S.aratiActive = true;
+  dActionLabel.textContent = 'Performing Arati...';
+  aratiPlate.classList.remove('hidden');
+  aratiPlate.classList.add('visible');
+  setTimeout(() => {
+    if (S.aratiActive) {
+      dActionLabel.textContent = 'Arati Complete - Blessings Received!';
+      setTimeout(() => { if (S.aratiActive) dActionLabel.textContent = ''; }, 2000);
+    }
+  }, 5000);
+}
+
+function startFlowers() {
+  dActionLabel.textContent = 'Offering Flowers...';
+  flowerShower.classList.remove('hidden');
+  flowerShower.classList.add('visible');
+  const colors = ['#ff4444','#ff69b4','#ffaa00','#ff6600','#ffffff','#ffcc00','#ff3399','#ff8844'];
+  for (let i = 0; i < 30; i++) {
+    const petal = document.createElement('div');
+    petal.className = 'shower-petal';
+    const c = colors[Math.floor(Math.random() * colors.length)];
+    const sz = 6 + Math.random() * 8;
+    const left = 10 + Math.random() * 80;
+    const dur = 2 + Math.random() * 2;
+    const delay = Math.random() * 2;
+    petal.style.cssText = `left:${left}%;width:${sz}px;height:${sz}px;background:${c};animation-duration:${dur}s;animation-delay:${delay}s;`;
+    flowerShower.appendChild(petal);
+  }
+  setTimeout(() => {
+    dActionLabel.textContent = 'Flowers Offered - Blessings Received!';
+    setTimeout(() => dActionLabel.textContent = '', 2000);
+  }, 3000);
+}
+
+function startNamaskaram() {
+  dActionLabel.textContent = 'Namaskaram... Om...';
+  dSanctum.classList.add('namaskaram-active');
+  setTimeout(() => {
+    dActionLabel.textContent = 'Blessings Received!';
+    setTimeout(() => dActionLabel.textContent = '', 2000);
+  }, 4000);
+}
+
+// Action button handlers
+document.querySelectorAll('.shrine-btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const action = btn.dataset.action;
+    const z = S.currentZone;
+    if (!z || !z.dk) return;
+
+    if (action === 'bell') {
+      bell();
+      return;
+    }
+    if (action === 'darshan') {
+      openD(z.dk, z.m, 'darshan');
+    } else if (action === 'arati') {
+      openD(z.dk, z.m, 'arati');
+    } else if (action === 'flowers') {
+      openD(z.dk, z.m, 'flowers');
+    } else if (action === 'namaskaram') {
+      openD(z.dk, z.m, 'namaskaram');
+    }
+  });
+});
+
+dOverlay.addEventListener('click', e => {
+  if (e.target === dOverlay || e.target.id === 'darshan-close') closeD();
+});
 
 // ===== Input =====
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeD(); return; }
+  if (e.key === 'Escape') { closeD(); hideActionMenu(); return; }
   S.keys[e.key] = true; e.preventDefault();
 });
 document.addEventListener('keyup', e => S.keys[e.key] = false);
+
+// ===== D-Pad Controls =====
+const dirMap = { up:'ArrowUp', down:'ArrowDown', left:'ArrowLeft', right:'ArrowRight' };
+document.querySelectorAll('.dpad-btn').forEach(btn => {
+  const key = dirMap[btn.dataset.dir];
+  function press(e) { e.preventDefault(); S.keys[key] = true; btn.classList.add('pressed'); }
+  function release(e) { e.preventDefault(); S.keys[key] = false; btn.classList.remove('pressed'); }
+  btn.addEventListener('mousedown', press);
+  btn.addEventListener('mouseup', release);
+  btn.addEventListener('mouseleave', release);
+  btn.addEventListener('touchstart', press, {passive:false});
+  btn.addEventListener('touchend', release, {passive:false});
+  btn.addEventListener('touchcancel', release, {passive:false});
+});
 
 // ===== Camera =====
 function cam() {
@@ -237,13 +354,16 @@ function checkZ() {
       const d = $(hit.did);
       if (d) { d.classList.remove('hidden'); d.classList.add('visible'); }
     }
-    if (hit.id !== S.shrine && hit.bell) { bell(); S.shrine = hit.id; }
-    if (hit.dk && hit.id !== S.loc) openD(hit.dk, hit.m);
+    if (hit.id !== S.shrine && hit.bell) { S.shrine = hit.id; }
+    // Show action menu for shrine zones (zones with dk key)
+    if (hit.dk && !S.darshan && !S.menuShown) {
+      showActionMenu(hit);
+    }
     S.loc = hit.id;
   } else {
     if (S.loc) {
       zones.forEach(z => { if (z.did) { const d = $(z.did); if (d) { d.classList.remove('visible'); d.classList.add('hidden'); } } });
-      closeD(); S.loc = ''; S.shrine = null;
+      closeD(); hideActionMenu(); S.loc = ''; S.shrine = null;
     }
     if (S.py > 2700) locName.textContent = 'Near Temple Entrance';
     else if (S.py > 2300) locName.textContent = 'Temple Courtyard - South';
@@ -326,10 +446,123 @@ function updateSky() {
   timeDisp.textContent = `${h12}:${mStr} ${ampm} - ${phaseName[phase]}`;
 }
 
+// ===== NPCs (Devotees) =====
+const npcContainer = $('npcs');
+const npcs = [];
+const NPC_COUNT = 8;
+
+// Waypoints along temple paths that devotees walk between
+const npcRoutes = [
+  // Route 0: Entrance -> Ganesha -> Shiva
+  [{x:980,y:3100},{x:980,y:2800},{x:960,y:2600},{x:960,y:2050},{x:960,y:1500}],
+  // Route 1: Entrance -> Rama shrine
+  [{x:980,y:3100},{x:980,y:2650},{x:550,y:2600},{x:550,y:2550}],
+  // Route 2: Entrance -> Ayyappa shrine
+  [{x:980,y:3100},{x:980,y:2650},{x:1450,y:2600},{x:1450,y:2550}],
+  // Route 3: Main path -> Krishna
+  [{x:980,y:3100},{x:980,y:2150},{x:460,y:2100},{x:460,y:2050}],
+  // Route 4: Main path -> Hanuman
+  [{x:980,y:3100},{x:980,y:2150},{x:1500,y:2100},{x:1550,y:2050}],
+  // Route 5: Full path to Shiva -> Parvati
+  [{x:980,y:3100},{x:980,y:2400},{x:980,y:1500},{x:1450,y:1480},{x:1450,y:1400}],
+  // Route 6: Full path to Murugan
+  [{x:980,y:3100},{x:980,y:2400},{x:980,y:1500},{x:460,y:1480},{x:460,y:1400}],
+  // Route 7: Full path to Lakshmi/Navagraha
+  [{x:980,y:3100},{x:980,y:2400},{x:980,y:1500},{x:980,y:850},{x:960,y:500}],
+];
+
+const skinClasses = ['npc-skin-1','npc-skin-2','npc-skin-3'];
+const clothClasses = ['npc-cloth-1','npc-cloth-2','npc-cloth-3','npc-cloth-4','npc-cloth-5','npc-cloth-6','npc-cloth-7'];
+
+function createNPC(i) {
+  const route = npcRoutes[i % npcRoutes.length];
+  const skin = skinClasses[Math.floor(Math.random()*skinClasses.length)];
+  const cloth = clothClasses[Math.floor(Math.random()*clothClasses.length)];
+  const el = document.createElement('div');
+  el.className = `npc ${skin} ${cloth} npc-walking`;
+  el.innerHTML = '<div class="npc-head"></div><div class="npc-body"></div><div class="npc-shadow"></div>';
+  npcContainer.appendChild(el);
+
+  const startWP = 0;
+  const startPt = route[startWP];
+  // Slight random horizontal offset so they don't overlap
+  const offsetX = (Math.random() - 0.5) * 30;
+
+  const npc = {
+    el, route,
+    wp: startWP,          // current waypoint index
+    x: startPt.x + offsetX,
+    y: startPt.y,
+    speed: 0.4 + Math.random() * 0.4, // slow devotee walk
+    forward: true,         // true = walking toward shrine, false = walking back
+    waitTimer: 0,          // pause at shrine
+    offsetX
+  };
+  el.style.left = (npc.x - 8) + 'px';
+  el.style.top = (npc.y - 11) + 'px';
+  return npc;
+}
+
+function updateNPCs() {
+  for (const n of npcs) {
+    if (n.waitTimer > 0) {
+      n.waitTimer--;
+      n.el.classList.remove('npc-walking');
+      continue;
+    }
+    n.el.classList.add('npc-walking');
+
+    const route = n.route;
+    const targetIdx = n.forward ? n.wp + 1 : n.wp - 1;
+
+    // If at end of route, wait then reverse
+    if (targetIdx >= route.length || targetIdx < 0) {
+      n.forward = !n.forward;
+      n.waitTimer = 180 + Math.floor(Math.random() * 300); // pause 3-8 sec at shrine
+      continue;
+    }
+
+    const target = route[targetIdx];
+    const tx = target.x + n.offsetX;
+    const ty = target.y;
+    const dx = tx - n.x;
+    const dy = ty - n.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+
+    if (dist < n.speed * 2) {
+      n.wp = targetIdx;
+      n.x = tx; n.y = ty;
+    } else {
+      n.x += (dx / dist) * n.speed;
+      n.y += (dy / dist) * n.speed;
+    }
+
+    n.el.style.left = (n.x - 8) + 'px';
+    n.el.style.top = (n.y - 11) + 'px';
+  }
+}
+
+function initNPCs() {
+  for (let i = 0; i < NPC_COUNT; i++) {
+    const npc = createNPC(i);
+    // Stagger start positions: place some partway along their route
+    const stagger = Math.floor(Math.random() * npc.route.length);
+    npc.wp = stagger;
+    const pt = npc.route[stagger];
+    npc.x = pt.x + npc.offsetX;
+    npc.y = pt.y;
+    npc.el.style.left = (npc.x - 8) + 'px';
+    npc.el.style.top = (npc.y - 11) + 'px';
+    // Some start walking back already
+    if (Math.random() > 0.5 && stagger > 0) npc.forward = false;
+    npcs.push(npc);
+  }
+}
+
 // ===== Game Loop =====
 let skyTimer = 0;
 function loop() {
-  move(); cam(); checkZ();
+  move(); cam(); checkZ(); updateNPCs();
   if (++skyTimer % 60 === 0) updateSky();
   requestAnimationFrame(loop);
 }
@@ -340,6 +573,7 @@ function init() {
   player.style.top = (S.py - 13) + 'px';
   generateStars();
   updateSky();
+  initNPCs();
   cam();
   loop();
 }
