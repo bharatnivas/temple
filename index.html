@@ -32,13 +32,29 @@
       <!-- Ganesha Shrine -->
       <div class="structure shrine ganesha-shrine" id="ganesha-shrine">
         <div class="shrine-roof shrine-roof-ganesha"></div>
-        <div class="shrine-body">
+        <div class="shrine-body shrine-body-sanctum">
+          <div class="sanctum-lamp sanctum-lamp-left"></div>
+          <div class="sanctum-lamp sanctum-lamp-right"></div>
           <div class="deity ganesha hidden" id="ganesha-deity">
-            <div class="ganesha-head"></div>
-            <div class="ganesha-trunk"></div>
-            <div class="ganesha-body-shape"></div>
+            <div class="deity-halo deity-halo-ganesha"></div>
+            <div class="ganesha-crown"></div>
             <div class="ganesha-ear ganesha-ear-left"></div>
             <div class="ganesha-ear ganesha-ear-right"></div>
+            <div class="ganesha-head"></div>
+            <div class="ganesha-third-eye"></div>
+            <div class="ganesha-trunk"></div>
+            <div class="ganesha-tusk-left"></div>
+            <div class="ganesha-tusk-right"></div>
+            <div class="ganesha-body-shape"></div>
+            <div class="ganesha-belly"></div>
+            <div class="ganesha-arm ganesha-arm-left"></div>
+            <div class="ganesha-arm ganesha-arm-right"></div>
+            <div class="ganesha-arm ganesha-arm-back-left"></div>
+            <div class="ganesha-arm ganesha-arm-back-right"></div>
+            <div class="ganesha-modak"></div>
+            <div class="ganesha-leg ganesha-leg-left"></div>
+            <div class="ganesha-leg ganesha-leg-right"></div>
+            <div class="deity-pedestal"></div>
           </div>
         </div>
         <div class="shrine-pillars">
@@ -75,10 +91,17 @@
         </div>
         <div class="temple-body">
           <div class="garbhagriha">
+            <div class="sanctum-lamp sanctum-lamp-left"></div>
+            <div class="sanctum-lamp sanctum-lamp-right"></div>
             <div class="deity shiva-lingam hidden" id="shiva-deity">
+              <div class="deity-halo deity-halo-shiva"></div>
+              <div class="lingam-naga"></div>
               <div class="lingam-base"></div>
+              <div class="lingam-avudaiyar"></div>
               <div class="lingam-stone"></div>
+              <div class="lingam-bilva"></div>
               <div class="lingam-glow"></div>
+              <div class="deity-pedestal deity-pedestal-shiva"></div>
             </div>
           </div>
         </div>
@@ -95,12 +118,22 @@
       <!-- Parvati Shrine -->
       <div class="structure shrine parvati-shrine" id="parvati-shrine">
         <div class="shrine-roof shrine-roof-parvati"></div>
-        <div class="shrine-body">
+        <div class="shrine-body shrine-body-sanctum">
+          <div class="sanctum-lamp sanctum-lamp-left"></div>
+          <div class="sanctum-lamp sanctum-lamp-right"></div>
           <div class="deity parvati hidden" id="parvati-deity">
-            <div class="parvati-head"></div>
+            <div class="deity-halo deity-halo-parvati"></div>
             <div class="parvati-crown"></div>
+            <div class="parvati-head"></div>
+            <div class="parvati-earring parvati-earring-left"></div>
+            <div class="parvati-earring parvati-earring-right"></div>
+            <div class="parvati-necklace"></div>
             <div class="parvati-body-shape"></div>
-            <div class="parvati-hands"></div>
+            <div class="parvati-arm parvati-arm-left"></div>
+            <div class="parvati-arm parvati-arm-right"></div>
+            <div class="parvati-lotus"></div>
+            <div class="parvati-sari"></div>
+            <div class="deity-pedestal"></div>
           </div>
         </div>
         <div class="shrine-pillars">
@@ -113,20 +146,33 @@
       <!-- Murugan Shrine -->
       <div class="structure shrine murugan-shrine" id="murugan-shrine">
         <div class="shrine-roof shrine-roof-murugan"></div>
-        <div class="shrine-body">
+        <div class="shrine-body shrine-body-sanctum">
+          <div class="sanctum-lamp sanctum-lamp-left"></div>
+          <div class="sanctum-lamp sanctum-lamp-right"></div>
           <div class="deity murugan hidden" id="murugan-deity">
+            <div class="deity-halo deity-halo-murugan"></div>
+            <div class="murugan-crown"></div>
             <div class="murugan-head"></div>
             <div class="murugan-body-shape"></div>
+            <div class="murugan-arm murugan-arm-left"></div>
+            <div class="murugan-arm murugan-arm-right"></div>
             <div class="murugan-vel"></div>
+            <div class="murugan-leg murugan-leg-left"></div>
+            <div class="murugan-leg murugan-leg-right"></div>
             <div class="peacock">
               <div class="peacock-body"></div>
+              <div class="peacock-neck"></div>
               <div class="peacock-head"></div>
+              <div class="peacock-crest"></div>
               <div class="peacock-tail">
+                <div class="peacock-feather"></div>
+                <div class="peacock-feather"></div>
                 <div class="peacock-feather"></div>
                 <div class="peacock-feather"></div>
                 <div class="peacock-feather"></div>
               </div>
             </div>
+            <div class="deity-pedestal"></div>
           </div>
         </div>
         <div class="shrine-pillars">
@@ -215,10 +261,25 @@
       <div id="instructions">Use arrow keys to explore the temple</div>
     </div>
 
-    <!-- Deity popup -->
-    <div id="deity-popup" class="hidden">
-      <div id="deity-popup-content"></div>
-      <div id="deity-popup-name"></div>
+    <!-- Darshan View - Full screen low angle deity view -->
+    <div id="darshan-overlay" class="hidden">
+      <div id="darshan-panel">
+        <div class="darshan-sanctum">
+          <div class="darshan-arch"></div>
+          <div class="darshan-lamp darshan-lamp-left">
+            <div class="darshan-lamp-body"></div>
+            <div class="darshan-lamp-flame"><div class="darshan-flame-inner"></div></div>
+          </div>
+          <div class="darshan-lamp darshan-lamp-right">
+            <div class="darshan-lamp-body"></div>
+            <div class="darshan-lamp-flame"><div class="darshan-flame-inner"></div></div>
+          </div>
+          <div id="darshan-deity-container"></div>
+          <div class="darshan-flowers"></div>
+        </div>
+        <div id="darshan-mantra"></div>
+        <div id="darshan-close">Press ESC or click to close</div>
+      </div>
     </div>
   </div>
 
