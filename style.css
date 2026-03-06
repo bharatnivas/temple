@@ -1,0 +1,985 @@
+/* ===== Reset & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  background: #1a1a2e;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ===== Viewport & World ===== */
+#viewport {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: #1a1a2e;
+}
+
+#world {
+  width: 1600px;
+  height: 2200px;
+  background: #4a7c3f;
+  position: absolute;
+  transition: none;
+}
+
+/* ===== Compound Walls ===== */
+.compound-wall {
+  position: absolute;
+  background: #8b7355;
+  border: 2px solid #6b5335;
+}
+
+.wall-top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15px;
+}
+
+.wall-bottom {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 15px;
+}
+
+.wall-left {
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 100%;
+}
+
+.wall-right {
+  top: 0;
+  right: 0;
+  width: 15px;
+  height: 100%;
+}
+
+/* ===== Stone Roads ===== */
+.road {
+  position: absolute;
+  background: #c4a77d;
+  border: 2px solid #a08060;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 28px,
+      #b09570 28px,
+      #b09570 30px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      #b09570 28px,
+      #b09570 30px
+    );
+}
+
+.road-main-vertical {
+  left: 750px;
+  top: 700px;
+  width: 100px;
+  height: 1500px;
+}
+
+.road-horizontal-top {
+  left: 300px;
+  top: 850px;
+  width: 1000px;
+  height: 80px;
+}
+
+.road-horizontal-bottom {
+  left: 450px;
+  top: 1550px;
+  width: 700px;
+  height: 80px;
+}
+
+.road-left-branch {
+  left: 350px;
+  top: 850px;
+  width: 80px;
+  height: 400px;
+}
+
+.road-right-branch {
+  left: 1170px;
+  top: 850px;
+  width: 80px;
+  height: 400px;
+}
+
+.road-pond-path {
+  left: 350px;
+  top: 1200px;
+  width: 80px;
+  height: 200px;
+}
+
+/* ===== Structure Base ===== */
+.structure {
+  position: absolute;
+}
+
+.structure-label {
+  text-align: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+/* ===== Gopuram ===== */
+.gopuram {
+  left: 730px;
+  top: 1900px;
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gopuram-base {
+  width: 140px;
+  height: 50px;
+  background: linear-gradient(to top, #8b6914, #c4952a);
+  border: 2px solid #6b4f10;
+}
+
+.gopuram-gate {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 45px;
+  background: #2a1a0a;
+  border-radius: 20px 20px 0 0;
+  border: 2px solid #6b4f10;
+  border-bottom: none;
+}
+
+.gopuram-tier {
+  background: linear-gradient(to top, #c4952a, #e8b84a);
+  border: 1px solid #8b6914;
+}
+
+.gopuram-tier-1 {
+  width: 120px;
+  height: 30px;
+}
+
+.gopuram-tier-2 {
+  width: 100px;
+  height: 25px;
+}
+
+.gopuram-tier-3 {
+  width: 80px;
+  height: 22px;
+}
+
+.gopuram-tier-4 {
+  width: 60px;
+  height: 18px;
+}
+
+.gopuram-top {
+  width: 30px;
+  height: 20px;
+  background: linear-gradient(to top, #e8b84a, #ffd700);
+  border-radius: 50% 50% 0 0;
+  border: 1px solid #c4952a;
+}
+
+/* Gopuram decorative elements */
+.gopuram-tier-1::before,
+.gopuram-tier-2::before,
+.gopuram-tier-3::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 8px,
+    rgba(139,105,20,0.3) 8px,
+    rgba(139,105,20,0.3) 10px
+  );
+}
+
+/* ===== Main Shiva Temple ===== */
+.main-temple {
+  left: 700px;
+  top: 820px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.temple-vimana {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vimana-tier {
+  background: linear-gradient(to top, #8b6914, #c4952a);
+  border: 1px solid #6b4f10;
+}
+
+.vimana-tier-1 {
+  width: 100px;
+  height: 20px;
+}
+
+.vimana-tier-2 {
+  width: 80px;
+  height: 18px;
+}
+
+.vimana-tier-3 {
+  width: 60px;
+  height: 15px;
+}
+
+.vimana-kalash {
+  width: 16px;
+  height: 20px;
+  background: #ffd700;
+  border-radius: 50% 50% 30% 30%;
+  border: 1px solid #c4952a;
+}
+
+.temple-body {
+  width: 160px;
+  height: 100px;
+  background: linear-gradient(to bottom, #d4a540, #8b6914);
+  border: 3px solid #6b4f10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.garbhagriha {
+  width: 80px;
+  height: 70px;
+  background: #1a0a00;
+  border: 2px solid #4a3520;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.temple-mandapa {
+  width: 180px;
+  height: 40px;
+  background: linear-gradient(to bottom, #c4952a, #a07820);
+  border: 2px solid #6b4f10;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 0 10px;
+}
+
+.pillar {
+  width: 8px;
+  height: 35px;
+  background: linear-gradient(to right, #8b6914, #c4952a, #8b6914);
+  border: 1px solid #6b4f10;
+}
+
+.temple-steps {
+  width: 120px;
+  height: 15px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #c4a77d 0px,
+    #c4a77d 4px,
+    #a08060 4px,
+    #a08060 5px
+  );
+  border: 1px solid #8b7355;
+}
+
+/* ===== Shiva Lingam ===== */
+.shiva-lingam {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.lingam-base {
+  width: 40px;
+  height: 12px;
+  background: #666;
+  border-radius: 3px;
+  border: 1px solid #444;
+}
+
+.lingam-stone {
+  width: 20px;
+  height: 28px;
+  background: linear-gradient(to right, #333, #555, #333);
+  border-radius: 50% 50% 5px 5px;
+  border: 1px solid #222;
+  margin-top: -2px;
+}
+
+.lingam-glow {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, rgba(255,200,50,0.3), transparent);
+  border-radius: 50%;
+  top: -10px;
+  left: -5px;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ===== Nandi Statue ===== */
+.nandi-statue {
+  left: 760px;
+  top: 1100px;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nandi-platform {
+  width: 80px;
+  height: 15px;
+  background: #999;
+  border: 2px solid #777;
+  order: 3;
+}
+
+.nandi-body {
+  width: 50px;
+  height: 25px;
+  background: linear-gradient(to bottom, #888, #666);
+  border-radius: 10px 10px 5px 5px;
+  border: 1px solid #555;
+  position: relative;
+}
+
+.nandi-head {
+  width: 20px;
+  height: 18px;
+  background: #777;
+  border-radius: 50% 50% 30% 30%;
+  border: 1px solid #555;
+  margin-top: -5px;
+  margin-left: -5px;
+  align-self: flex-start;
+  margin-left: 10px;
+}
+
+.nandi-horn {
+  width: 3px;
+  height: 10px;
+  background: #aaa;
+  position: absolute;
+  border-radius: 2px;
+}
+
+.nandi-horn-left {
+  top: -5px;
+  left: 18px;
+  transform: rotate(-20deg);
+}
+
+.nandi-horn-right {
+  top: -5px;
+  left: 28px;
+  transform: rotate(20deg);
+}
+
+.nandi-hump {
+  width: 20px;
+  height: 12px;
+  background: #777;
+  border-radius: 50%;
+  margin-top: -18px;
+  margin-left: 15px;
+  align-self: flex-start;
+}
+
+.nandi-legs {
+  display: flex;
+  gap: 5px;
+  margin-top: -3px;
+}
+
+.nandi-leg {
+  width: 6px;
+  height: 12px;
+  background: #666;
+  border: 1px solid #555;
+}
+
+/* ===== Shrines ===== */
+.shrine {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shrine-roof {
+  width: 110px;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 30px solid #c4952a;
+  position: relative;
+}
+
+.shrine-roof::after {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 12px;
+  background: #ffd700;
+  border-radius: 50% 50% 0 0;
+}
+
+.shrine-roof-ganesha {
+  border-bottom-color: #d4522a;
+}
+
+.shrine-roof-parvati {
+  border-bottom-color: #d4a540;
+}
+
+.shrine-roof-murugan {
+  border-bottom-color: #c4522a;
+}
+
+.shrine-body {
+  width: 100px;
+  height: 80px;
+  background: linear-gradient(to bottom, #d4a540, #a07820);
+  border: 2px solid #6b4f10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shrine-pillars {
+  width: 110px;
+  height: 15px;
+  background: #c4952a;
+  border: 1px solid #6b4f10;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+  align-items: flex-end;
+}
+
+.shrine-pillars .pillar {
+  height: 14px;
+  width: 6px;
+}
+
+.ganesha-shrine {
+  left: 500px;
+  top: 1700px;
+}
+
+.parvati-shrine {
+  left: 1050px;
+  top: 850px;
+}
+
+.murugan-shrine {
+  left: 320px;
+  top: 850px;
+}
+
+/* ===== Deity Figures ===== */
+.deity {
+  transition: opacity 0.5s;
+}
+
+.deity.hidden {
+  opacity: 0;
+}
+
+.deity.visible {
+  opacity: 1;
+}
+
+/* Ganesha */
+.ganesha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 40px;
+  height: 50px;
+}
+
+.ganesha-head {
+  width: 22px;
+  height: 20px;
+  background: #ff9966;
+  border-radius: 50%;
+  border: 1px solid #cc6633;
+  z-index: 2;
+}
+
+.ganesha-trunk {
+  width: 5px;
+  height: 14px;
+  background: #ff9966;
+  border: 1px solid #cc6633;
+  border-radius: 0 0 5px 5px;
+  margin-top: -2px;
+  margin-left: -8px;
+  transform: rotate(10deg);
+  z-index: 3;
+}
+
+.ganesha-body-shape {
+  width: 28px;
+  height: 22px;
+  background: #ff9966;
+  border-radius: 50%;
+  border: 1px solid #cc6633;
+  margin-top: -6px;
+}
+
+.ganesha-ear {
+  width: 14px;
+  height: 16px;
+  background: #ff8855;
+  border-radius: 50%;
+  border: 1px solid #cc6633;
+  position: absolute;
+  top: 2px;
+}
+
+.ganesha-ear-left { left: 0; }
+.ganesha-ear-right { right: 0; }
+
+/* Parvati */
+.parvati {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 30px;
+  height: 55px;
+}
+
+.parvati-head {
+  width: 16px;
+  height: 16px;
+  background: #deb887;
+  border-radius: 50%;
+  border: 1px solid #b8860b;
+  z-index: 2;
+}
+
+.parvati-crown {
+  width: 20px;
+  height: 10px;
+  background: #ffd700;
+  border-radius: 5px 5px 0 0;
+  margin-top: -18px;
+  margin-bottom: 6px;
+  border: 1px solid #daa520;
+  z-index: 3;
+}
+
+.parvati-body-shape {
+  width: 22px;
+  height: 30px;
+  background: linear-gradient(to bottom, #ff1493, #c71585);
+  border-radius: 8px 8px 12px 12px;
+  border: 1px solid #8b0a50;
+  margin-top: -2px;
+}
+
+.parvati-hands {
+  width: 30px;
+  height: 4px;
+  background: #deb887;
+  border-radius: 2px;
+  position: absolute;
+  top: 22px;
+}
+
+/* Murugan */
+.murugan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.murugan-head {
+  width: 14px;
+  height: 14px;
+  background: #deb887;
+  border-radius: 50%;
+  border: 1px solid #b8860b;
+  z-index: 2;
+}
+
+.murugan-body-shape {
+  width: 18px;
+  height: 24px;
+  background: linear-gradient(to bottom, #ff4500, #cc3300);
+  border-radius: 5px;
+  border: 1px solid #8b2500;
+  margin-top: -2px;
+}
+
+.murugan-vel {
+  position: absolute;
+  right: 8px;
+  top: 0;
+  width: 3px;
+  height: 40px;
+  background: #ccc;
+  border: 1px solid #999;
+}
+
+.murugan-vel::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -4px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid #ccc;
+}
+
+/* Peacock */
+.peacock {
+  position: absolute;
+  bottom: -5px;
+  left: -5px;
+}
+
+.peacock-body {
+  width: 12px;
+  height: 10px;
+  background: #1e90ff;
+  border-radius: 50%;
+  border: 1px solid #0066cc;
+}
+
+.peacock-head {
+  width: 6px;
+  height: 6px;
+  background: #1e90ff;
+  border-radius: 50%;
+  margin-top: -8px;
+  margin-left: -2px;
+}
+
+.peacock-tail {
+  display: flex;
+  gap: 1px;
+  margin-top: -6px;
+  margin-left: 5px;
+}
+
+.peacock-feather {
+  width: 6px;
+  height: 10px;
+  background: radial-gradient(circle at center, #00ff00, #1e90ff);
+  border-radius: 50%;
+  border: 1px solid #006600;
+}
+
+/* ===== Temple Pond ===== */
+.temple-pond {
+  position: absolute;
+  left: 250px;
+  top: 1350px;
+  width: 200px;
+  height: 160px;
+}
+
+.pond-water {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e90ff, #4169e1, #1e90ff);
+  border: 4px solid #8b7355;
+  animation: water-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes water-shimmer {
+  0%, 100% { background: linear-gradient(135deg, #1e90ff, #4169e1, #1e90ff); }
+  50% { background: linear-gradient(135deg, #4169e1, #1e90ff, #4169e1); }
+}
+
+.pond-steps {
+  position: absolute;
+  background: repeating-linear-gradient(
+    to bottom,
+    #c4a77d 0px,
+    #c4a77d 5px,
+    #a08060 5px,
+    #a08060 6px
+  );
+}
+
+.pond-steps-left {
+  left: -15px;
+  top: 0;
+  width: 15px;
+  height: 100%;
+}
+
+.pond-steps-right {
+  right: -15px;
+  top: 0;
+  width: 15px;
+  height: 100%;
+}
+
+.pond-steps-top {
+  top: -15px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+}
+
+.pond-steps-bottom {
+  bottom: -15px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+}
+
+.pond-label {
+  text-align: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  margin-top: 20px;
+}
+
+/* ===== Temple Lamps ===== */
+.temple-lamp {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lamp-pillar {
+  width: 6px;
+  height: 30px;
+  background: linear-gradient(to right, #8b6914, #c4952a, #8b6914);
+  border: 1px solid #6b4f10;
+}
+
+.lamp-cup {
+  width: 18px;
+  height: 8px;
+  background: #8b6914;
+  border-radius: 0 0 50% 50%;
+  margin-top: -1px;
+}
+
+.lamp-flame {
+  width: 10px;
+  height: 16px;
+  background: radial-gradient(ellipse at bottom, #ff6600, #ff9900, transparent);
+  border-radius: 50% 50% 20% 20%;
+  margin-top: -10px;
+  animation: flame-flicker 0.5s ease-in-out infinite alternate;
+  position: relative;
+}
+
+.flame-inner {
+  width: 5px;
+  height: 10px;
+  background: radial-gradient(ellipse at bottom, #ffff00, #ff9900, transparent);
+  border-radius: 50% 50% 20% 20%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: flame-inner-flicker 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes flame-flicker {
+  0% { transform: scaleY(1) scaleX(1); opacity: 0.9; }
+  100% { transform: scaleY(1.2) scaleX(0.9); opacity: 1; }
+}
+
+@keyframes flame-inner-flicker {
+  0% { transform: translateX(-50%) scaleY(0.9); }
+  100% { transform: translateX(-50%) scaleY(1.1) rotate(3deg); }
+}
+
+/* ===== Trees ===== */
+.tree {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tree-trunk {
+  width: 10px;
+  height: 25px;
+  background: linear-gradient(to right, #5c3317, #8b4513, #5c3317);
+  border: 1px solid #3c1a07;
+  order: 2;
+}
+
+.tree-canopy {
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle at 40% 40%, #2d8b2d, #1a5c1a, #0d3d0d);
+  border-radius: 50%;
+  border: 1px solid #0d3d0d;
+  order: 1;
+  box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
+}
+
+/* ===== Player ===== */
+#player {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-head {
+  width: 12px;
+  height: 12px;
+  background: #ffcc99;
+  border-radius: 50%;
+  border: 2px solid #cc9966;
+  order: 1;
+}
+
+.player-body {
+  width: 16px;
+  height: 14px;
+  background: #ff6633;
+  border-radius: 4px;
+  border: 2px solid #cc4400;
+  margin-top: -3px;
+  order: 2;
+}
+
+/* ===== HUD ===== */
+#hud {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 200;
+  pointer-events: none;
+}
+
+#location-name {
+  background: rgba(0,0,0,0.7);
+  color: #ffd700;
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid #c4952a;
+  min-width: 200px;
+}
+
+#instructions {
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+/* ===== Deity Popup ===== */
+#deity-popup {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  border: 2px solid #ffd700;
+  border-radius: 10px;
+  padding: 20px 30px;
+  z-index: 200;
+  text-align: center;
+  transition: opacity 0.5s;
+  min-width: 200px;
+}
+
+#deity-popup.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#deity-popup.visible {
+  opacity: 1;
+}
+
+#deity-popup-name {
+  color: #ffd700;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#deity-popup-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60px;
+}
+
+/* Popup deity clones */
+#deity-popup .shiva-lingam,
+#deity-popup .ganesha,
+#deity-popup .parvati,
+#deity-popup .murugan {
+  opacity: 1;
+  transform: scale(1.5);
+}
