@@ -170,6 +170,45 @@ const darshanHTML = {
         </div>
       </div>
       <div class="d-pedestal"></div>
+    </div>`,
+
+  venkateswara: `
+    <div class="darshan-venkateswara">
+      <div class="d-halo"></div>
+      <div class="d-divine-glow"></div>
+      <div class="d-kiritam">
+        <div class="d-kiritam-tier"></div>
+        <div class="d-kiritam-tier"></div>
+        <div class="d-kiritam-tier"></div>
+      </div>
+      <div class="d-head">
+        <div class="d-namam"></div>
+        <div class="d-eyes"><div class="d-eye"></div><div class="d-eye"></div></div>
+      </div>
+      <div class="d-kundalam d-kundalam-l"></div>
+      <div class="d-kundalam d-kundalam-r"></div>
+      <div class="d-body">
+        <div class="d-haaram d-haaram-1"></div>
+        <div class="d-haaram d-haaram-2"></div>
+        <div class="d-pitambara"></div>
+      </div>
+      <div class="d-arm d-arm-ul"></div>
+      <div class="d-arm d-arm-ur"></div>
+      <div class="d-arm d-arm-ll"></div>
+      <div class="d-arm d-arm-lr"></div>
+      <div class="d-shankha"></div>
+      <div class="d-chakra"></div>
+      <div class="d-gadha"></div>
+      <div class="d-padma"></div>
+      <div class="d-legs">
+        <div class="d-leg"></div>
+        <div class="d-leg"></div>
+      </div>
+      <div class="d-feet">
+        <div class="d-foot"></div>
+        <div class="d-foot"></div>
+      </div>
+      <div class="d-pedestal"></div>
     </div>`
 };
 
@@ -229,6 +268,21 @@ const zones = [
     hasBell: true,
     darshanKey: 'murugan',
     mantra: 'Om Saravana Bhava'
+  },
+  {
+    id: 'venkateswara-shrine',
+    name: 'Sri Venkateswara Shrine (Thirumala Balaji)',
+    x: 1120, y: 1100, w: 160, h: 150,
+    deityId: 'venkateswara-deity',
+    hasBell: true,
+    darshanKey: 'venkateswara',
+    mantra: 'Om Namo Venkatesaya'
+  },
+  {
+    id: 'garuda',
+    name: 'Garuda Statue - Vehicle of Lord Vishnu',
+    x: 1175, y: 1280, w: 50, h: 50,
+    deityId: null, hasBell: false, darshanKey: null, mantra: null
   },
   {
     id: 'nandi',

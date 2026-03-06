@@ -56,6 +56,7 @@ body {
 .road-left-branch { left: 350px; top: 850px; width: 80px; height: 400px; }
 .road-right-branch { left: 1170px; top: 850px; width: 80px; height: 400px; }
 .road-pond-path { left: 350px; top: 1200px; width: 80px; height: 200px; }
+.road-venkateswara { left: 1170px; top: 1200px; width: 80px; height: 200px; }
 
 /* ===== Structure Base ===== */
 .structure { position: absolute; }
@@ -1091,6 +1092,243 @@ body {
   margin-top: 15px;
 }
 
+/* ===== Venkateswara Shrine ===== */
+.venkateswara-shrine {
+  left: 1120px; top: 1100px; width: 160px;
+}
+
+.shrine-roof-venkateswara {
+  border-bottom-color: #ffd700;
+  width: 150px;
+}
+
+.venkateswara-gopuram-mini {
+  position: absolute;
+  top: 10px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center;
+}
+
+.mini-tier {
+  background: linear-gradient(to top, #c4952a, #ffd700);
+  border: 1px solid #8b6914;
+}
+
+.mini-tier:first-child { width: 30px; height: 8px; }
+.mini-tier:nth-child(2) { width: 22px; height: 6px; }
+
+.mini-kalash {
+  width: 8px; height: 8px;
+  background: #ffd700;
+  border-radius: 50% 50% 30% 30%;
+  border: 1px solid #c4952a;
+}
+
+.shrine-body-venkateswara {
+  width: 140px; height: 100px;
+}
+
+.shrine-pillars-venkateswara {
+  width: 150px;
+  justify-content: space-around;
+}
+
+/* Venkateswara small deity in shrine */
+.venkateswara {
+  display: flex; flex-direction: column; align-items: center;
+  position: relative;
+  width: 50px; height: 70px;
+  z-index: 2;
+}
+
+.deity-halo-venkateswara {
+  width: 65px; height: 65px;
+  background: radial-gradient(circle, rgba(255,215,0,0.35), rgba(255,180,0,0.1), transparent);
+  top: -5px; left: 50%;
+}
+
+.venkat-kiritam {
+  width: 16px; height: 18px;
+  background: linear-gradient(to bottom, #ffd700, #daa520);
+  border: 1px solid #b8860b;
+  border-radius: 3px 3px 0 0;
+  z-index: 10;
+  position: relative;
+}
+
+.venkat-kiritam::before {
+  content: '';
+  position: absolute; top: -5px; left: 50%; transform: translateX(-50%);
+  width: 8px; height: 7px;
+  background: #ffd700;
+  border-radius: 50% 50% 0 0;
+  border: 1px solid #b8860b;
+}
+
+.venkat-kiritam::after {
+  content: '';
+  position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+  width: 4px; height: 5px;
+  background: #ff0000;
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(255,0,0,0.5);
+}
+
+.venkat-head {
+  width: 18px; height: 18px;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a, #111);
+  border-radius: 50%;
+  border: 1px solid #333;
+  z-index: 5;
+  margin-top: -3px;
+  box-shadow: 0 0 8px rgba(255,215,0,0.2);
+}
+
+.venkat-namam {
+  width: 6px; height: 8px;
+  position: absolute;
+  top: 18px; left: 50%; transform: translateX(-50%);
+  z-index: 7;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #fff;
+  background: #ff0000;
+  border-radius: 0 0 2px 2px;
+}
+
+.venkat-earring {
+  width: 4px; height: 5px;
+  background: #ffd700;
+  border-radius: 50%;
+  position: absolute;
+  top: 24px; z-index: 6;
+  box-shadow: 0 0 3px rgba(255,215,0,0.5);
+}
+
+.venkat-earring-left { left: 12px; }
+.venkat-earring-right { right: 12px; }
+
+.venkat-body-shape {
+  width: 22px; height: 26px;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a, #111);
+  border-radius: 5px;
+  border: 1px solid #333;
+  margin-top: -2px;
+  z-index: 4;
+  box-shadow: 0 0 6px rgba(255,215,0,0.1);
+}
+
+.venkat-necklace {
+  width: 16px; height: 4px;
+  background: #ffd700;
+  border-radius: 0 0 50% 50%;
+  position: absolute;
+  top: 34px; left: 50%; transform: translateX(-50%);
+  z-index: 6;
+  box-shadow: 0 0 3px rgba(255,215,0,0.4);
+}
+
+.venkat-arm {
+  width: 4px; height: 16px;
+  background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+  position: absolute;
+  border: 1px solid #333;
+  z-index: 3;
+}
+
+.venkat-arm-left { left: 10px; top: 32px; transform: rotate(15deg); }
+.venkat-arm-right { right: 10px; top: 32px; transform: rotate(-15deg); }
+
+.venkat-shankha {
+  width: 5px; height: 6px;
+  background: #e8e8e8;
+  border-radius: 50%;
+  position: absolute;
+  left: 7px; top: 42px;
+  z-index: 5;
+  box-shadow: 0 0 3px rgba(255,255,255,0.3);
+}
+
+.venkat-chakra {
+  width: 6px; height: 6px;
+  background: #ffd700;
+  border-radius: 50%;
+  border: 1px solid #b8860b;
+  position: absolute;
+  right: 7px; top: 42px;
+  z-index: 5;
+  box-shadow: 0 0 3px rgba(255,215,0,0.5);
+}
+
+.venkat-pitambara {
+  width: 26px; height: 10px;
+  border-bottom: 2px solid rgba(255,215,0,0.3);
+  border-left: 1px solid rgba(255,215,0,0.15);
+  border-right: 1px solid rgba(255,215,0,0.15);
+  position: absolute;
+  bottom: 14px; left: 50%; transform: translateX(-50%);
+  z-index: 3;
+}
+
+.venkat-leg {
+  width: 5px; height: 10px;
+  background: #0d0d0d;
+  border: 1px solid #333;
+  position: absolute;
+  bottom: 8px;
+}
+
+.venkat-leg-left { left: 18px; }
+.venkat-leg-right { right: 18px; }
+
+/* ===== Garuda Statue ===== */
+.garuda-statue {
+  left: 1175px; top: 1280px; width: 50px;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+.garuda-platform {
+  width: 50px; height: 10px;
+  background: #999; border: 1px solid #777;
+  order: 3;
+}
+
+.garuda-body {
+  width: 24px; height: 20px;
+  background: linear-gradient(to bottom, #222, #111);
+  border-radius: 8px 8px 4px 4px;
+  border: 1px solid #333;
+  z-index: 2;
+}
+
+.garuda-head {
+  width: 12px; height: 12px;
+  background: #1a1a1a;
+  border-radius: 50%;
+  border: 1px solid #333;
+  margin-top: -4px;
+  z-index: 3;
+}
+
+.garuda-beak {
+  width: 6px; height: 4px;
+  background: #daa520;
+  border-radius: 0 3px 3px 0;
+  margin-top: -8px;
+  margin-left: 8px;
+  z-index: 4;
+}
+
+.garuda-wing {
+  width: 16px; height: 12px;
+  background: linear-gradient(to bottom, #222, #111);
+  position: absolute;
+  top: 8px;
+  border: 1px solid #333;
+  border-radius: 50%;
+}
+
+.garuda-wing-left { left: 0; transform: rotate(-15deg); }
+.garuda-wing-right { right: 0; transform: rotate(15deg); }
+
 /* ===== Darshan Deity Styles (large versions) ===== */
 
 /* Large Ganesha in darshan */
@@ -1826,4 +2064,385 @@ body {
   border: 2px solid #444;
   border-radius: 3px;
   margin-top: 5px;
+}
+
+/* ===== Large Venkateswara (Thirumala Balaji) in darshan ===== */
+.darshan-venkateswara {
+  display: flex; flex-direction: column; align-items: center;
+  position: relative;
+  width: 150px; height: 260px;
+}
+
+.darshan-venkateswara .d-halo {
+  position: absolute;
+  width: 180px; height: 200px;
+  background: radial-gradient(circle, rgba(255,215,0,0.3), rgba(255,180,0,0.1), transparent);
+  border-radius: 50%;
+  top: 0; left: 50%; transform: translateX(-50%);
+  animation: halo-glow 2s ease-in-out infinite;
+}
+
+/* Tall Kiritam Crown */
+.darshan-venkateswara .d-kiritam {
+  width: 50px; height: 55px;
+  background: linear-gradient(to bottom, #ffd700, #daa520, #b8860b);
+  border: 2px solid #8b6914;
+  border-radius: 8px 8px 0 0;
+  z-index: 10;
+  position: relative;
+}
+
+.darshan-venkateswara .d-kiritam::before {
+  content: '';
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  width: 22px; height: 18px;
+  background: linear-gradient(to top, #daa520, #ffd700);
+  border-radius: 50% 50% 0 0;
+  border: 2px solid #b8860b;
+}
+
+.darshan-venkateswara .d-kiritam::after {
+  content: '';
+  position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+  width: 10px; height: 10px;
+  background: radial-gradient(circle, #ff3333, #cc0000);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255,0,0,0.6);
+}
+
+/* Kiritam decorative tiers */
+.darshan-venkateswara .d-kiritam-tier {
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #fff, #ffd700, #fff, transparent);
+}
+
+.darshan-venkateswara .d-kiritam-tier:nth-child(1) { width: 40px; top: 10px; }
+.darshan-venkateswara .d-kiritam-tier:nth-child(2) { width: 35px; top: 22px; }
+.darshan-venkateswara .d-kiritam-tier:nth-child(3) { width: 30px; top: 34px; }
+
+/* Head */
+.darshan-venkateswara .d-head {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #0d0d0d, #181818);
+  border-radius: 50%;
+  border: 2px solid #333;
+  z-index: 5;
+  margin-top: -6px;
+  box-shadow: 0 0 15px rgba(255,215,0,0.15);
+  position: relative;
+}
+
+/* Namam (Tilak) - V-shaped white with red center */
+.darshan-venkateswara .d-namam {
+  position: absolute;
+  top: 4px; left: 50%; transform: translateX(-50%);
+  width: 16px; height: 20px;
+  z-index: 8;
+}
+
+.darshan-venkateswara .d-namam::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 16px; height: 20px;
+  border-left: 3px solid #fff;
+  border-right: 3px solid #fff;
+  border-radius: 0 0 8px 8px;
+}
+
+.darshan-venkateswara .d-namam::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 50%; transform: translateX(-50%);
+  width: 6px; height: 14px;
+  background: linear-gradient(to bottom, #ff3300, #cc0000);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 0 4px rgba(255,50,0,0.4);
+}
+
+/* Eyes */
+.darshan-venkateswara .d-eyes {
+  position: absolute;
+  top: 16px; left: 50%; transform: translateX(-50%);
+  width: 26px; height: 7px;
+  display: flex; justify-content: space-between;
+  z-index: 7;
+}
+
+.darshan-venkateswara .d-eye {
+  width: 8px; height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  border: 1px solid #333;
+  position: relative;
+}
+
+.darshan-venkateswara .d-eye::after {
+  content: '';
+  position: absolute; top: 1px; left: 2px;
+  width: 4px; height: 4px;
+  background: #111;
+  border-radius: 50%;
+}
+
+/* Makara Kundalams (ear ornaments) */
+.darshan-venkateswara .d-kundalam {
+  width: 10px; height: 14px;
+  background: radial-gradient(circle, #ffd700, #daa520);
+  border-radius: 50%;
+  position: absolute;
+  top: 60px; z-index: 6;
+  box-shadow: 0 0 6px rgba(255,215,0,0.5);
+  border: 1px solid #b8860b;
+}
+
+.darshan-venkateswara .d-kundalam-l { left: 25px; }
+.darshan-venkateswara .d-kundalam-r { right: 25px; }
+
+/* Body */
+.darshan-venkateswara .d-body {
+  width: 55px; height: 80px;
+  background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #0d0d0d, #181818);
+  border-radius: 12px;
+  border: 2px solid #333;
+  margin-top: -6px;
+  z-index: 4;
+  box-shadow: 0 0 12px rgba(255,215,0,0.1);
+  position: relative;
+}
+
+/* Necklaces - Haaram */
+.darshan-venkateswara .d-haaram {
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  border: 2px solid #ffd700;
+  border-top: none;
+  border-radius: 0 0 50% 50%;
+  box-shadow: 0 0 5px rgba(255,215,0,0.3);
+}
+
+.darshan-venkateswara .d-haaram-1 {
+  width: 30px; height: 8px;
+  top: 5px;
+}
+
+.darshan-venkateswara .d-haaram-2 {
+  width: 38px; height: 12px;
+  top: 15px;
+}
+
+/* Pitambara (golden dhoti) */
+.darshan-venkateswara .d-pitambara {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 35px;
+  background: linear-gradient(to bottom, rgba(255,215,0,0.08), rgba(255,215,0,0.15));
+  border-top: 2px solid rgba(255,215,0,0.25);
+  border-radius: 0 0 12px 12px;
+}
+
+.darshan-venkateswara .d-pitambara::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 30px; height: 2px;
+  background: rgba(255,215,0,0.3);
+}
+
+/* Four Arms */
+.darshan-venkateswara .d-arm {
+  width: 10px; height: 45px;
+  background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+  border: 1px solid #333;
+  position: absolute;
+  z-index: 3;
+  border-radius: 0 0 3px 3px;
+}
+
+.darshan-venkateswara .d-arm-ul {
+  left: 18px; top: 72px; transform: rotate(20deg);
+}
+
+.darshan-venkateswara .d-arm-ur {
+  right: 18px; top: 72px; transform: rotate(-20deg);
+}
+
+.darshan-venkateswara .d-arm-ll {
+  left: 28px; top: 68px; transform: rotate(40deg); height: 35px;
+}
+
+.darshan-venkateswara .d-arm-lr {
+  right: 28px; top: 68px; transform: rotate(-40deg); height: 35px;
+}
+
+/* Shankha (Conch) */
+.darshan-venkateswara .d-shankha {
+  width: 16px; height: 20px;
+  background: radial-gradient(circle at 40% 40%, #f5f5f5, #ddd, #bbb);
+  border-radius: 50% 50% 30% 30%;
+  position: absolute;
+  left: 10px; top: 105px;
+  z-index: 7;
+  border: 1px solid #999;
+  box-shadow: 0 0 6px rgba(255,255,255,0.3);
+}
+
+.darshan-venkateswara .d-shankha::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 6px; height: 6px;
+  background: #ddd;
+  border-radius: 50%;
+}
+
+/* Chakra (Disc) */
+.darshan-venkateswara .d-chakra {
+  width: 18px; height: 18px;
+  background: radial-gradient(circle, #ffd700, #daa520);
+  border-radius: 50%;
+  border: 2px solid #b8860b;
+  position: absolute;
+  right: 10px; top: 105px;
+  z-index: 7;
+  box-shadow: 0 0 8px rgba(255,215,0,0.5);
+  animation: chakra-spin 3s linear infinite;
+}
+
+.darshan-venkateswara .d-chakra::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 6px; height: 6px;
+  background: #8b6914;
+  border-radius: 50%;
+}
+
+.darshan-venkateswara .d-chakra::after {
+  content: '+';
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  color: #8b6914;
+  font-size: 14px; font-weight: bold;
+  line-height: 1;
+}
+
+@keyframes chakra-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Gadha (Mace) */
+.darshan-venkateswara .d-gadha {
+  position: absolute;
+  left: 22px; top: 100px;
+  width: 4px; height: 30px;
+  background: linear-gradient(to bottom, #daa520, #8b6914);
+  border: 1px solid #6b4f10;
+  z-index: 6;
+  transform: rotate(15deg);
+}
+
+.darshan-venkateswara .d-gadha::before {
+  content: '';
+  position: absolute;
+  top: -5px; left: -3px;
+  width: 10px; height: 8px;
+  background: #daa520;
+  border-radius: 3px;
+  border: 1px solid #8b6914;
+}
+
+/* Padma (Lotus) in hand */
+.darshan-venkateswara .d-padma {
+  width: 14px; height: 14px;
+  position: absolute;
+  right: 22px; top: 100px;
+  z-index: 6;
+}
+
+.darshan-venkateswara .d-padma::before {
+  content: '';
+  position: absolute;
+  width: 10px; height: 10px;
+  background: radial-gradient(circle, #ff69b4, #ff1493);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255,105,180,0.5);
+}
+
+.darshan-venkateswara .d-padma::after {
+  content: '';
+  position: absolute;
+  top: -3px; left: 2px;
+  width: 6px; height: 6px;
+  background: radial-gradient(circle, #ffcc00, #ff9900);
+  border-radius: 50%;
+}
+
+/* Legs */
+.darshan-venkateswara .d-legs {
+  display: flex; gap: 8px;
+  margin-top: -4px; z-index: 3;
+}
+
+.darshan-venkateswara .d-leg {
+  width: 16px; height: 30px;
+  background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+  border: 1px solid #333;
+  border-radius: 0 0 4px 4px;
+}
+
+/* Feet with golden anklets */
+.darshan-venkateswara .d-feet {
+  display: flex; gap: 12px;
+  z-index: 3;
+}
+
+.darshan-venkateswara .d-foot {
+  width: 18px; height: 6px;
+  background: #0d0d0d;
+  border: 1px solid #333;
+  border-radius: 0 0 3px 3px;
+  position: relative;
+}
+
+.darshan-venkateswara .d-foot::before {
+  content: '';
+  position: absolute;
+  top: -3px; left: 0; right: 0;
+  height: 3px;
+  background: #ffd700;
+  border-radius: 2px;
+  box-shadow: 0 0 3px rgba(255,215,0,0.4);
+}
+
+/* Pedestal */
+.darshan-venkateswara .d-pedestal {
+  width: 110px; height: 18px;
+  background: linear-gradient(to bottom, #2a2a2a, #111);
+  border: 2px solid #444;
+  border-radius: 3px;
+  margin-top: 5px;
+  position: relative;
+}
+
+.darshan-venkateswara .d-pedestal::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: 50%; transform: translateX(-50%);
+  width: 80px; height: 4px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  border-radius: 2px;
+}
+
+/* Golden glow behind entire figure */
+.darshan-venkateswara .d-divine-glow {
+  position: absolute;
+  width: 120px; height: 200px;
+  background: radial-gradient(ellipse, rgba(255,215,0,0.12), rgba(255,180,0,0.04), transparent);
+  top: 30px; left: 50%; transform: translateX(-50%);
+  z-index: 1;
+  animation: glow-pulse 2s ease-in-out infinite;
 }
