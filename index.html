@@ -3,341 +3,345 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Temple - South Indian Temple Campus</title>
+  <title>Temple - Hindu Temple Campus</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="viewport">
+    <!-- Sky with sun/moon -->
+    <div id="sky">
+      <div id="sun"><div class="sun-rays"></div></div>
+      <div id="moon"><div class="moon-crater"></div><div class="moon-crater moon-crater-2"></div></div>
+      <div id="stars"></div>
+    </div>
+
     <div id="world">
-      <!-- Stone roads -->
+      <!-- Roads -->
       <div class="road road-main-vertical"></div>
-      <div class="road road-horizontal-top"></div>
-      <div class="road road-horizontal-bottom"></div>
-      <div class="road road-left-branch"></div>
-      <div class="road road-right-branch"></div>
+      <div class="road road-h-north"></div>
+      <div class="road road-h-mid"></div>
+      <div class="road road-h-south"></div>
+      <div class="road road-h-entrance"></div>
+      <div class="road road-v-left"></div>
+      <div class="road road-v-right"></div>
+      <div class="road road-v-far-left"></div>
+      <div class="road road-v-far-right"></div>
       <div class="road road-pond-path"></div>
-      <div class="road road-venkateswara"></div>
 
-      <!-- Gopuram Entrance -->
-      <div class="structure gopuram" id="gopuram">
-        <div class="gopuram-base"></div>
-        <div class="gopuram-tier gopuram-tier-1"></div>
-        <div class="gopuram-tier gopuram-tier-2"></div>
-        <div class="gopuram-tier gopuram-tier-3"></div>
-        <div class="gopuram-tier gopuram-tier-4"></div>
-        <div class="gopuram-top"></div>
-        <div class="gopuram-gate"></div>
-        <div class="structure-label">Gopuram Entrance</div>
-      </div>
-
-      <!-- Ganesha Shrine -->
-      <div class="structure shrine ganesha-shrine" id="ganesha-shrine">
-        <div class="shrine-roof shrine-roof-ganesha"></div>
-        <div class="shrine-body shrine-body-sanctum">
-          <div class="sanctum-lamp sanctum-lamp-left"></div>
-          <div class="sanctum-lamp sanctum-lamp-right"></div>
-          <div class="deity ganesha hidden" id="ganesha-deity">
-            <div class="deity-halo deity-halo-ganesha"></div>
-            <div class="ganesha-crown"></div>
-            <div class="ganesha-ear ganesha-ear-left"></div>
-            <div class="ganesha-ear ganesha-ear-right"></div>
-            <div class="ganesha-head"></div>
-            <div class="ganesha-third-eye"></div>
-            <div class="ganesha-trunk"></div>
-            <div class="ganesha-tusk-left"></div>
-            <div class="ganesha-tusk-right"></div>
-            <div class="ganesha-body-shape"></div>
-            <div class="ganesha-belly"></div>
-            <div class="ganesha-arm ganesha-arm-left"></div>
-            <div class="ganesha-arm ganesha-arm-right"></div>
-            <div class="ganesha-arm ganesha-arm-back-left"></div>
-            <div class="ganesha-arm ganesha-arm-back-right"></div>
-            <div class="ganesha-modak"></div>
-            <div class="ganesha-leg ganesha-leg-left"></div>
-            <div class="ganesha-leg ganesha-leg-right"></div>
-            <div class="deity-pedestal"></div>
-          </div>
-        </div>
-        <div class="shrine-pillars">
-          <div class="pillar"></div>
-          <div class="pillar"></div>
-        </div>
-        <div class="structure-label">Ganesha Shrine</div>
-      </div>
-
-      <!-- Nandi Statue -->
-      <div class="structure nandi-statue" id="nandi">
-        <div class="nandi-body"></div>
-        <div class="nandi-head"></div>
-        <div class="nandi-horn nandi-horn-left"></div>
-        <div class="nandi-horn nandi-horn-right"></div>
-        <div class="nandi-hump"></div>
-        <div class="nandi-legs">
-          <div class="nandi-leg"></div>
-          <div class="nandi-leg"></div>
-          <div class="nandi-leg"></div>
-          <div class="nandi-leg"></div>
-        </div>
-        <div class="nandi-platform"></div>
-        <div class="structure-label">Nandi</div>
-      </div>
-
-      <!-- Main Shiva Temple -->
-      <div class="structure main-temple" id="shiva-temple">
-        <div class="temple-vimana">
-          <div class="vimana-tier vimana-tier-1"></div>
-          <div class="vimana-tier vimana-tier-2"></div>
-          <div class="vimana-tier vimana-tier-3"></div>
-          <div class="vimana-kalash"></div>
-        </div>
-        <div class="temple-body">
-          <div class="garbhagriha">
-            <div class="sanctum-lamp sanctum-lamp-left"></div>
-            <div class="sanctum-lamp sanctum-lamp-right"></div>
-            <div class="deity shiva-lingam hidden" id="shiva-deity">
-              <div class="deity-halo deity-halo-shiva"></div>
-              <div class="lingam-naga"></div>
-              <div class="lingam-base"></div>
-              <div class="lingam-avudaiyar"></div>
-              <div class="lingam-stone"></div>
-              <div class="lingam-bilva"></div>
-              <div class="lingam-glow"></div>
-              <div class="deity-pedestal deity-pedestal-shiva"></div>
-            </div>
-          </div>
-        </div>
-        <div class="temple-mandapa">
-          <div class="pillar"></div>
-          <div class="pillar"></div>
-          <div class="pillar"></div>
-          <div class="pillar"></div>
-        </div>
-        <div class="temple-steps"></div>
-        <div class="structure-label">Shiva Temple</div>
-      </div>
-
-      <!-- Parvati Shrine -->
-      <div class="structure shrine parvati-shrine" id="parvati-shrine">
-        <div class="shrine-roof shrine-roof-parvati"></div>
-        <div class="shrine-body shrine-body-sanctum">
-          <div class="sanctum-lamp sanctum-lamp-left"></div>
-          <div class="sanctum-lamp sanctum-lamp-right"></div>
-          <div class="deity parvati hidden" id="parvati-deity">
-            <div class="deity-halo deity-halo-parvati"></div>
-            <div class="parvati-crown"></div>
-            <div class="parvati-head"></div>
-            <div class="parvati-earring parvati-earring-left"></div>
-            <div class="parvati-earring parvati-earring-right"></div>
-            <div class="parvati-necklace"></div>
-            <div class="parvati-body-shape"></div>
-            <div class="parvati-arm parvati-arm-left"></div>
-            <div class="parvati-arm parvati-arm-right"></div>
-            <div class="parvati-lotus"></div>
-            <div class="parvati-sari"></div>
-            <div class="deity-pedestal"></div>
-          </div>
-        </div>
-        <div class="shrine-pillars">
-          <div class="pillar"></div>
-          <div class="pillar"></div>
-        </div>
-        <div class="structure-label">Parvati (Ambal) Shrine</div>
-      </div>
-
-      <!-- Murugan Shrine -->
-      <div class="structure shrine murugan-shrine" id="murugan-shrine">
-        <div class="shrine-roof shrine-roof-murugan"></div>
-        <div class="shrine-body shrine-body-sanctum">
-          <div class="sanctum-lamp sanctum-lamp-left"></div>
-          <div class="sanctum-lamp sanctum-lamp-right"></div>
-          <div class="deity murugan hidden" id="murugan-deity">
-            <div class="deity-halo deity-halo-murugan"></div>
-            <div class="murugan-crown"></div>
-            <div class="murugan-head"></div>
-            <div class="murugan-body-shape"></div>
-            <div class="murugan-arm murugan-arm-left"></div>
-            <div class="murugan-arm murugan-arm-right"></div>
-            <div class="murugan-vel"></div>
-            <div class="murugan-leg murugan-leg-left"></div>
-            <div class="murugan-leg murugan-leg-right"></div>
-            <div class="peacock">
-              <div class="peacock-body"></div>
-              <div class="peacock-neck"></div>
-              <div class="peacock-head"></div>
-              <div class="peacock-crest"></div>
-              <div class="peacock-tail">
-                <div class="peacock-feather"></div>
-                <div class="peacock-feather"></div>
-                <div class="peacock-feather"></div>
-                <div class="peacock-feather"></div>
-                <div class="peacock-feather"></div>
-              </div>
-            </div>
-            <div class="deity-pedestal"></div>
-          </div>
-        </div>
-        <div class="shrine-pillars">
-          <div class="pillar"></div>
-          <div class="pillar"></div>
-        </div>
-        <div class="structure-label">Murugan Shrine</div>
-      </div>
-
-      <!-- Venkateswara (Thirumala) Shrine -->
-      <div class="structure shrine venkateswara-shrine" id="venkateswara-shrine">
-        <div class="shrine-roof shrine-roof-venkateswara">
-          <div class="venkateswara-gopuram-mini">
-            <div class="mini-tier"></div>
-            <div class="mini-tier"></div>
-            <div class="mini-kalash"></div>
-          </div>
-        </div>
-        <div class="shrine-body shrine-body-sanctum shrine-body-venkateswara">
-          <div class="sanctum-lamp sanctum-lamp-left"></div>
-          <div class="sanctum-lamp sanctum-lamp-right"></div>
-          <div class="deity venkateswara hidden" id="venkateswara-deity">
-            <div class="deity-halo deity-halo-venkateswara"></div>
-            <div class="venkat-kiritam"></div>
-            <div class="venkat-head"></div>
-            <div class="venkat-namam"></div>
-            <div class="venkat-earring venkat-earring-left"></div>
-            <div class="venkat-earring venkat-earring-right"></div>
-            <div class="venkat-body-shape"></div>
-            <div class="venkat-necklace"></div>
-            <div class="venkat-arm venkat-arm-left"></div>
-            <div class="venkat-arm venkat-arm-right"></div>
-            <div class="venkat-shankha"></div>
-            <div class="venkat-chakra"></div>
-            <div class="venkat-pitambara"></div>
-            <div class="venkat-leg venkat-leg-left"></div>
-            <div class="venkat-leg venkat-leg-right"></div>
-            <div class="deity-pedestal"></div>
-          </div>
-        </div>
-        <div class="shrine-pillars shrine-pillars-venkateswara">
-          <div class="pillar"></div>
-          <div class="pillar"></div>
-          <div class="pillar"></div>
-        </div>
-        <div class="structure-label">Sri Venkateswara (Balaji)</div>
-      </div>
-
-      <!-- Garuda Statue in front of Venkateswara -->
-      <div class="structure garuda-statue" id="garuda">
-        <div class="garuda-body"></div>
-        <div class="garuda-head"></div>
-        <div class="garuda-beak"></div>
-        <div class="garuda-wing garuda-wing-left"></div>
-        <div class="garuda-wing garuda-wing-right"></div>
-        <div class="garuda-platform"></div>
-        <div class="structure-label">Garuda</div>
-      </div>
-
-      <!-- Temple Pond -->
-      <div class="temple-pond" id="pond">
-        <div class="pond-water"></div>
-        <div class="pond-steps pond-steps-left"></div>
-        <div class="pond-steps pond-steps-right"></div>
-        <div class="pond-steps pond-steps-top"></div>
-        <div class="pond-steps pond-steps-bottom"></div>
-        <div class="pond-label">Temple Tank</div>
-      </div>
-
-      <!-- Temple Lamps -->
-      <div class="temple-lamp" style="left: 720px; top: 1580px;">
-        <div class="lamp-pillar"></div>
-        <div class="lamp-cup"></div>
-        <div class="lamp-flame"><div class="flame-inner"></div></div>
-      </div>
-      <div class="temple-lamp" style="left: 880px; top: 1580px;">
-        <div class="lamp-pillar"></div>
-        <div class="lamp-cup"></div>
-        <div class="lamp-flame"><div class="flame-inner"></div></div>
-      </div>
-      <div class="temple-lamp" style="left: 720px; top: 1180px;">
-        <div class="lamp-pillar"></div>
-        <div class="lamp-cup"></div>
-        <div class="lamp-flame"><div class="flame-inner"></div></div>
-      </div>
-      <div class="temple-lamp" style="left: 880px; top: 1180px;">
-        <div class="lamp-pillar"></div>
-        <div class="lamp-cup"></div>
-        <div class="lamp-flame"><div class="flame-inner"></div></div>
-      </div>
-      <div class="temple-lamp" style="left: 720px; top: 880px;">
-        <div class="lamp-pillar"></div>
-        <div class="lamp-cup"></div>
-        <div class="lamp-flame"><div class="flame-inner"></div></div>
-      </div>
-      <div class="temple-lamp" style="left: 880px; top: 880px;">
-        <div class="lamp-pillar"></div>
-        <div class="lamp-cup"></div>
-        <div class="lamp-flame"><div class="flame-inner"></div></div>
-      </div>
-
-      <!-- Lamps near Venkateswara -->
-      <div class="temple-lamp" style="left: 1120px; top: 1180px;">
-        <div class="lamp-pillar"></div>
-        <div class="lamp-cup"></div>
-        <div class="lamp-flame"><div class="flame-inner"></div></div>
-      </div>
-      <div class="temple-lamp" style="left: 1280px; top: 1180px;">
-        <div class="lamp-pillar"></div>
-        <div class="lamp-cup"></div>
-        <div class="lamp-flame"><div class="flame-inner"></div></div>
-      </div>
-
-      <!-- Trees -->
-      <div class="tree" style="left: 200px; top: 400px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 350px; top: 300px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 1200px; top: 400px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 1350px; top: 300px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 150px; top: 800px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 1400px; top: 800px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 200px; top: 1200px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 1350px; top: 1200px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 150px; top: 1600px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 1400px; top: 1600px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 300px; top: 1800px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 1250px; top: 1800px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 100px; top: 500px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 1500px; top: 500px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 100px; top: 1000px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-      <div class="tree" style="left: 1500px; top: 1000px;"><div class="tree-trunk"></div><div class="tree-canopy"></div></div>
-
-      <!-- Compound Wall -->
+      <!-- Compound Walls -->
       <div class="compound-wall wall-top"></div>
       <div class="compound-wall wall-bottom"></div>
       <div class="compound-wall wall-left"></div>
       <div class="compound-wall wall-right"></div>
 
+      <!-- ===== GOPURAM ENTRANCE ===== -->
+      <div class="structure gopuram" id="gopuram">
+        <div class="gopuram-base"></div>
+        <div class="gopuram-tier gt-1"></div>
+        <div class="gopuram-tier gt-2"></div>
+        <div class="gopuram-tier gt-3"></div>
+        <div class="gopuram-tier gt-4"></div>
+        <div class="gopuram-top"></div>
+        <div class="gopuram-gate"></div>
+        <div class="structure-label">Gopuram Entrance</div>
+      </div>
+
+      <!-- ===== ROW 1: Near Entrance ===== -->
+
+      <!-- Ganesha Shrine -->
+      <div class="structure shrine" id="ganesha-shrine" style="left:900px;top:2550px;">
+        <div class="shrine-roof sr-orange"></div>
+        <div class="shrine-body sanctum">
+          <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+          <div class="deity hidden" id="ganesha-deity">
+            <div class="idol-ganesha"></div>
+          </div>
+        </div>
+        <div class="shrine-base"></div>
+        <div class="structure-label">Ganesha</div>
+      </div>
+
+      <!-- Rama Shrine -->
+      <div class="structure shrine" id="rama-shrine" style="left:500px;top:2550px;">
+        <div class="shrine-roof sr-blue"></div>
+        <div class="shrine-body sanctum">
+          <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+          <div class="deity hidden" id="rama-deity">
+            <div class="idol-rama"></div>
+          </div>
+        </div>
+        <div class="shrine-base"></div>
+        <div class="structure-label">Sri Rama</div>
+      </div>
+
+      <!-- Ayyappa Shrine -->
+      <div class="structure shrine" id="ayyappa-shrine" style="left:1400px;top:2550px;">
+        <div class="shrine-roof sr-green"></div>
+        <div class="shrine-body sanctum">
+          <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+          <div class="deity hidden" id="ayyappa-deity">
+            <div class="idol-ayyappa"></div>
+          </div>
+        </div>
+        <div class="shrine-base"></div>
+        <div class="structure-label">Ayyappa Swamy</div>
+      </div>
+
+      <!-- ===== ROW 2: Mid-South ===== -->
+
+      <!-- Krishna Shrine -->
+      <div class="structure shrine" id="krishna-shrine" style="left:400px;top:2050px;">
+        <div class="shrine-roof sr-blue"></div>
+        <div class="shrine-body sanctum">
+          <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+          <div class="deity hidden" id="krishna-deity">
+            <div class="idol-krishna"></div>
+          </div>
+        </div>
+        <div class="shrine-base"></div>
+        <div class="structure-label">Sri Krishna</div>
+      </div>
+
+      <!-- Hanuman Shrine -->
+      <div class="structure shrine" id="hanuman-shrine" style="left:1500px;top:2050px;">
+        <div class="shrine-roof sr-orange"></div>
+        <div class="shrine-body sanctum">
+          <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+          <div class="deity hidden" id="hanuman-deity">
+            <div class="idol-hanuman"></div>
+          </div>
+        </div>
+        <div class="shrine-base"></div>
+        <div class="structure-label">Hanuman</div>
+      </div>
+
+      <!-- Venkateswara Shrine -->
+      <div class="structure shrine shrine-large" id="venkateswara-shrine" style="left:900px;top:2000px;">
+        <div class="shrine-roof sr-gold"></div>
+        <div class="shrine-body sanctum sanctum-large">
+          <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+          <div class="deity hidden" id="venkateswara-deity">
+            <div class="idol-venkateswara"></div>
+          </div>
+        </div>
+        <div class="shrine-base shrine-base-large"></div>
+        <div class="structure-label">Sri Venkateswara (Balaji)</div>
+      </div>
+
+      <!-- Garuda -->
+      <div class="structure garuda" id="garuda" style="left:960px;top:2180px;">
+        <div class="garuda-fig"></div>
+        <div class="garuda-plat"></div>
+        <div class="structure-label">Garuda</div>
+      </div>
+
+      <!-- Nandi -->
+      <div class="structure nandi" id="nandi" style="left:930px;top:1650px;">
+        <div class="nandi-fig"></div>
+        <div class="nandi-plat"></div>
+        <div class="structure-label">Nandi</div>
+      </div>
+
+      <!-- ===== CENTER: Main Shiva Temple ===== -->
+      <div class="structure main-temple" id="shiva-temple">
+        <div class="temple-vimana">
+          <div class="v-tier v1"></div><div class="v-tier v2"></div><div class="v-tier v3"></div>
+          <div class="v-kalash"></div>
+        </div>
+        <div class="temple-body">
+          <div class="garbhagriha">
+            <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+            <div class="deity hidden" id="shiva-deity">
+              <div class="idol-shiva"></div>
+            </div>
+          </div>
+        </div>
+        <div class="temple-mandapa">
+          <div class="pillar"></div><div class="pillar"></div><div class="pillar"></div><div class="pillar"></div>
+        </div>
+        <div class="temple-steps"></div>
+        <div class="structure-label">Shiva Temple</div>
+      </div>
+
+      <!-- Parvati -->
+      <div class="structure shrine" id="parvati-shrine" style="left:1400px;top:1400px;">
+        <div class="shrine-roof sr-gold"></div>
+        <div class="shrine-body sanctum">
+          <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+          <div class="deity hidden" id="parvati-deity">
+            <div class="idol-parvati"></div>
+          </div>
+        </div>
+        <div class="shrine-base"></div>
+        <div class="structure-label">Parvati (Ambal)</div>
+      </div>
+
+      <!-- Murugan -->
+      <div class="structure shrine" id="murugan-shrine" style="left:400px;top:1400px;">
+        <div class="shrine-roof sr-red"></div>
+        <div class="shrine-body sanctum">
+          <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+          <div class="deity hidden" id="murugan-deity">
+            <div class="idol-murugan"></div>
+          </div>
+        </div>
+        <div class="shrine-base"></div>
+        <div class="structure-label">Murugan</div>
+      </div>
+
+      <!-- ===== ROW 3: North ===== -->
+
+      <!-- Durga -->
+      <div class="structure shrine" id="durga-shrine" style="left:1400px;top:800px;">
+        <div class="shrine-roof sr-red"></div>
+        <div class="shrine-body sanctum">
+          <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+          <div class="deity hidden" id="durga-deity">
+            <div class="idol-durga"></div>
+          </div>
+        </div>
+        <div class="shrine-base"></div>
+        <div class="structure-label">Durga Devi</div>
+      </div>
+
+      <!-- Lakshmi -->
+      <div class="structure shrine" id="lakshmi-shrine" style="left:900px;top:800px;">
+        <div class="shrine-roof sr-gold"></div>
+        <div class="shrine-body sanctum">
+          <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+          <div class="deity hidden" id="lakshmi-deity">
+            <div class="idol-lakshmi"></div>
+          </div>
+        </div>
+        <div class="shrine-base"></div>
+        <div class="structure-label">Lakshmi Devi</div>
+      </div>
+
+      <!-- Saraswati -->
+      <div class="structure shrine" id="saraswati-shrine" style="left:400px;top:800px;">
+        <div class="shrine-roof sr-white"></div>
+        <div class="shrine-body sanctum">
+          <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+          <div class="deity hidden" id="saraswati-deity">
+            <div class="idol-saraswati"></div>
+          </div>
+        </div>
+        <div class="shrine-base"></div>
+        <div class="structure-label">Saraswati Devi</div>
+      </div>
+
+      <!-- Navagraha -->
+      <div class="structure shrine shrine-large" id="navagraha-shrine" style="left:880px;top:400px;">
+        <div class="shrine-roof sr-grey"></div>
+        <div class="shrine-body sanctum sanctum-large">
+          <div class="s-lamp s-lamp-l"></div><div class="s-lamp s-lamp-r"></div>
+          <div class="deity hidden" id="navagraha-deity">
+            <div class="idol-navagraha"></div>
+          </div>
+        </div>
+        <div class="shrine-base shrine-base-large"></div>
+        <div class="structure-label">Navagraha</div>
+      </div>
+
+      <!-- Temple Pond -->
+      <div class="temple-pond" id="pond">
+        <div class="pond-water"></div>
+        <div class="pond-steps ps-l"></div><div class="pond-steps ps-r"></div>
+        <div class="pond-steps ps-t"></div><div class="pond-steps ps-b"></div>
+        <div class="pond-label">Temple Tank</div>
+      </div>
+
+      <!-- ===== TEMPLE LAMPS (many) ===== -->
+      <!-- Main path lamps -->
+      <div class="t-lamp" style="left:890px;top:2800px;"></div>
+      <div class="t-lamp" style="left:1050px;top:2800px;"></div>
+      <div class="t-lamp" style="left:890px;top:2400px;"></div>
+      <div class="t-lamp" style="left:1050px;top:2400px;"></div>
+      <div class="t-lamp" style="left:890px;top:1900px;"></div>
+      <div class="t-lamp" style="left:1050px;top:1900px;"></div>
+      <div class="t-lamp" style="left:890px;top:1600px;"></div>
+      <div class="t-lamp" style="left:1050px;top:1600px;"></div>
+      <div class="t-lamp" style="left:890px;top:1200px;"></div>
+      <div class="t-lamp" style="left:1050px;top:1200px;"></div>
+      <div class="t-lamp" style="left:890px;top:700px;"></div>
+      <div class="t-lamp" style="left:1050px;top:700px;"></div>
+      <!-- Horizontal path lamps -->
+      <div class="t-lamp" style="left:600px;top:1380px;"></div>
+      <div class="t-lamp" style="left:1300px;top:1380px;"></div>
+      <div class="t-lamp" style="left:600px;top:780px;"></div>
+      <div class="t-lamp" style="left:1300px;top:780px;"></div>
+      <div class="t-lamp" style="left:600px;top:2030px;"></div>
+      <div class="t-lamp" style="left:1300px;top:2030px;"></div>
+      <div class="t-lamp" style="left:600px;top:2530px;"></div>
+      <div class="t-lamp" style="left:1300px;top:2530px;"></div>
+      <!-- Shrine entrance lamps -->
+      <div class="t-lamp" style="left:380px;top:1530px;"></div>
+      <div class="t-lamp" style="left:530px;top:1530px;"></div>
+      <div class="t-lamp" style="left:1380px;top:1530px;"></div>
+      <div class="t-lamp" style="left:1530px;top:1530px;"></div>
+      <div class="t-lamp" style="left:380px;top:930px;"></div>
+      <div class="t-lamp" style="left:530px;top:930px;"></div>
+      <div class="t-lamp" style="left:1380px;top:930px;"></div>
+      <div class="t-lamp" style="left:1530px;top:930px;"></div>
+
+      <!-- ===== TREES (many) ===== -->
+      <div class="tree" style="left:150px;top:300px;"></div>
+      <div class="tree" style="left:280px;top:200px;"></div>
+      <div class="tree" style="left:100px;top:600px;"></div>
+      <div class="tree" style="left:250px;top:1000px;"></div>
+      <div class="tree" style="left:120px;top:1400px;"></div>
+      <div class="tree" style="left:200px;top:1800px;"></div>
+      <div class="tree" style="left:150px;top:2200px;"></div>
+      <div class="tree" style="left:250px;top:2600px;"></div>
+      <div class="tree" style="left:100px;top:2900px;"></div>
+      <div class="tree" style="left:1750px;top:300px;"></div>
+      <div class="tree" style="left:1850px;top:200px;"></div>
+      <div class="tree" style="left:1800px;top:600px;"></div>
+      <div class="tree" style="left:1700px;top:1000px;"></div>
+      <div class="tree" style="left:1800px;top:1400px;"></div>
+      <div class="tree" style="left:1750px;top:1800px;"></div>
+      <div class="tree" style="left:1850px;top:2200px;"></div>
+      <div class="tree" style="left:1700px;top:2600px;"></div>
+      <div class="tree" style="left:1800px;top:2900px;"></div>
+      <div class="tree" style="left:700px;top:150px;"></div>
+      <div class="tree" style="left:1200px;top:150px;"></div>
+      <div class="tree" style="left:300px;top:500px;"></div>
+      <div class="tree" style="left:1650px;top:500px;"></div>
+      <div class="tree" style="left:700px;top:600px;"></div>
+      <div class="tree" style="left:1200px;top:600px;"></div>
+      <div class="tree" style="left:300px;top:1200px;"></div>
+      <div class="tree" style="left:1650px;top:1200px;"></div>
+      <div class="tree" style="left:700px;top:1700px;"></div>
+      <div class="tree" style="left:1200px;top:1700px;"></div>
+      <div class="tree" style="left:300px;top:2300px;"></div>
+      <div class="tree" style="left:1650px;top:2300px;"></div>
+      <div class="tree" style="left:700px;top:2800px;"></div>
+      <div class="tree" style="left:1200px;top:2800px;"></div>
+      <div class="tree" style="left:200px;top:3050px;"></div>
+      <div class="tree" style="left:1750px;top:3050px;"></div>
+
       <!-- Player -->
       <div id="player">
-        <div class="player-body"></div>
         <div class="player-head"></div>
+        <div class="player-body"></div>
       </div>
     </div>
 
     <!-- HUD -->
     <div id="hud">
       <div id="location-name">Temple Entrance</div>
-      <div id="instructions">Use arrow keys to explore the temple</div>
+      <div id="time-display"></div>
+      <div id="instructions">Arrow keys / WASD to explore</div>
     </div>
 
-    <!-- Darshan View - Full screen low angle deity view -->
+    <!-- Darshan Overlay -->
     <div id="darshan-overlay" class="hidden">
       <div id="darshan-panel">
         <div class="darshan-sanctum">
           <div class="darshan-arch"></div>
-          <div class="darshan-lamp darshan-lamp-left">
-            <div class="darshan-lamp-body"></div>
-            <div class="darshan-lamp-flame"><div class="darshan-flame-inner"></div></div>
-          </div>
-          <div class="darshan-lamp darshan-lamp-right">
-            <div class="darshan-lamp-body"></div>
-            <div class="darshan-lamp-flame"><div class="darshan-flame-inner"></div></div>
-          </div>
-          <div id="darshan-deity-container"></div>
+          <div class="d-lamp d-lamp-l"></div>
+          <div class="d-lamp d-lamp-r"></div>
+          <div id="darshan-deity"></div>
           <div class="darshan-flowers"></div>
         </div>
         <div id="darshan-mantra"></div>

@@ -1,2448 +1,366 @@
-/* ===== Reset & Base ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  overflow: hidden;
-  background: #1a1a2e;
-  font-family: 'Segoe UI', sans-serif;
-}
+/* ===== Reset ===== */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{overflow:hidden;background:#1a1a2e;font-family:'Segoe UI',sans-serif;}
 
 /* ===== Viewport & World ===== */
-#viewport {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-  background: #1a1a2e;
-}
+#viewport{width:100vw;height:100vh;overflow:hidden;position:relative;}
+#world{width:2000px;height:3200px;position:absolute;transition:none;}
 
-#world {
-  width: 1600px;
-  height: 2200px;
-  background: #4a7c3f;
-  position: absolute;
-  transition: none;
-}
+/* ===== Sky & Day/Night ===== */
+#sky{position:fixed;top:0;left:0;right:0;height:100vh;z-index:0;pointer-events:none;transition:background 3s;}
+.sky-day{background:linear-gradient(to bottom,#87ceeb,#b0e0ff,#e0f0ff);}
+.sky-dawn{background:linear-gradient(to bottom,#ff7b54,#ffb347,#87ceeb);}
+.sky-dusk{background:linear-gradient(to bottom,#2c1654,#c44e52,#ff9a3c,#ffcc80);}
+.sky-night{background:linear-gradient(to bottom,#0a0a2e,#111144,#1a1a3a);}
+
+#sun{position:fixed;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,#fff,#ffdd44,#ff9900);box-shadow:0 0 40px #ffaa00,0 0 80px rgba(255,170,0,0.3);z-index:1;transition:all 3s;pointer-events:none;}
+.sun-rays{position:absolute;top:-10px;left:-10px;right:-10px;bottom:-10px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,200,0.3),transparent);animation:sun-pulse 3s ease-in-out infinite;}
+@keyframes sun-pulse{0%,100%{transform:scale(1);opacity:0.6;}50%{transform:scale(1.15);opacity:1;}}
+
+#moon{position:fixed;width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f5f5dc,#ddd,#bbb);box-shadow:0 0 20px rgba(200,200,255,0.4),0 0 60px rgba(150,150,255,0.15);z-index:1;transition:all 3s;pointer-events:none;}
+.moon-crater{position:absolute;border-radius:50%;background:rgba(0,0,0,0.1);}
+.moon-crater{width:10px;height:10px;top:12px;left:15px;}
+.moon-crater-2{width:7px;height:7px;top:25px;left:28px;}
+
+#stars{position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;pointer-events:none;transition:opacity 3s;}
+
+/* ===== World background transitions ===== */
+.world-day{background:#4a7c3f;}
+.world-dawn{background:#3d6b35;}
+.world-dusk{background:#2d4a28;}
+.world-night{background:#1a2e15;}
 
 /* ===== Compound Walls ===== */
-.compound-wall {
-  position: absolute;
-  background: #8b7355;
-  border: 2px solid #6b5335;
-}
+.compound-wall{position:absolute;background:#8b7355;border:2px solid #6b5335;}
+.wall-top{top:0;left:0;width:100%;height:15px;}
+.wall-bottom{bottom:0;left:0;width:100%;height:15px;}
+.wall-left{top:0;left:0;width:15px;height:100%;}
+.wall-right{top:0;right:0;width:15px;height:100%;}
 
-.wall-top { top: 0; left: 0; width: 100%; height: 15px; }
-.wall-bottom { bottom: 0; left: 0; width: 100%; height: 15px; }
-.wall-left { top: 0; left: 0; width: 15px; height: 100%; }
-.wall-right { top: 0; right: 0; width: 15px; height: 100%; }
+/* ===== Roads ===== */
+.road{position:absolute;background:#c4a77d;border:2px solid #a08060;
+  background-image:repeating-linear-gradient(90deg,transparent,transparent 28px,#b09570 28px,#b09570 30px),
+  repeating-linear-gradient(0deg,transparent,transparent 28px,#b09570 28px,#b09570 30px);}
 
-/* ===== Stone Roads ===== */
-.road {
-  position: absolute;
-  background: #c4a77d;
-  border: 2px solid #a08060;
-  background-image:
-    repeating-linear-gradient(90deg, transparent, transparent 28px, #b09570 28px, #b09570 30px),
-    repeating-linear-gradient(0deg, transparent, transparent 28px, #b09570 28px, #b09570 30px);
-}
+.road-main-vertical{left:940px;top:300px;width:80px;height:2800px;}
+.road-h-north{left:350px;top:850px;width:1300px;height:70px;}
+.road-h-mid{left:350px;top:1450px;width:1300px;height:70px;}
+.road-h-south{left:350px;top:2100px;width:1300px;height:70px;}
+.road-h-entrance{left:450px;top:2600px;width:1100px;height:70px;}
+.road-v-left{left:430px;top:800px;width:70px;height:1900px;}
+.road-v-right{left:1450px;top:800px;width:70px;height:1900px;}
+.road-v-far-left{left:430px;top:2600px;width:70px;height:300px;}
+.road-v-far-right{left:1450px;top:2600px;width:70px;height:300px;}
+.road-pond-path{left:200px;top:1450px;width:250px;height:70px;}
 
-.road-main-vertical { left: 750px; top: 700px; width: 100px; height: 1500px; }
-.road-horizontal-top { left: 300px; top: 850px; width: 1000px; height: 80px; }
-.road-horizontal-bottom { left: 450px; top: 1550px; width: 700px; height: 80px; }
-.road-left-branch { left: 350px; top: 850px; width: 80px; height: 400px; }
-.road-right-branch { left: 1170px; top: 850px; width: 80px; height: 400px; }
-.road-pond-path { left: 350px; top: 1200px; width: 80px; height: 200px; }
-.road-venkateswara { left: 1170px; top: 1200px; width: 80px; height: 200px; }
-
-/* ===== Structure Base ===== */
-.structure { position: absolute; }
-
-.structure-label {
-  text-align: center;
-  color: #fff;
-  font-size: 11px;
-  font-weight: bold;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-  margin-top: 5px;
-  white-space: nowrap;
-}
+/* ===== Structures ===== */
+.structure{position:absolute;}
+.structure-label{text-align:center;color:#fff;font-size:11px;font-weight:bold;text-shadow:1px 1px 3px rgba(0,0,0,0.8);margin-top:4px;white-space:nowrap;}
 
 /* ===== Gopuram ===== */
-.gopuram {
-  left: 730px; top: 1900px; width: 140px;
-  display: flex; flex-direction: column; align-items: center;
-}
+.gopuram{left:910px;top:2880px;width:140px;display:flex;flex-direction:column;align-items:center;}
+.gopuram-base{width:140px;height:50px;background:linear-gradient(to top,#8b6914,#c4952a);border:2px solid #6b4f10;}
+.gopuram-gate{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);width:40px;height:45px;background:#2a1a0a;border-radius:20px 20px 0 0;border:2px solid #6b4f10;border-bottom:none;}
+.gopuram-tier{background:linear-gradient(to top,#c4952a,#e8b84a);border:1px solid #8b6914;}
+.gt-1{width:120px;height:28px;}.gt-2{width:100px;height:24px;}.gt-3{width:80px;height:20px;}.gt-4{width:60px;height:16px;}
+.gopuram-top{width:30px;height:20px;background:linear-gradient(to top,#e8b84a,#ffd700);border-radius:50% 50% 0 0;border:1px solid #c4952a;}
 
-.gopuram-base {
-  width: 140px; height: 50px;
-  background: linear-gradient(to top, #8b6914, #c4952a);
-  border: 2px solid #6b4f10;
-}
+/* ===== Shrines (generic) ===== */
+.shrine{width:120px;display:flex;flex-direction:column;align-items:center;}
+.shrine-large{width:160px;}
+.shrine-roof{width:110px;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-bottom:30px solid #c4952a;}
+.shrine-large .shrine-roof{width:150px;border-bottom-width:35px;}
+.sr-orange{border-bottom-color:#d4522a;}.sr-blue{border-bottom-color:#2266aa;}.sr-gold{border-bottom-color:#daa520;}
+.sr-red{border-bottom-color:#cc2200;}.sr-white{border-bottom-color:#ddd;}.sr-green{border-bottom-color:#228833;}.sr-grey{border-bottom-color:#888;}
+.shrine-roof::after{content:'';position:absolute;top:22px;left:50%;transform:translateX(-50%);width:10px;height:12px;background:#ffd700;border-radius:50% 50% 0 0;}
+.shrine-body{width:100px;height:80px;background:linear-gradient(to bottom,#d4a540,#a07820);border:2px solid #6b4f10;display:flex;align-items:center;justify-content:center;}
+.sanctum{background:linear-gradient(to bottom,#1a0e00,#0a0500);position:relative;overflow:hidden;}
+.sanctum-large{width:140px;height:100px;}
+.shrine-base{width:110px;height:12px;background:#c4952a;border:1px solid #6b4f10;}
+.shrine-base-large{width:150px;}
+.shrine-large .shrine-base{width:150px;}
 
-.gopuram-gate {
-  position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
-  width: 40px; height: 45px; background: #2a1a0a;
-  border-radius: 20px 20px 0 0; border: 2px solid #6b4f10; border-bottom: none;
-}
-
-.gopuram-tier {
-  background: linear-gradient(to top, #c4952a, #e8b84a);
-  border: 1px solid #8b6914;
-}
-
-.gopuram-tier-1 { width: 120px; height: 30px; }
-.gopuram-tier-2 { width: 100px; height: 25px; }
-.gopuram-tier-3 { width: 80px; height: 22px; }
-.gopuram-tier-4 { width: 60px; height: 18px; }
-
-.gopuram-top {
-  width: 30px; height: 20px;
-  background: linear-gradient(to top, #e8b84a, #ffd700);
-  border-radius: 50% 50% 0 0; border: 1px solid #c4952a;
-}
+/* Sanctum lamps */
+.s-lamp{position:absolute;width:5px;height:10px;background:linear-gradient(to top,#8b6914,#c4952a);bottom:5px;z-index:5;}
+.s-lamp::after{content:'';position:absolute;top:-8px;left:-3px;width:11px;height:11px;background:radial-gradient(circle,#ff9900,#ff6600,transparent);border-radius:50%;animation:sflick .4s ease-in-out infinite alternate;}
+.s-lamp-l{left:8px;}.s-lamp-r{right:8px;}
+@keyframes sflick{0%{opacity:.7;transform:scale(.9);}100%{opacity:1;transform:scale(1.1);}}
 
 /* ===== Main Shiva Temple ===== */
-.main-temple {
-  left: 700px; top: 820px; width: 200px;
-  display: flex; flex-direction: column; align-items: center;
-}
-
-.temple-vimana { display: flex; flex-direction: column; align-items: center; }
-
-.vimana-tier {
-  background: linear-gradient(to top, #8b6914, #c4952a);
-  border: 1px solid #6b4f10;
-}
-
-.vimana-tier-1 { width: 100px; height: 20px; }
-.vimana-tier-2 { width: 80px; height: 18px; }
-.vimana-tier-3 { width: 60px; height: 15px; }
-
-.vimana-kalash {
-  width: 16px; height: 20px; background: #ffd700;
-  border-radius: 50% 50% 30% 30%; border: 1px solid #c4952a;
-}
-
-.temple-body {
-  width: 160px; height: 100px;
-  background: linear-gradient(to bottom, #d4a540, #8b6914);
-  border: 3px solid #6b4f10;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-
-.garbhagriha {
-  width: 80px; height: 70px;
-  background: #0a0500;
-  border: 2px solid #4a3520;
-  border-radius: 5px;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.temple-mandapa {
-  width: 180px; height: 40px;
-  background: linear-gradient(to bottom, #c4952a, #a07820);
-  border: 2px solid #6b4f10;
-  display: flex; justify-content: space-around; align-items: flex-end;
-  padding: 0 10px;
-}
-
-.pillar {
-  width: 8px; height: 35px;
-  background: linear-gradient(to right, #8b6914, #c4952a, #8b6914);
-  border: 1px solid #6b4f10;
-}
-
-.temple-steps {
-  width: 120px; height: 15px;
-  background: repeating-linear-gradient(to bottom, #c4a77d 0px, #c4a77d 4px, #a08060 4px, #a08060 5px);
-  border: 1px solid #8b7355;
-}
-
-/* ===== Nandi Statue ===== */
-.nandi-statue {
-  left: 760px; top: 1100px; width: 80px;
-  display: flex; flex-direction: column; align-items: center;
-}
-
-.nandi-platform { width: 80px; height: 15px; background: #999; border: 2px solid #777; order: 3; }
-
-.nandi-body {
-  width: 50px; height: 25px;
-  background: linear-gradient(to bottom, #333, #1a1a1a);
-  border-radius: 10px 10px 5px 5px; border: 1px solid #111;
-  position: relative;
-}
-
-.nandi-head {
-  width: 20px; height: 18px; background: #222;
-  border-radius: 50% 50% 30% 30%; border: 1px solid #111;
-  margin-top: -5px; align-self: flex-start; margin-left: 10px;
-}
-
-.nandi-horn { width: 3px; height: 10px; background: #444; position: absolute; border-radius: 2px; }
-.nandi-horn-left { top: -5px; left: 18px; transform: rotate(-20deg); }
-.nandi-horn-right { top: -5px; left: 28px; transform: rotate(20deg); }
-
-.nandi-hump {
-  width: 20px; height: 12px; background: #222;
-  border-radius: 50%; margin-top: -18px; margin-left: 15px; align-self: flex-start;
-}
-
-.nandi-legs { display: flex; gap: 5px; margin-top: -3px; }
-.nandi-leg { width: 6px; height: 12px; background: #1a1a1a; border: 1px solid #111; }
-
-/* ===== Shrines ===== */
-.shrine {
-  width: 120px;
-  display: flex; flex-direction: column; align-items: center;
-}
-
-.shrine-roof {
-  width: 110px; height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 30px solid #c4952a;
-  position: relative;
-}
-
-.shrine-roof::after {
-  content: ''; position: absolute; top: 25px; left: 50%; transform: translateX(-50%);
-  width: 10px; height: 12px; background: #ffd700; border-radius: 50% 50% 0 0;
-}
-
-.shrine-roof-ganesha { border-bottom-color: #d4522a; }
-.shrine-roof-parvati { border-bottom-color: #d4a540; }
-.shrine-roof-murugan { border-bottom-color: #c4522a; }
-
-.shrine-body {
-  width: 100px; height: 80px;
-  background: linear-gradient(to bottom, #d4a540, #a07820);
-  border: 2px solid #6b4f10;
-  display: flex; align-items: center; justify-content: center;
-}
-
-.shrine-body-sanctum {
-  background: linear-gradient(to bottom, #1a0e00, #0a0500);
-  position: relative;
-  overflow: hidden;
-}
-
-.shrine-pillars {
-  width: 110px; height: 15px; background: #c4952a;
-  border: 1px solid #6b4f10;
-  display: flex; justify-content: space-between;
-  padding: 0 5px; align-items: flex-end;
-}
-
-.shrine-pillars .pillar { height: 14px; width: 6px; }
-
-.ganesha-shrine { left: 500px; top: 1700px; }
-.parvati-shrine { left: 1050px; top: 850px; }
-.murugan-shrine { left: 320px; top: 850px; }
-
-/* ===== Sanctum Lamps (inside shrines) ===== */
-.sanctum-lamp {
-  position: absolute;
-  width: 6px; height: 12px;
-  background: linear-gradient(to top, #8b6914, #c4952a);
-  bottom: 5px;
-  z-index: 5;
-}
-
-.sanctum-lamp::after {
-  content: '';
-  position: absolute;
-  top: -8px; left: -3px;
-  width: 12px; height: 12px;
-  background: radial-gradient(circle, #ff9900, #ff6600, transparent);
-  border-radius: 50%;
-  animation: sanctum-flicker 0.4s ease-in-out infinite alternate;
-}
-
-.sanctum-lamp-left { left: 8px; }
-.sanctum-lamp-right { right: 8px; }
-
-@keyframes sanctum-flicker {
-  0% { opacity: 0.7; transform: scale(0.9); }
-  100% { opacity: 1; transform: scale(1.1); }
-}
-
-/* ===== Deity Base Styles ===== */
-.deity {
-  transition: opacity 0.5s;
-  position: relative;
-}
-
-.deity.hidden { opacity: 0; }
-.deity.visible { opacity: 1; }
-
-.deity-halo {
-  position: absolute;
-  border-radius: 50%;
-  z-index: 0;
-  animation: halo-glow 2s ease-in-out infinite;
-}
-
-@keyframes halo-glow {
-  0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.15); }
-}
-
-.deity-pedestal {
-  width: 36px; height: 6px;
-  background: linear-gradient(to bottom, #222, #111);
-  border: 1px solid #333;
-  border-radius: 2px;
-  margin-top: 2px;
-}
-
-/* ===== Ganesha - Black Stone with Color Accents ===== */
-.ganesha {
-  display: flex; flex-direction: column; align-items: center;
-  position: relative;
-  width: 50px; height: 65px;
-  z-index: 2;
-}
-
-.deity-halo-ganesha {
-  width: 60px; height: 60px;
-  background: radial-gradient(circle, rgba(255,150,50,0.4), rgba(255,100,0,0.1), transparent);
-  top: 5px; left: 50%;
-}
-
-.ganesha-crown {
-  width: 18px; height: 8px;
-  background: linear-gradient(to bottom, #ffd700, #b8860b);
-  border-radius: 4px 4px 0 0;
-  border: 1px solid #8b6914;
-  z-index: 10;
-  position: relative;
-}
-
-.ganesha-crown::before {
-  content: '';
-  position: absolute; top: -4px; left: 50%; transform: translateX(-50%);
-  width: 6px; height: 6px;
-  background: #ff0000;
-  border-radius: 50%;
-  border: 1px solid #cc0000;
-}
-
-.ganesha-head {
-  width: 24px; height: 22px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #111);
-  border-radius: 50%;
-  border: 1px solid #333;
-  z-index: 5;
-  margin-top: -2px;
-  box-shadow: 0 0 8px rgba(255,150,50,0.2);
-}
-
-.ganesha-third-eye {
-  width: 4px; height: 3px;
-  background: #ff4444;
-  border-radius: 50%;
-  position: absolute;
-  top: 12px; left: 50%; transform: translateX(-50%);
-  z-index: 6;
-  box-shadow: 0 0 4px #ff4444;
-}
-
-.ganesha-trunk {
-  width: 5px; height: 16px;
-  background: linear-gradient(to bottom, #1a1a1a, #222);
-  border: 1px solid #333;
-  border-radius: 0 0 8px 3px;
-  margin-top: -4px;
-  margin-left: -10px;
-  transform: rotate(15deg);
-  z-index: 6;
-}
-
-.ganesha-tusk-left, .ganesha-tusk-right {
-  width: 3px; height: 6px;
-  background: #e8e8e8;
-  position: absolute;
-  top: 24px;
-  z-index: 7;
-  border-radius: 0 0 2px 2px;
-}
-
-.ganesha-tusk-left { left: 16px; transform: rotate(10deg); }
-.ganesha-tusk-right { right: 20px; transform: rotate(-10deg); }
-
-.ganesha-ear {
-  width: 16px; height: 18px;
-  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-  border-radius: 50%;
-  border: 1px solid #333;
-  position: absolute;
-  top: 8px; z-index: 3;
-}
-
-.ganesha-ear-left { left: 0; }
-.ganesha-ear-right { right: 0; }
-
-.ganesha-body-shape {
-  width: 30px; height: 22px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #111);
-  border-radius: 50%;
-  border: 1px solid #333;
-  margin-top: -8px;
-  z-index: 4;
-  box-shadow: 0 0 6px rgba(255,150,50,0.15);
-}
-
-.ganesha-belly {
-  width: 20px; height: 10px;
-  background: linear-gradient(to bottom, #222, #1a1a1a);
-  border-radius: 50%;
-  margin-top: -6px;
-  z-index: 5;
-  border: 1px solid #333;
-}
-
-.ganesha-arm {
-  width: 4px; height: 14px;
-  background: linear-gradient(to bottom, #1a1a1a, #222);
-  position: absolute;
-  border: 1px solid #333;
-  z-index: 4;
-}
-
-.ganesha-arm-left { left: 8px; top: 28px; transform: rotate(20deg); }
-.ganesha-arm-right { right: 8px; top: 28px; transform: rotate(-20deg); }
-.ganesha-arm-back-left { left: 5px; top: 24px; transform: rotate(40deg); height: 10px; }
-.ganesha-arm-back-right { right: 5px; top: 24px; transform: rotate(-40deg); height: 10px; }
-
-.ganesha-modak {
-  width: 6px; height: 6px;
-  background: radial-gradient(circle, #ffd700, #b8860b);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 18px; left: 8px;
-  z-index: 6;
-  box-shadow: 0 0 4px rgba(255,215,0,0.5);
-}
-
-.ganesha-leg {
-  width: 6px; height: 8px;
-  background: #1a1a1a;
-  border: 1px solid #333;
-  position: absolute;
-  bottom: 8px;
-}
-
-.ganesha-leg-left { left: 16px; }
-.ganesha-leg-right { right: 16px; }
-
-/* ===== Shiva Lingam - Black Stone ===== */
-.shiva-lingam {
-  display: flex; flex-direction: column; align-items: center;
-  position: relative;
-}
-
-.deity-halo-shiva {
-  width: 55px; height: 55px;
-  background: radial-gradient(circle, rgba(255,200,100,0.4), rgba(255,150,50,0.1), transparent);
-  top: -5px; left: 50%;
-}
-
-.lingam-naga {
-  width: 20px; height: 25px;
-  border: 2px solid #222;
-  border-bottom: none;
-  border-radius: 50% 50% 0 0;
-  position: absolute;
-  top: -8px;
-  z-index: 3;
-}
-
-.lingam-naga::before {
-  content: '';
-  position: absolute;
-  top: -3px; left: 50%; transform: translateX(-50%);
-  width: 8px; height: 5px;
-  background: #222;
-  border-radius: 50%;
-}
-
-.lingam-base {
-  width: 44px; height: 10px;
-  background: linear-gradient(to bottom, #1a1a1a, #111);
-  border-radius: 3px;
-  border: 1px solid #333;
-  z-index: 2;
-}
-
-.lingam-avudaiyar {
-  width: 36px; height: 8px;
-  background: linear-gradient(to bottom, #222, #111);
-  border: 1px solid #333;
-  margin-top: -2px;
-  z-index: 2;
-  position: relative;
-}
-
-.lingam-avudaiyar::before {
-  content: '';
-  position: absolute;
-  right: -4px; top: 2px;
-  width: 8px; height: 4px;
-  background: #222;
-  border-radius: 0 3px 3px 0;
-}
-
-.lingam-stone {
-  width: 18px; height: 30px;
-  background: linear-gradient(135deg, #0d0d0d, #2a2a2a, #111, #1a1a1a);
-  border-radius: 50% 50% 5px 5px;
-  border: 1px solid #333;
-  margin-top: -4px;
-  z-index: 2;
-  box-shadow: 0 0 10px rgba(255,200,100,0.2);
-}
-
-.lingam-bilva {
-  width: 6px; height: 5px;
-  background: #2d5a1e;
-  border-radius: 50% 50% 0 50%;
-  position: absolute;
-  top: 8px; left: 50%; transform: translateX(-50%);
-  z-index: 4;
-}
-
-.lingam-glow {
-  position: absolute;
-  width: 55px; height: 55px;
-  background: radial-gradient(circle, rgba(255,200,50,0.3), rgba(255,150,30,0.1), transparent);
-  border-radius: 50%;
-  top: -10px; left: 50%; transform: translateX(-50%);
-  animation: glow-pulse 2s ease-in-out infinite;
-  z-index: 1;
-}
-
-.deity-pedestal-shiva { width: 44px; margin-top: 0; }
-
-@keyframes glow-pulse {
-  0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
-  50% { opacity: 1; transform: translateX(-50%) scale(1.2); }
-}
-
-/* ===== Parvati - Black Stone ===== */
-.parvati {
-  display: flex; flex-direction: column; align-items: center;
-  position: relative;
-  width: 36px; height: 65px;
-  z-index: 2;
-}
-
-.deity-halo-parvati {
-  width: 50px; height: 50px;
-  background: radial-gradient(circle, rgba(255,100,200,0.3), rgba(255,50,150,0.1), transparent);
-  top: 0; left: 50%;
-}
-
-.parvati-crown {
-  width: 18px; height: 12px;
-  background: linear-gradient(to bottom, #ffd700, #b8860b);
-  border-radius: 6px 6px 0 0;
-  border: 1px solid #8b6914;
-  z-index: 10;
-  position: relative;
-}
-
-.parvati-crown::before {
-  content: '';
-  position: absolute; top: -3px; left: 50%; transform: translateX(-50%);
-  width: 4px; height: 5px;
-  background: #ff0000;
-  border-radius: 50% 50% 0 0;
-}
-
-.parvati-head {
-  width: 16px; height: 16px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #111);
-  border-radius: 50%;
-  border: 1px solid #333;
-  z-index: 5;
-  margin-top: -2px;
-  box-shadow: 0 0 6px rgba(255,100,200,0.2);
-}
-
-.parvati-earring {
-  width: 4px; height: 5px;
-  background: #ffd700;
-  border-radius: 50%;
-  position: absolute;
-  top: 18px;
-  z-index: 6;
-  box-shadow: 0 0 3px rgba(255,215,0,0.5);
-}
-
-.parvati-earring-left { left: 7px; }
-.parvati-earring-right { right: 7px; }
-
-.parvati-necklace {
-  width: 14px; height: 4px;
-  background: #ffd700;
-  border-radius: 0 0 50% 50%;
-  position: absolute;
-  top: 28px; left: 50%; transform: translateX(-50%);
-  z-index: 6;
-  box-shadow: 0 0 3px rgba(255,215,0,0.4);
-}
-
-.parvati-body-shape {
-  width: 20px; height: 28px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #111);
-  border-radius: 6px 6px 10px 10px;
-  border: 1px solid #333;
-  margin-top: -2px;
-  z-index: 4;
-  box-shadow: 0 0 6px rgba(255,100,200,0.15);
-}
-
-.parvati-arm {
-  width: 4px; height: 16px;
-  background: linear-gradient(to bottom, #1a1a1a, #222);
-  position: absolute;
-  border: 1px solid #333;
-  z-index: 3;
-}
-
-.parvati-arm-left { left: 5px; top: 26px; transform: rotate(15deg); }
-.parvati-arm-right { right: 5px; top: 26px; transform: rotate(-15deg); }
-
-.parvati-lotus {
-  width: 8px; height: 8px;
-  background: radial-gradient(circle, #ff69b4, #ff1493);
-  border-radius: 50%;
-  position: absolute;
-  right: 2px; top: 35px;
-  z-index: 5;
-  box-shadow: 0 0 5px rgba(255,105,180,0.5);
-}
-
-.parvati-sari {
-  width: 24px; height: 14px;
-  border-bottom: 2px solid rgba(255,0,100,0.3);
-  border-left: 1px solid rgba(255,0,100,0.2);
-  border-right: 1px solid rgba(255,0,100,0.2);
-  position: absolute;
-  bottom: 12px; left: 50%; transform: translateX(-50%);
-  z-index: 3;
-}
-
-/* ===== Murugan - Black Stone ===== */
-.murugan {
-  display: flex; flex-direction: column; align-items: center;
-  position: relative;
-  width: 60px; height: 70px;
-  z-index: 2;
-}
-
-.deity-halo-murugan {
-  width: 55px; height: 55px;
-  background: radial-gradient(circle, rgba(255,80,0,0.3), rgba(255,50,0,0.1), transparent);
-  top: 0; left: 50%;
-}
-
-.murugan-crown {
-  width: 14px; height: 10px;
-  background: linear-gradient(to bottom, #ffd700, #b8860b);
-  border-radius: 4px 4px 0 0;
-  border: 1px solid #8b6914;
-  z-index: 10;
-}
-
-.murugan-head {
-  width: 14px; height: 14px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #111);
-  border-radius: 50%;
-  border: 1px solid #333;
-  z-index: 5;
-  margin-top: -2px;
-  box-shadow: 0 0 6px rgba(255,80,0,0.2);
-}
-
-.murugan-body-shape {
-  width: 16px; height: 22px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #111);
-  border-radius: 4px;
-  border: 1px solid #333;
-  margin-top: -2px;
-  z-index: 4;
-  box-shadow: 0 0 6px rgba(255,80,0,0.15);
-}
-
-.murugan-arm {
-  width: 4px; height: 14px;
-  background: linear-gradient(to bottom, #1a1a1a, #222);
-  position: absolute;
-  border: 1px solid #333;
-  z-index: 3;
-}
-
-.murugan-arm-left { left: 17px; top: 18px; transform: rotate(25deg); }
-.murugan-arm-right { right: 17px; top: 18px; transform: rotate(-25deg); }
-
-.murugan-vel {
-  position: absolute;
-  right: 12px; top: 2px;
-  width: 3px; height: 42px;
-  background: linear-gradient(to bottom, #ddd, #999);
-  border: 1px solid #888;
-  z-index: 6;
-}
-
-.murugan-vel::before {
-  content: '';
-  position: absolute;
-  top: -8px; left: -5px;
-  width: 0; height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-bottom: 12px solid #ddd;
-  filter: drop-shadow(0 0 3px rgba(255,255,255,0.3));
-}
-
-.murugan-leg {
-  width: 5px; height: 10px;
-  background: #1a1a1a;
-  border: 1px solid #333;
-  position: absolute;
-  bottom: 14px;
-}
-
-.murugan-leg-left { left: 22px; }
-.murugan-leg-right { right: 22px; }
-
-/* Peacock */
-.peacock {
-  position: absolute;
-  bottom: 2px; left: 0px;
-  z-index: 3;
-}
-
-.peacock-body {
-  width: 14px; height: 12px;
-  background: linear-gradient(135deg, #006699, #004466);
-  border-radius: 50%;
-  border: 1px solid #003355;
-}
-
-.peacock-neck {
-  width: 3px; height: 8px;
-  background: #005588;
-  margin-top: -6px; margin-left: 2px;
-}
-
-.peacock-head {
-  width: 7px; height: 7px;
-  background: #006699;
-  border-radius: 50%;
-  margin-top: -4px; margin-left: -1px;
-  border: 1px solid #004466;
-}
-
-.peacock-crest {
-  width: 2px; height: 5px;
-  background: #00aaff;
-  border-radius: 2px;
-  margin-top: -8px; margin-left: 3px;
-}
-
-.peacock-tail {
-  display: flex; gap: 1px;
-  margin-top: -18px; margin-left: 8px;
-  transform: rotate(-10deg);
-}
-
-.peacock-feather {
-  width: 7px; height: 12px;
-  background: radial-gradient(circle at 50% 30%, #00ff66, #0088ff, #004488);
-  border-radius: 50%;
-  border: 1px solid #003366;
-  box-shadow: 0 0 2px rgba(0,255,100,0.3);
-}
+.main-temple{left:870px;top:1350px;width:220px;display:flex;flex-direction:column;align-items:center;}
+.temple-vimana{display:flex;flex-direction:column;align-items:center;}
+.v-tier{background:linear-gradient(to top,#8b6914,#c4952a);border:1px solid #6b4f10;}
+.v1{width:110px;height:22px;}.v2{width:90px;height:18px;}.v3{width:70px;height:15px;}
+.v-kalash{width:16px;height:20px;background:#ffd700;border-radius:50% 50% 30% 30%;border:1px solid #c4952a;}
+.temple-body{width:180px;height:110px;background:linear-gradient(to bottom,#d4a540,#8b6914);border:3px solid #6b4f10;display:flex;align-items:center;justify-content:center;position:relative;}
+.garbhagriha{width:90px;height:80px;background:#0a0500;border:2px solid #4a3520;border-radius:5px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.temple-mandapa{width:200px;height:40px;background:linear-gradient(to bottom,#c4952a,#a07820);border:2px solid #6b4f10;display:flex;justify-content:space-around;align-items:flex-end;padding:0 10px;}
+.pillar{width:8px;height:35px;background:linear-gradient(to right,#8b6914,#c4952a,#8b6914);border:1px solid #6b4f10;}
+.temple-steps{width:130px;height:15px;background:repeating-linear-gradient(to bottom,#c4a77d 0px,#c4a77d 4px,#a08060 4px,#a08060 5px);border:1px solid #8b7355;}
+
+/* ===== Nandi & Garuda ===== */
+.nandi-fig,.garuda-fig{width:40px;height:22px;background:linear-gradient(135deg,#222,#111);border-radius:10px 10px 4px 4px;border:1px solid #333;}
+.nandi-plat,.garuda-plat{width:50px;height:8px;background:#888;border:1px solid #666;margin-top:2px;}
+.garuda-fig{border-radius:50%;width:30px;height:25px;}
+
+/* ===== Idol Figures (small, in-shrine) ===== */
+.deity{transition:opacity .5s;position:relative;z-index:2;}
+.deity.hidden{opacity:0;}.deity.visible{opacity:1;}
+
+/* All idols share black stone base look */
+[class^="idol-"]{position:relative;display:flex;flex-direction:column;align-items:center;}
+
+/* Generic idol body */
+.idol-head{width:16px;height:16px;background:linear-gradient(135deg,#0d0d0d,#222,#111);border-radius:50%;border:1px solid #333;box-shadow:0 0 6px rgba(255,180,50,0.15);}
+.idol-body{width:20px;height:24px;background:linear-gradient(135deg,#0d0d0d,#1a1a1a,#111);border-radius:4px;border:1px solid #333;margin-top:-3px;box-shadow:0 0 5px rgba(255,180,50,0.1);}
+.idol-crown{width:14px;height:10px;background:linear-gradient(to bottom,#ffd700,#b8860b);border-radius:4px 4px 0 0;border:1px solid #8b6914;}
+.idol-halo{position:absolute;width:50px;height:50px;background:radial-gradient(circle,rgba(255,180,50,0.3),transparent);border-radius:50%;top:-5px;left:50%;transform:translateX(-50%);animation:hglow 2s ease-in-out infinite;}
+@keyframes hglow{0%,100%{opacity:.4;transform:translateX(-50%) scale(1);}50%{opacity:.8;transform:translateX(-50%) scale(1.15);}}
+.idol-pedestal{width:30px;height:5px;background:linear-gradient(to bottom,#222,#111);border:1px solid #333;border-radius:2px;margin-top:2px;}
+
+/* Each god uses ::before and ::after for distinctive features */
+.idol-ganesha::before{content:'';position:absolute;width:50px;height:50px;background:radial-gradient(circle,rgba(255,150,50,0.3),transparent);border-radius:50%;top:-5px;left:50%;transform:translateX(-50%);animation:hglow 2s ease-in-out infinite;}
+.idol-ganesha::after{content:'';display:block;width:16px;height:16px;background:linear-gradient(135deg,#0d0d0d,#222);border-radius:50%;border:1px solid #333;margin:0 auto;}
+.idol-ganesha{width:40px;height:55px;background:none;display:flex;flex-direction:column;align-items:center;gap:0;}
+.idol-ganesha .g-ears{position:absolute;top:10px;width:38px;display:flex;justify-content:space-between;}
+.idol-ganesha .g-ear{width:12px;height:14px;background:#111;border-radius:50%;border:1px solid #333;}
+
+.idol-shiva{width:35px;height:50px;}
+.idol-shiva::before{content:'';display:block;width:30px;height:8px;background:linear-gradient(to bottom,#111,#0a0a0a);border:1px solid #333;border-radius:2px;margin:12px auto 0;}
+.idol-shiva::after{content:'';display:block;width:14px;height:24px;background:linear-gradient(135deg,#0a0a0a,#222,#0d0d0d);border-radius:50% 50% 3px 3px;border:1px solid #333;margin:-3px auto 0;box-shadow:0 0 10px rgba(255,200,80,0.2);}
+
+.idol-venkateswara,.idol-rama,.idol-krishna,.idol-hanuman,.idol-parvati,.idol-murugan,.idol-durga,.idol-lakshmi,.idol-saraswati,.idol-ayyappa,.idol-navagraha{
+  width:35px;height:55px;display:flex;flex-direction:column;align-items:center;}
+
+/* Venkateswara - tall crown, namam */
+.idol-venkateswara::before{content:'';display:block;width:12px;height:14px;background:linear-gradient(to bottom,#ffd700,#b8860b);border-radius:3px 3px 0 0;border:1px solid #8b6914;}
+.idol-venkateswara::after{content:'';display:block;width:14px;height:14px;background:linear-gradient(135deg,#0d0d0d,#1a1a1a);border-radius:50%;border:1px solid #333;margin-top:-2px;box-shadow:0 0 8px rgba(255,215,0,0.15);}
+
+/* Rama - bow shape */
+.idol-rama::before{content:'';display:block;width:12px;height:8px;background:linear-gradient(to bottom,#ffd700,#b8860b);border-radius:4px 4px 0 0;border:1px solid #8b6914;}
+.idol-rama::after{content:'';display:block;width:14px;height:14px;background:linear-gradient(135deg,#0d0d0d,#1a1a1a);border-radius:50%;border:1px solid #333;margin-top:-2px;}
+
+/* Krishna - peacock feather crown */
+.idol-krishna::before{content:'';display:block;width:10px;height:12px;background:linear-gradient(to top,#ffd700,#00aa44);border-radius:50% 50% 0 0;border:1px solid #006622;}
+.idol-krishna::after{content:'';display:block;width:14px;height:14px;background:linear-gradient(135deg,#0d0d0d,#222);border-radius:50%;border:1px solid #333;margin-top:-3px;box-shadow:0 0 8px rgba(0,150,255,0.15);}
+
+/* Hanuman - larger, orangeish halo */
+.idol-hanuman::before{content:'';position:absolute;width:50px;height:50px;background:radial-gradient(circle,rgba(255,100,0,0.3),transparent);border-radius:50%;top:-5px;left:50%;transform:translateX(-50%);animation:hglow 2s ease-in-out infinite;}
+.idol-hanuman::after{content:'';display:block;width:16px;height:16px;background:linear-gradient(135deg,#0d0d0d,#222);border-radius:50%;border:1px solid #333;margin:0 auto;}
+
+.idol-parvati::before{content:'';display:block;width:14px;height:10px;background:linear-gradient(to bottom,#ffd700,#b8860b);border-radius:5px 5px 0 0;border:1px solid #8b6914;}
+.idol-parvati::after{content:'';display:block;width:14px;height:14px;background:linear-gradient(135deg,#0d0d0d,#222);border-radius:50%;border:1px solid #333;margin-top:-2px;box-shadow:0 0 6px rgba(255,100,200,0.15);}
+
+.idol-murugan::before{content:'';display:block;width:10px;height:8px;background:linear-gradient(to bottom,#ffd700,#b8860b);border-radius:3px 3px 0 0;border:1px solid #8b6914;}
+.idol-murugan::after{content:'';display:block;width:12px;height:12px;background:linear-gradient(135deg,#0d0d0d,#222);border-radius:50%;border:1px solid #333;margin-top:-2px;box-shadow:0 0 6px rgba(255,80,0,0.15);}
+
+.idol-durga::before{content:'';position:absolute;width:50px;height:50px;background:radial-gradient(circle,rgba(255,50,50,0.25),transparent);border-radius:50%;top:-5px;left:50%;transform:translateX(-50%);animation:hglow 2s ease-in-out infinite;}
+.idol-durga::after{content:'';display:block;width:14px;height:14px;background:linear-gradient(135deg,#0d0d0d,#222);border-radius:50%;border:1px solid #333;margin:0 auto;box-shadow:0 0 6px rgba(255,50,50,0.15);}
+
+.idol-lakshmi::before{content:'';display:block;width:14px;height:10px;background:linear-gradient(to bottom,#ffd700,#b8860b);border-radius:5px 5px 0 0;border:1px solid #8b6914;}
+.idol-lakshmi::after{content:'';display:block;width:14px;height:14px;background:linear-gradient(135deg,#0d0d0d,#222);border-radius:50%;border:1px solid #333;margin-top:-2px;box-shadow:0 0 8px rgba(255,215,0,0.2);}
+
+.idol-saraswati::before{content:'';display:block;width:12px;height:8px;background:linear-gradient(to bottom,#fff,#ddd);border-radius:4px 4px 0 0;border:1px solid #bbb;}
+.idol-saraswati::after{content:'';display:block;width:14px;height:14px;background:linear-gradient(135deg,#0d0d0d,#222);border-radius:50%;border:1px solid #333;margin-top:-2px;box-shadow:0 0 6px rgba(255,255,255,0.15);}
+
+.idol-ayyappa::before{content:'';display:block;width:10px;height:8px;background:linear-gradient(to bottom,#ffd700,#228833);border-radius:3px 3px 0 0;border:1px solid #116622;}
+.idol-ayyappa::after{content:'';display:block;width:14px;height:14px;background:linear-gradient(135deg,#0d0d0d,#222);border-radius:50%;border:1px solid #333;margin-top:-2px;}
+
+.idol-navagraha{width:60px;height:40px;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:3px;}
+.idol-navagraha::before{content:'';display:block;width:100%;height:0;}
+.idol-navagraha::after{content:'';display:none;}
+
+/* Idol body parts added via inner divs in JS darshan */
 
 /* ===== Temple Pond ===== */
-.temple-pond {
-  position: absolute;
-  left: 250px; top: 1350px;
-  width: 200px; height: 160px;
-}
-
-.pond-water {
-  width: 100%; height: 100%;
-  background: linear-gradient(135deg, #1e90ff, #4169e1, #1e90ff);
-  border: 4px solid #8b7355;
-  animation: water-shimmer 3s ease-in-out infinite;
-}
-
-@keyframes water-shimmer {
-  0%, 100% { background: linear-gradient(135deg, #1e90ff, #4169e1, #1e90ff); }
-  50% { background: linear-gradient(135deg, #4169e1, #1e90ff, #4169e1); }
-}
-
-.pond-steps {
-  position: absolute;
-  background: repeating-linear-gradient(to bottom, #c4a77d 0px, #c4a77d 5px, #a08060 5px, #a08060 6px);
-}
-
-.pond-steps-left { left: -15px; top: 0; width: 15px; height: 100%; }
-.pond-steps-right { right: -15px; top: 0; width: 15px; height: 100%; }
-.pond-steps-top { top: -15px; left: 0; width: 100%; height: 15px; }
-.pond-steps-bottom { bottom: -15px; left: 0; width: 100%; height: 15px; }
-
-.pond-label {
-  text-align: center; color: #fff; font-size: 11px; font-weight: bold;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.8); margin-top: 20px;
-}
+.temple-pond{position:absolute;left:100px;top:1500px;width:200px;height:160px;}
+.pond-water{width:100%;height:100%;background:linear-gradient(135deg,#1e90ff,#4169e1,#1e90ff);border:4px solid #8b7355;animation:wshim 3s ease-in-out infinite;}
+@keyframes wshim{0%,100%{background:linear-gradient(135deg,#1e90ff,#4169e1,#1e90ff);}50%{background:linear-gradient(135deg,#4169e1,#1e90ff,#4169e1);}}
+.pond-steps{position:absolute;background:repeating-linear-gradient(to bottom,#c4a77d 0,#c4a77d 5px,#a08060 5px,#a08060 6px);}
+.ps-l{left:-15px;top:0;width:15px;height:100%;}.ps-r{right:-15px;top:0;width:15px;height:100%;}
+.ps-t{top:-15px;left:0;width:100%;height:15px;}.ps-b{bottom:-15px;left:0;width:100%;height:15px;}
+.pond-label{text-align:center;color:#fff;font-size:11px;font-weight:bold;text-shadow:1px 1px 3px rgba(0,0,0,0.8);margin-top:20px;}
 
 /* ===== Temple Lamps ===== */
-.temple-lamp {
-  position: absolute;
-  display: flex; flex-direction: column; align-items: center;
-}
+.t-lamp{position:absolute;width:10px;height:40px;}
+.t-lamp::before{content:'';position:absolute;bottom:0;left:2px;width:6px;height:28px;background:linear-gradient(to right,#8b6914,#c4952a,#8b6914);border:1px solid #6b4f10;}
+.t-lamp::after{content:'';position:absolute;top:0;left:-2px;width:14px;height:14px;background:radial-gradient(ellipse at bottom,#ff6600,#ff9900,#ffcc00,transparent);border-radius:50% 50% 20% 20%;animation:tflame .5s ease-in-out infinite alternate;}
+@keyframes tflame{0%{transform:scaleY(1) scaleX(1);opacity:.85;}100%{transform:scaleY(1.2) scaleX(.9);opacity:1;}}
 
-.lamp-pillar {
-  width: 6px; height: 30px;
-  background: linear-gradient(to right, #8b6914, #c4952a, #8b6914);
-  border: 1px solid #6b4f10;
-}
-
-.lamp-cup {
-  width: 18px; height: 8px;
-  background: #8b6914;
-  border-radius: 0 0 50% 50%;
-  margin-top: -1px;
-}
-
-.lamp-flame {
-  width: 10px; height: 16px;
-  background: radial-gradient(ellipse at bottom, #ff6600, #ff9900, transparent);
-  border-radius: 50% 50% 20% 20%;
-  margin-top: -10px;
-  animation: flame-flicker 0.5s ease-in-out infinite alternate;
-  position: relative;
-}
-
-.flame-inner {
-  width: 5px; height: 10px;
-  background: radial-gradient(ellipse at bottom, #ffff00, #ff9900, transparent);
-  border-radius: 50% 50% 20% 20%;
-  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-  animation: flame-inner-flicker 0.3s ease-in-out infinite alternate;
-}
-
-@keyframes flame-flicker {
-  0% { transform: scaleY(1) scaleX(1); opacity: 0.9; }
-  100% { transform: scaleY(1.2) scaleX(0.9); opacity: 1; }
-}
-
-@keyframes flame-inner-flicker {
-  0% { transform: translateX(-50%) scaleY(0.9); }
-  100% { transform: translateX(-50%) scaleY(1.1) rotate(3deg); }
-}
+/* Night mode: lamps glow bigger */
+.night-mode .t-lamp::after{width:18px;height:18px;top:-2px;left:-4px;box-shadow:0 0 15px rgba(255,150,50,0.5),0 0 30px rgba(255,100,0,0.2);}
+.night-mode .s-lamp::after{box-shadow:0 0 10px rgba(255,150,50,0.5),0 0 20px rgba(255,100,0,0.2);}
 
 /* ===== Trees ===== */
-.tree {
-  position: absolute;
-  display: flex; flex-direction: column; align-items: center;
-}
-
-.tree-trunk {
-  width: 10px; height: 25px;
-  background: linear-gradient(to right, #5c3317, #8b4513, #5c3317);
-  border: 1px solid #3c1a07; order: 2;
-}
-
-.tree-canopy {
-  width: 50px; height: 50px;
-  background: radial-gradient(circle at 40% 40%, #2d8b2d, #1a5c1a, #0d3d0d);
-  border-radius: 50%;
-  border: 1px solid #0d3d0d; order: 1;
-  box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
-}
+.tree{position:absolute;width:50px;height:70px;}
+.tree::before{content:'';position:absolute;bottom:0;left:20px;width:10px;height:25px;background:linear-gradient(to right,#5c3317,#8b4513,#5c3317);border:1px solid #3c1a07;}
+.tree::after{content:'';position:absolute;top:0;left:0;width:50px;height:50px;background:radial-gradient(circle at 40% 40%,#2d8b2d,#1a5c1a,#0d3d0d);border-radius:50%;border:1px solid #0d3d0d;box-shadow:2px 3px 5px rgba(0,0,0,0.3);}
+.night-mode .tree::after{background:radial-gradient(circle at 40% 40%,#1a5c1a,#0d3d0d,#061f06);}
 
 /* ===== Player ===== */
-#player {
-  position: absolute;
-  width: 20px; height: 20px;
-  z-index: 100;
-  display: flex; flex-direction: column; align-items: center;
-}
-
-.player-head {
-  width: 12px; height: 12px;
-  background: #ffcc99;
-  border-radius: 50%;
-  border: 2px solid #cc9966; order: 1;
-}
-
-.player-body {
-  width: 16px; height: 14px;
-  background: #ff6633;
-  border-radius: 4px;
-  border: 2px solid #cc4400;
-  margin-top: -3px; order: 2;
-}
+#player{position:absolute;width:20px;height:26px;z-index:100;display:flex;flex-direction:column;align-items:center;}
+.player-head{width:12px;height:12px;background:#ffcc99;border-radius:50%;border:2px solid #cc9966;z-index:1;}
+.player-body{width:16px;height:14px;background:#ff6633;border-radius:4px;border:2px solid #cc4400;margin-top:-3px;}
 
 /* ===== HUD ===== */
-#hud {
-  position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
-  text-align: center; z-index: 200; pointer-events: none;
-}
-
-#location-name {
-  background: rgba(0,0,0,0.7);
-  color: #ffd700;
-  padding: 8px 20px;
-  border-radius: 5px;
-  font-size: 16px; font-weight: bold;
-  border: 1px solid #c4952a;
-  min-width: 200px;
-}
-
-#instructions {
-  color: rgba(255,255,255,0.6);
-  font-size: 11px; margin-top: 5px;
-}
-
-/* ===== Darshan Overlay - Full Screen Low Angle View ===== */
-#darshan-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.92);
-  z-index: 300;
-  display: flex; align-items: center; justify-content: center;
-  transition: opacity 0.6s;
-  cursor: pointer;
-}
-
-#darshan-overlay.hidden {
-  opacity: 0; pointer-events: none;
-}
-
-#darshan-overlay.visible {
-  opacity: 1;
-}
-
-#darshan-panel {
-  display: flex; flex-direction: column; align-items: center;
-  max-width: 400px; width: 90%;
-}
-
-/* Sanctum chamber */
-.darshan-sanctum {
-  width: 320px; height: 380px;
-  background: linear-gradient(to top, #0a0500, #120800, #0a0500);
-  border: 3px solid #4a3520;
-  border-radius: 8px 8px 0 0;
-  position: relative;
-  display: flex; align-items: flex-end; justify-content: center;
-  padding-bottom: 20px;
-  overflow: hidden;
-  perspective: 600px;
-}
-
-/* Stone arch */
-.darshan-arch {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 60px;
-  border-bottom: 4px solid #8b6914;
-  background: linear-gradient(to bottom, #2a1a08, #1a0e00);
-}
-
-.darshan-arch::before {
-  content: '';
-  position: absolute;
-  top: 8px; left: 50%; transform: translateX(-50%);
-  width: 200px; height: 40px;
-  border: 3px solid #8b6914;
-  border-bottom: none;
-  border-radius: 100px 100px 0 0;
-}
-
-.darshan-arch::after {
-  content: '';
-  position: absolute;
-  top: 3px; left: 50%; transform: translateX(-50%);
-  width: 14px; height: 14px;
-  background: #ffd700;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255,215,0,0.5);
-}
-
-/* Darshan lamps */
-.darshan-lamp {
-  position: absolute;
-  bottom: 40px;
-  z-index: 10;
-  display: flex; flex-direction: column; align-items: center;
-}
-
-.darshan-lamp-left { left: 25px; }
-.darshan-lamp-right { right: 25px; }
-
-.darshan-lamp-body {
-  width: 12px; height: 25px;
-  background: linear-gradient(to right, #8b6914, #c4952a, #8b6914);
-  border: 1px solid #6b4f10;
-  border-radius: 0 0 3px 3px;
-}
-
-.darshan-lamp-flame {
-  width: 16px; height: 24px;
-  background: radial-gradient(ellipse at bottom, #ff6600, #ff9900, #ffcc00, transparent);
-  border-radius: 50% 50% 20% 20%;
-  margin-bottom: 2px;
-  animation: darshan-flame 0.6s ease-in-out infinite alternate;
-  position: relative;
-}
-
-.darshan-flame-inner {
-  width: 8px; height: 14px;
-  background: radial-gradient(ellipse at bottom, #fff, #ffff00, transparent);
-  border-radius: 50% 50% 20% 20%;
-  position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
-  animation: flame-inner-flicker 0.3s ease-in-out infinite alternate;
-}
-
-@keyframes darshan-flame {
-  0% { transform: scaleY(1) scaleX(1); opacity: 0.85; }
-  100% { transform: scaleY(1.15) scaleX(0.92); opacity: 1; }
-}
-
-/* Ambient light on sanctum walls from lamps */
-.darshan-sanctum::before {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 120px; height: 200px;
-  background: radial-gradient(ellipse at bottom left, rgba(255,150,50,0.15), transparent);
-  z-index: 1;
-}
-
-.darshan-sanctum::after {
-  content: '';
-  position: absolute;
-  bottom: 0; right: 0;
-  width: 120px; height: 200px;
-  background: radial-gradient(ellipse at bottom right, rgba(255,150,50,0.15), transparent);
-  z-index: 1;
-}
-
-/* Flowers at the base */
-.darshan-flowers {
-  position: absolute;
-  bottom: 5px; left: 50%; transform: translateX(-50%);
-  width: 160px; height: 12px;
-  display: flex; justify-content: center; gap: 3px;
-  z-index: 5;
-}
-
-.darshan-flowers::before {
-  content: '';
-  width: 100%; height: 100%;
-  background: repeating-linear-gradient(
-    90deg,
-    #ff4444 0px, #ff4444 5px,
-    #ffaa00 5px, #ffaa00 10px,
-    #ff6600 10px, #ff6600 15px,
-    #ff4444 15px, #ff4444 20px
-  );
-  border-radius: 3px;
-  opacity: 0.7;
-}
-
-/* Deity container in darshan */
-#darshan-deity-container {
-  z-index: 5;
-  display: flex; align-items: flex-end; justify-content: center;
-  transform: perspective(400px) rotateX(-5deg);
-  transform-origin: bottom center;
-}
-
-/* Mantra text */
-#darshan-mantra {
-  color: #ffd700;
-  font-size: 22px;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
-  text-shadow: 0 0 10px rgba(255,215,0,0.5);
-  font-style: italic;
-  letter-spacing: 2px;
-}
-
-#darshan-close {
-  color: rgba(255,255,255,0.4);
-  font-size: 12px;
-  margin-top: 15px;
-}
-
-/* ===== Venkateswara Shrine ===== */
-.venkateswara-shrine {
-  left: 1120px; top: 1100px; width: 160px;
-}
-
-.shrine-roof-venkateswara {
-  border-bottom-color: #ffd700;
-  width: 150px;
-}
-
-.venkateswara-gopuram-mini {
-  position: absolute;
-  top: 10px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center;
-}
-
-.mini-tier {
-  background: linear-gradient(to top, #c4952a, #ffd700);
-  border: 1px solid #8b6914;
-}
-
-.mini-tier:first-child { width: 30px; height: 8px; }
-.mini-tier:nth-child(2) { width: 22px; height: 6px; }
-
-.mini-kalash {
-  width: 8px; height: 8px;
-  background: #ffd700;
-  border-radius: 50% 50% 30% 30%;
-  border: 1px solid #c4952a;
-}
-
-.shrine-body-venkateswara {
-  width: 140px; height: 100px;
-}
-
-.shrine-pillars-venkateswara {
-  width: 150px;
-  justify-content: space-around;
-}
-
-/* Venkateswara small deity in shrine */
-.venkateswara {
-  display: flex; flex-direction: column; align-items: center;
-  position: relative;
-  width: 50px; height: 70px;
-  z-index: 2;
-}
-
-.deity-halo-venkateswara {
-  width: 65px; height: 65px;
-  background: radial-gradient(circle, rgba(255,215,0,0.35), rgba(255,180,0,0.1), transparent);
-  top: -5px; left: 50%;
-}
-
-.venkat-kiritam {
-  width: 16px; height: 18px;
-  background: linear-gradient(to bottom, #ffd700, #daa520);
-  border: 1px solid #b8860b;
-  border-radius: 3px 3px 0 0;
-  z-index: 10;
-  position: relative;
-}
-
-.venkat-kiritam::before {
-  content: '';
-  position: absolute; top: -5px; left: 50%; transform: translateX(-50%);
-  width: 8px; height: 7px;
-  background: #ffd700;
-  border-radius: 50% 50% 0 0;
-  border: 1px solid #b8860b;
-}
-
-.venkat-kiritam::after {
-  content: '';
-  position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
-  width: 4px; height: 5px;
-  background: #ff0000;
-  border-radius: 50%;
-  box-shadow: 0 0 3px rgba(255,0,0,0.5);
-}
-
-.venkat-head {
-  width: 18px; height: 18px;
-  background: linear-gradient(135deg, #0d0d0d, #1a1a1a, #111);
-  border-radius: 50%;
-  border: 1px solid #333;
-  z-index: 5;
-  margin-top: -3px;
-  box-shadow: 0 0 8px rgba(255,215,0,0.2);
-}
-
-.venkat-namam {
-  width: 6px; height: 8px;
-  position: absolute;
-  top: 18px; left: 50%; transform: translateX(-50%);
-  z-index: 7;
-  border-left: 2px solid #fff;
-  border-right: 2px solid #fff;
-  background: #ff0000;
-  border-radius: 0 0 2px 2px;
-}
-
-.venkat-earring {
-  width: 4px; height: 5px;
-  background: #ffd700;
-  border-radius: 50%;
-  position: absolute;
-  top: 24px; z-index: 6;
-  box-shadow: 0 0 3px rgba(255,215,0,0.5);
-}
-
-.venkat-earring-left { left: 12px; }
-.venkat-earring-right { right: 12px; }
-
-.venkat-body-shape {
-  width: 22px; height: 26px;
-  background: linear-gradient(135deg, #0d0d0d, #1a1a1a, #111);
-  border-radius: 5px;
-  border: 1px solid #333;
-  margin-top: -2px;
-  z-index: 4;
-  box-shadow: 0 0 6px rgba(255,215,0,0.1);
-}
-
-.venkat-necklace {
-  width: 16px; height: 4px;
-  background: #ffd700;
-  border-radius: 0 0 50% 50%;
-  position: absolute;
-  top: 34px; left: 50%; transform: translateX(-50%);
-  z-index: 6;
-  box-shadow: 0 0 3px rgba(255,215,0,0.4);
-}
-
-.venkat-arm {
-  width: 4px; height: 16px;
-  background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
-  position: absolute;
-  border: 1px solid #333;
-  z-index: 3;
-}
-
-.venkat-arm-left { left: 10px; top: 32px; transform: rotate(15deg); }
-.venkat-arm-right { right: 10px; top: 32px; transform: rotate(-15deg); }
-
-.venkat-shankha {
-  width: 5px; height: 6px;
-  background: #e8e8e8;
-  border-radius: 50%;
-  position: absolute;
-  left: 7px; top: 42px;
-  z-index: 5;
-  box-shadow: 0 0 3px rgba(255,255,255,0.3);
-}
-
-.venkat-chakra {
-  width: 6px; height: 6px;
-  background: #ffd700;
-  border-radius: 50%;
-  border: 1px solid #b8860b;
-  position: absolute;
-  right: 7px; top: 42px;
-  z-index: 5;
-  box-shadow: 0 0 3px rgba(255,215,0,0.5);
-}
-
-.venkat-pitambara {
-  width: 26px; height: 10px;
-  border-bottom: 2px solid rgba(255,215,0,0.3);
-  border-left: 1px solid rgba(255,215,0,0.15);
-  border-right: 1px solid rgba(255,215,0,0.15);
-  position: absolute;
-  bottom: 14px; left: 50%; transform: translateX(-50%);
-  z-index: 3;
-}
-
-.venkat-leg {
-  width: 5px; height: 10px;
-  background: #0d0d0d;
-  border: 1px solid #333;
-  position: absolute;
-  bottom: 8px;
-}
-
-.venkat-leg-left { left: 18px; }
-.venkat-leg-right { right: 18px; }
-
-/* ===== Garuda Statue ===== */
-.garuda-statue {
-  left: 1175px; top: 1280px; width: 50px;
-  display: flex; flex-direction: column; align-items: center;
-}
-
-.garuda-platform {
-  width: 50px; height: 10px;
-  background: #999; border: 1px solid #777;
-  order: 3;
-}
-
-.garuda-body {
-  width: 24px; height: 20px;
-  background: linear-gradient(to bottom, #222, #111);
-  border-radius: 8px 8px 4px 4px;
-  border: 1px solid #333;
-  z-index: 2;
-}
-
-.garuda-head {
-  width: 12px; height: 12px;
-  background: #1a1a1a;
-  border-radius: 50%;
-  border: 1px solid #333;
-  margin-top: -4px;
-  z-index: 3;
-}
-
-.garuda-beak {
-  width: 6px; height: 4px;
-  background: #daa520;
-  border-radius: 0 3px 3px 0;
-  margin-top: -8px;
-  margin-left: 8px;
-  z-index: 4;
-}
-
-.garuda-wing {
-  width: 16px; height: 12px;
-  background: linear-gradient(to bottom, #222, #111);
-  position: absolute;
-  top: 8px;
-  border: 1px solid #333;
-  border-radius: 50%;
-}
-
-.garuda-wing-left { left: 0; transform: rotate(-15deg); }
-.garuda-wing-right { right: 0; transform: rotate(15deg); }
-
-/* ===== Darshan Deity Styles (large versions) ===== */
-
-/* Large Ganesha in darshan */
-.darshan-ganesha {
-  display: flex; flex-direction: column; align-items: center;
-  position: relative;
-  width: 160px; height: 220px;
-}
-
-.darshan-ganesha .d-halo {
-  position: absolute;
-  width: 200px; height: 200px;
-  background: radial-gradient(circle, rgba(255,150,50,0.25), rgba(255,100,0,0.08), transparent);
-  border-radius: 50%;
-  top: -10px; left: 50%; transform: translateX(-50%);
-  animation: halo-glow 2s ease-in-out infinite;
-}
-
-.darshan-ganesha .d-crown {
-  width: 55px; height: 28px;
-  background: linear-gradient(to bottom, #ffd700, #daa520, #b8860b);
-  border-radius: 12px 12px 0 0;
-  border: 2px solid #8b6914;
-  z-index: 10;
-  position: relative;
-}
-
-.darshan-ganesha .d-crown::before {
-  content: '';
-  position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
-  width: 14px; height: 14px;
-  background: radial-gradient(circle, #ff3333, #cc0000);
-  border-radius: 50%;
-  border: 1px solid #990000;
-  box-shadow: 0 0 8px rgba(255,0,0,0.5);
-}
-
-.darshan-ganesha .d-crown::after {
-  content: '';
-  position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
-  width: 40px; height: 3px;
-  background: linear-gradient(90deg, transparent, #ffd700, #fff, #ffd700, transparent);
-}
-
-.darshan-ganesha .d-ear {
-  position: absolute;
-  width: 45px; height: 52px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #111);
-  border-radius: 50%;
-  border: 2px solid #333;
-  top: 28px; z-index: 3;
-}
-
-.darshan-ganesha .d-ear-left { left: 12px; }
-.darshan-ganesha .d-ear-right { right: 12px; }
-
-.darshan-ganesha .d-head {
-  width: 70px; height: 65px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #181818, #222);
-  border-radius: 50%;
-  border: 2px solid #333;
-  z-index: 5;
-  margin-top: -4px;
-  box-shadow: 0 0 15px rgba(255,150,50,0.15);
-}
-
-.darshan-ganesha .d-third-eye {
-  width: 10px; height: 6px;
-  background: radial-gradient(circle, #ff6666, #ff0000);
-  border-radius: 50%;
-  position: absolute;
-  top: 44px; left: 50%; transform: translateX(-50%);
-  z-index: 7;
-  box-shadow: 0 0 8px rgba(255,0,0,0.6);
-}
-
-.darshan-ganesha .d-eyes {
-  position: absolute;
-  top: 52px; left: 50%; transform: translateX(-50%);
-  width: 40px; height: 8px;
-  display: flex; justify-content: space-between;
-  z-index: 7;
-}
-
-.darshan-ganesha .d-eye {
-  width: 10px; height: 7px;
-  background: #fff;
-  border-radius: 50%;
-  border: 1px solid #333;
-  position: relative;
-}
-
-.darshan-ganesha .d-eye::after {
-  content: '';
-  position: absolute; top: 2px; left: 3px;
-  width: 4px; height: 4px;
-  background: #111;
-  border-radius: 50%;
-}
-
-.darshan-ganesha .d-trunk {
-  width: 14px; height: 50px;
-  background: linear-gradient(to right, #1a1a1a, #2a2a2a, #1a1a1a);
-  border: 2px solid #333;
-  border-radius: 0 0 20px 8px;
-  margin-top: -12px;
-  margin-left: -25px;
-  transform: rotate(12deg);
-  z-index: 6;
-}
-
-.darshan-ganesha .d-trunk::after {
-  content: '';
-  position: absolute; bottom: 0; left: 2px;
-  width: 8px; height: 8px;
-  background: #ffd700;
-  border-radius: 50%;
-  box-shadow: 0 0 5px rgba(255,215,0,0.5);
-}
-
-.darshan-ganesha .d-tusk-left {
-  position: absolute;
-  top: 75px; left: 52px;
-  width: 6px; height: 18px;
-  background: #e8e8e8;
-  border-radius: 0 0 3px 3px;
-  transform: rotate(8deg);
-  z-index: 7;
-  box-shadow: 0 0 3px rgba(255,255,255,0.3);
-}
-
-.darshan-ganesha .d-tusk-right {
-  position: absolute;
-  top: 75px; right: 52px;
-  width: 5px; height: 12px;
-  background: #e8e8e8;
-  border-radius: 0 0 3px 3px;
-  transform: rotate(-8deg);
-  z-index: 7;
-}
-
-.darshan-ganesha .d-body {
-  width: 90px; height: 70px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #181818);
-  border-radius: 40px;
-  border: 2px solid #333;
-  margin-top: -20px;
-  z-index: 4;
-  position: relative;
-  box-shadow: 0 0 12px rgba(255,150,50,0.1);
-}
-
-.darshan-ganesha .d-belly {
-  width: 60px; height: 35px;
-  background: linear-gradient(to bottom, #222, #1a1a1a);
-  border-radius: 50%;
-  border: 1px solid #333;
-  position: absolute;
-  bottom: 5px; left: 50%; transform: translateX(-50%);
-}
-
-.darshan-ganesha .d-navel {
-  width: 6px; height: 6px;
-  background: #333;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 15px; left: 50%; transform: translateX(-50%);
-}
-
-.darshan-ganesha .d-upper-arm {
-  width: 10px; height: 40px;
-  background: linear-gradient(to bottom, #1a1a1a, #222);
-  border: 1px solid #333;
-  position: absolute;
-  z-index: 3;
-}
-
-.darshan-ganesha .d-arm-ul { left: 8px; top: 100px; transform: rotate(30deg); }
-.darshan-ganesha .d-arm-ur { right: 8px; top: 100px; transform: rotate(-30deg); }
-.darshan-ganesha .d-arm-ll { left: 20px; top: 90px; transform: rotate(50deg); }
-.darshan-ganesha .d-arm-lr { right: 20px; top: 90px; transform: rotate(-50deg); }
-
-.darshan-ganesha .d-modak {
-  width: 16px; height: 14px;
-  background: radial-gradient(circle, #ffd700, #daa520);
-  border-radius: 50% 50% 40% 40%;
-  position: absolute;
-  left: 2px; top: 130px;
-  z-index: 7;
-  box-shadow: 0 0 8px rgba(255,215,0,0.5);
-}
-
-.darshan-ganesha .d-legs {
-  display: flex; gap: 10px;
-  margin-top: -5px;
-  z-index: 3;
-}
-
-.darshan-ganesha .d-leg {
-  width: 18px; height: 25px;
-  background: linear-gradient(to bottom, #1a1a1a, #222);
-  border: 1px solid #333;
-  border-radius: 0 0 4px 4px;
-}
-
-.darshan-ganesha .d-leg-crossed {
-  transform: rotate(15deg);
-  margin-top: 5px;
-}
-
-.darshan-ganesha .d-pedestal {
-  width: 120px; height: 16px;
-  background: linear-gradient(to bottom, #2a2a2a, #111);
-  border: 2px solid #444;
-  border-radius: 3px;
-  margin-top: 5px;
-}
-
-/* Large Shiva Lingam in darshan */
-.darshan-shiva {
-  display: flex; flex-direction: column; align-items: center;
-  position: relative;
-  width: 160px; height: 240px;
-  justify-content: flex-end;
-}
-
-.darshan-shiva .d-halo {
-  position: absolute;
-  width: 180px; height: 180px;
-  background: radial-gradient(circle, rgba(255,200,100,0.25), rgba(255,150,50,0.08), transparent);
-  border-radius: 50%;
-  top: 20px; left: 50%; transform: translateX(-50%);
-  animation: halo-glow 2s ease-in-out infinite;
-}
-
-.darshan-shiva .d-naga-hood {
-  width: 60px; height: 50px;
-  border: 4px solid #222;
-  border-bottom: none;
-  border-radius: 50% 50% 0 0;
-  position: relative;
-  z-index: 3;
-}
-
-.darshan-shiva .d-naga-hood::before {
-  content: '';
-  position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
-  width: 20px; height: 10px;
-  background: #222;
-  border-radius: 50%;
-}
-
-.darshan-shiva .d-naga-hood::after {
-  content: '';
-  position: absolute;
-  top: 8px; left: 50%; transform: translateX(-50%);
-  width: 6px; height: 4px;
-  background: #ff0000;
-  border-radius: 50%;
-  box-shadow: 0 0 4px rgba(255,0,0,0.5);
-}
-
-.darshan-shiva .d-naga-body {
-  width: 6px; height: 60px;
-  background: linear-gradient(to bottom, #222, #1a1a1a);
-  border: 1px solid #333;
-  margin-top: -5px;
-  z-index: 2;
-  transform: rotate(-5deg);
-}
-
-.darshan-shiva .d-lingam {
-  width: 50px; height: 80px;
-  background: linear-gradient(135deg, #0a0a0a, #2a2a2a, #111, #1a1a1a, #0d0d0d);
-  border-radius: 50% 50% 5px 5px;
-  border: 2px solid #333;
-  z-index: 4;
-  box-shadow: 0 0 20px rgba(255,200,100,0.15), inset 0 0 10px rgba(255,200,100,0.05);
-  position: relative;
-}
-
-.darshan-shiva .d-bilva {
-  position: absolute;
-  top: 10px; left: 50%; transform: translateX(-50%);
-  width: 16px; height: 12px;
-  z-index: 5;
-}
-
-.darshan-shiva .d-bilva::before,
-.darshan-shiva .d-bilva::after {
-  content: '';
-  position: absolute;
-  width: 8px; height: 10px;
-  background: #2d7a1e;
-  border-radius: 50% 50% 0 50%;
-}
-
-.darshan-shiva .d-bilva::before { left: 0; transform: rotate(-15deg); }
-.darshan-shiva .d-bilva::after { right: 0; transform: rotate(15deg); }
-
-.darshan-shiva .d-avudaiyar {
-  width: 100px; height: 20px;
-  background: linear-gradient(to bottom, #222, #111);
-  border: 2px solid #333;
-  z-index: 3;
-  margin-top: -4px;
-  position: relative;
-}
-
-.darshan-shiva .d-avudaiyar::after {
-  content: '';
-  position: absolute;
-  right: -12px; top: 5px;
-  width: 16px; height: 10px;
-  background: #222;
-  border-radius: 0 5px 5px 0;
-  border: 1px solid #333;
-}
-
-.darshan-shiva .d-base {
-  width: 120px; height: 22px;
-  background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
-  border: 2px solid #333;
-  border-radius: 3px;
-  margin-top: -2px;
-  z-index: 2;
-}
-
-.darshan-shiva .d-glow {
-  position: absolute;
-  width: 100px; height: 120px;
-  background: radial-gradient(circle, rgba(255,200,50,0.2), rgba(255,150,30,0.05), transparent);
-  border-radius: 50%;
-  top: 50px; left: 50%; transform: translateX(-50%);
-  animation: glow-pulse 2s ease-in-out infinite;
-  z-index: 1;
-}
-
-.darshan-shiva .d-vibhuti {
-  position: absolute;
-  top: 25px; left: 50%; transform: translateX(-50%);
-  z-index: 5;
-}
-
-.darshan-shiva .d-vibhuti::before,
-.darshan-shiva .d-vibhuti::after {
-  content: '';
-  position: absolute;
-  width: 20px; height: 2px;
-  background: #ccc;
-  left: -10px;
-}
-
-.darshan-shiva .d-vibhuti::before { top: 0; }
-.darshan-shiva .d-vibhuti::after { top: 4px; }
-
-/* Large Parvati in darshan */
-.darshan-parvati {
-  display: flex; flex-direction: column; align-items: center;
-  position: relative;
-  width: 120px; height: 230px;
-}
-
-.darshan-parvati .d-halo {
-  position: absolute;
-  width: 160px; height: 160px;
-  background: radial-gradient(circle, rgba(255,100,200,0.2), rgba(255,50,150,0.06), transparent);
-  border-radius: 50%;
-  top: 0; left: 50%; transform: translateX(-50%);
-  animation: halo-glow 2s ease-in-out infinite;
-}
-
-.darshan-parvati .d-crown {
-  width: 45px; height: 30px;
-  background: linear-gradient(to bottom, #ffd700, #daa520, #b8860b);
-  border-radius: 15px 15px 0 0;
-  border: 2px solid #8b6914;
-  z-index: 10;
-  position: relative;
-}
-
-.darshan-parvati .d-crown::before {
-  content: '';
-  position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
-  width: 10px; height: 12px;
-  background: linear-gradient(to top, #daa520, #ff0000);
-  border-radius: 50% 50% 0 0;
-  box-shadow: 0 0 6px rgba(255,0,0,0.4);
-}
-
-.darshan-parvati .d-crown::after {
-  content: '';
-  position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
-  width: 35px; height: 3px;
-  background: linear-gradient(90deg, transparent, #ffd700, #fff, #ffd700, transparent);
-}
-
-.darshan-parvati .d-head {
-  width: 40px; height: 40px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #181818);
-  border-radius: 50%;
-  border: 2px solid #333;
-  z-index: 5;
-  margin-top: -5px;
-  box-shadow: 0 0 12px rgba(255,100,200,0.15);
-  position: relative;
-}
-
-.darshan-parvati .d-bindi {
-  width: 6px; height: 6px;
-  background: radial-gradient(circle, #ff3333, #cc0000);
-  border-radius: 50%;
-  position: absolute;
-  top: 10px; left: 50%; transform: translateX(-50%);
-  box-shadow: 0 0 5px rgba(255,0,0,0.5);
-}
-
-.darshan-parvati .d-eyes {
-  position: absolute;
-  top: 16px; left: 50%; transform: translateX(-50%);
-  width: 24px; height: 6px;
-  display: flex; justify-content: space-between;
-}
-
-.darshan-parvati .d-eye {
-  width: 8px; height: 5px;
-  background: #fff;
-  border-radius: 50%;
-  border: 1px solid #333;
-  position: relative;
-}
-
-.darshan-parvati .d-eye::after {
-  content: '';
-  position: absolute; top: 1px; left: 2px;
-  width: 3px; height: 3px;
-  background: #111;
-  border-radius: 50%;
-}
-
-.darshan-parvati .d-earring {
-  width: 8px; height: 12px;
-  background: #ffd700;
-  border-radius: 50%;
-  position: absolute;
-  top: 40px; z-index: 6;
-  box-shadow: 0 0 5px rgba(255,215,0,0.4);
-}
-
-.darshan-parvati .d-earring-l { left: 20px; }
-.darshan-parvati .d-earring-r { right: 20px; }
-
-.darshan-parvati .d-necklace {
-  width: 35px; height: 8px;
-  border: 2px solid #ffd700;
-  border-top: none;
-  border-radius: 0 0 50% 50%;
-  position: absolute;
-  top: 72px; left: 50%; transform: translateX(-50%);
-  z-index: 6;
-  box-shadow: 0 0 5px rgba(255,215,0,0.3);
-}
-
-.darshan-parvati .d-body {
-  width: 50px; height: 80px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #181818);
-  border-radius: 15px 15px 20px 20px;
-  border: 2px solid #333;
-  margin-top: -5px;
-  z-index: 4;
-  box-shadow: 0 0 10px rgba(255,100,200,0.1);
-  position: relative;
-}
-
-.darshan-parvati .d-sari-drape {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border: 2px solid rgba(200,0,100,0.2);
-  border-radius: 15px 15px 20px 20px;
-  background: linear-gradient(135deg, transparent 40%, rgba(200,0,100,0.08) 50%, transparent 60%);
-}
-
-.darshan-parvati .d-arm {
-  width: 10px; height: 45px;
-  background: linear-gradient(to bottom, #1a1a1a, #222);
-  border: 1px solid #333;
-  position: absolute;
-  z-index: 3;
-}
-
-.darshan-parvati .d-arm-l { left: 10px; top: 65px; transform: rotate(12deg); border-radius: 0 0 3px 3px; }
-.darshan-parvati .d-arm-r { right: 10px; top: 65px; transform: rotate(-12deg); border-radius: 0 0 3px 3px; }
-
-.darshan-parvati .d-lotus {
-  width: 20px; height: 20px;
-  position: absolute;
-  right: 5px; top: 95px;
-  z-index: 7;
-}
-
-.darshan-parvati .d-lotus::before {
-  content: '';
-  position: absolute;
-  width: 12px; height: 12px;
-  background: radial-gradient(circle, #ff69b4, #ff1493);
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgba(255,105,180,0.5);
-}
-
-.darshan-parvati .d-lotus::after {
-  content: '';
-  position: absolute;
-  top: -4px; left: 2px;
-  width: 8px; height: 8px;
-  background: radial-gradient(circle, #ff99cc, #ff69b4);
-  border-radius: 50%;
-}
-
-.darshan-parvati .d-legs {
-  display: flex; gap: 5px;
-  margin-top: -5px; z-index: 3;
-}
-
-.darshan-parvati .d-leg {
-  width: 14px; height: 35px;
-  background: linear-gradient(to bottom, #1a1a1a, #222);
-  border: 1px solid #333;
-  border-radius: 0 0 3px 3px;
-}
-
-.darshan-parvati .d-pedestal {
-  width: 90px; height: 14px;
-  background: linear-gradient(to bottom, #2a2a2a, #111);
-  border: 2px solid #444;
-  border-radius: 3px;
-  margin-top: 5px;
-}
-
-/* Large Murugan in darshan */
-.darshan-murugan {
-  display: flex; flex-direction: column; align-items: center;
-  position: relative;
-  width: 180px; height: 230px;
-}
-
-.darshan-murugan .d-halo {
-  position: absolute;
-  width: 160px; height: 160px;
-  background: radial-gradient(circle, rgba(255,80,0,0.2), rgba(255,50,0,0.06), transparent);
-  border-radius: 50%;
-  top: 0; left: 50%; transform: translateX(-50%);
-  animation: halo-glow 2s ease-in-out infinite;
-}
-
-.darshan-murugan .d-crown {
-  width: 38px; height: 22px;
-  background: linear-gradient(to bottom, #ffd700, #daa520, #b8860b);
-  border-radius: 10px 10px 0 0;
-  border: 2px solid #8b6914;
-  z-index: 10;
-  position: relative;
-}
-
-.darshan-murugan .d-crown::before {
-  content: '';
-  position: absolute; top: -5px; left: 50%; transform: translateX(-50%);
-  width: 8px; height: 10px;
-  background: #ffd700;
-  border-radius: 50% 50% 0 0;
-}
-
-.darshan-murugan .d-head {
-  width: 36px; height: 36px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #181818);
-  border-radius: 50%;
-  border: 2px solid #333;
-  z-index: 5;
-  margin-top: -4px;
-  box-shadow: 0 0 12px rgba(255,80,0,0.15);
-  position: relative;
-}
-
-.darshan-murugan .d-eyes {
-  position: absolute;
-  top: 12px; left: 50%; transform: translateX(-50%);
-  width: 20px; height: 6px;
-  display: flex; justify-content: space-between;
-}
-
-.darshan-murugan .d-eye {
-  width: 7px; height: 5px;
-  background: #fff;
-  border-radius: 50%;
-  border: 1px solid #333;
-  position: relative;
-}
-
-.darshan-murugan .d-eye::after {
-  content: '';
-  position: absolute; top: 1px; left: 2px;
-  width: 3px; height: 3px;
-  background: #111;
-  border-radius: 50%;
-}
-
-.darshan-murugan .d-body {
-  width: 44px; height: 65px;
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #181818);
-  border-radius: 10px;
-  border: 2px solid #333;
-  margin-top: -4px;
-  z-index: 4;
-  box-shadow: 0 0 10px rgba(255,80,0,0.1);
-}
-
-.darshan-murugan .d-arm {
-  width: 10px; height: 40px;
-  background: linear-gradient(to bottom, #1a1a1a, #222);
-  border: 1px solid #333;
-  position: absolute;
-  z-index: 3;
-}
-
-.darshan-murugan .d-arm-l { left: 40px; top: 55px; transform: rotate(20deg); }
-.darshan-murugan .d-arm-r { right: 40px; top: 55px; transform: rotate(-20deg); }
-
-.darshan-murugan .d-vel {
-  position: absolute;
-  right: 30px; top: 5px;
-  width: 5px; height: 120px;
-  background: linear-gradient(to bottom, #ddd, #aaa, #888);
-  border: 1px solid #777;
-  z-index: 8;
-  box-shadow: 0 0 5px rgba(255,255,255,0.15);
-}
-
-.darshan-murugan .d-vel::before {
-  content: '';
-  position: absolute;
-  top: -14px; left: -8px;
-  width: 0; height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 20px solid #ddd;
-  filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
-}
-
-.darshan-murugan .d-legs {
-  display: flex; gap: 8px;
-  margin-top: -3px; z-index: 3;
-}
-
-.darshan-murugan .d-leg {
-  width: 14px; height: 30px;
-  background: linear-gradient(to bottom, #1a1a1a, #222);
-  border: 1px solid #333;
-  border-radius: 0 0 3px 3px;
-}
-
-.darshan-murugan .d-peacock {
-  position: absolute;
-  bottom: 10px; left: 5px;
-  z-index: 3;
-}
-
-.darshan-murugan .d-peacock-body {
-  width: 30px; height: 25px;
-  background: linear-gradient(135deg, #006699, #004466, #003355);
-  border-radius: 50%;
-  border: 1px solid #003355;
-}
-
-.darshan-murugan .d-peacock-neck {
-  width: 6px; height: 18px;
-  background: #005588;
-  margin-top: -12px; margin-left: 4px;
-}
-
-.darshan-murugan .d-peacock-head {
-  width: 12px; height: 12px;
-  background: radial-gradient(circle, #0088cc, #006699);
-  border-radius: 50%;
-  margin-top: -6px; margin-left: 0;
-  border: 1px solid #004466;
-  position: relative;
-}
-
-.darshan-murugan .d-peacock-head::after {
-  content: '';
-  position: absolute;
-  left: 10px; top: 4px;
-  width: 6px; height: 3px;
-  background: #daa520;
-  border-radius: 0 3px 3px 0;
-}
-
-.darshan-murugan .d-peacock-crest {
-  width: 3px; height: 10px;
-  background: #00ccff;
-  border-radius: 3px;
-  margin-top: -14px; margin-left: 5px;
-  box-shadow: 0 0 4px rgba(0,200,255,0.4);
-}
-
-.darshan-murugan .d-peacock-tail {
-  display: flex; gap: 2px;
-  margin-top: -20px; margin-left: 14px;
-  transform: rotate(-15deg);
-}
-
-.darshan-murugan .d-peacock-feather {
-  width: 14px; height: 22px;
-  background: radial-gradient(circle at 50% 30%, #00ff66, #0088ff, #004488);
-  border-radius: 50%;
-  border: 1px solid #003366;
-  box-shadow: 0 0 5px rgba(0,255,100,0.3);
-  position: relative;
-}
-
-.darshan-murugan .d-peacock-feather::after {
-  content: '';
-  position: absolute;
-  top: 4px; left: 50%; transform: translateX(-50%);
-  width: 5px; height: 5px;
-  background: radial-gradient(circle, #003366, #0066cc);
-  border-radius: 50%;
-  border: 1px solid #00aaff;
-}
-
-.darshan-murugan .d-pedestal {
-  width: 100px; height: 14px;
-  background: linear-gradient(to bottom, #2a2a2a, #111);
-  border: 2px solid #444;
-  border-radius: 3px;
-  margin-top: 5px;
-}
-
-/* ===== Large Venkateswara (Thirumala Balaji) in darshan ===== */
-.darshan-venkateswara {
-  display: flex; flex-direction: column; align-items: center;
-  position: relative;
-  width: 150px; height: 260px;
-}
-
-.darshan-venkateswara .d-halo {
-  position: absolute;
-  width: 180px; height: 200px;
-  background: radial-gradient(circle, rgba(255,215,0,0.3), rgba(255,180,0,0.1), transparent);
-  border-radius: 50%;
-  top: 0; left: 50%; transform: translateX(-50%);
-  animation: halo-glow 2s ease-in-out infinite;
-}
-
-/* Tall Kiritam Crown */
-.darshan-venkateswara .d-kiritam {
-  width: 50px; height: 55px;
-  background: linear-gradient(to bottom, #ffd700, #daa520, #b8860b);
-  border: 2px solid #8b6914;
-  border-radius: 8px 8px 0 0;
-  z-index: 10;
-  position: relative;
-}
-
-.darshan-venkateswara .d-kiritam::before {
-  content: '';
-  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-  width: 22px; height: 18px;
-  background: linear-gradient(to top, #daa520, #ffd700);
-  border-radius: 50% 50% 0 0;
-  border: 2px solid #b8860b;
-}
-
-.darshan-venkateswara .d-kiritam::after {
-  content: '';
-  position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
-  width: 10px; height: 10px;
-  background: radial-gradient(circle, #ff3333, #cc0000);
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgba(255,0,0,0.6);
-}
-
-/* Kiritam decorative tiers */
-.darshan-venkateswara .d-kiritam-tier {
-  position: absolute;
-  left: 50%; transform: translateX(-50%);
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #fff, #ffd700, #fff, transparent);
-}
-
-.darshan-venkateswara .d-kiritam-tier:nth-child(1) { width: 40px; top: 10px; }
-.darshan-venkateswara .d-kiritam-tier:nth-child(2) { width: 35px; top: 22px; }
-.darshan-venkateswara .d-kiritam-tier:nth-child(3) { width: 30px; top: 34px; }
-
-/* Head */
-.darshan-venkateswara .d-head {
-  width: 44px; height: 44px;
-  background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #0d0d0d, #181818);
-  border-radius: 50%;
-  border: 2px solid #333;
-  z-index: 5;
-  margin-top: -6px;
-  box-shadow: 0 0 15px rgba(255,215,0,0.15);
-  position: relative;
-}
-
-/* Namam (Tilak) - V-shaped white with red center */
-.darshan-venkateswara .d-namam {
-  position: absolute;
-  top: 4px; left: 50%; transform: translateX(-50%);
-  width: 16px; height: 20px;
-  z-index: 8;
-}
-
-.darshan-venkateswara .d-namam::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 16px; height: 20px;
-  border-left: 3px solid #fff;
-  border-right: 3px solid #fff;
-  border-radius: 0 0 8px 8px;
-}
-
-.darshan-venkateswara .d-namam::after {
-  content: '';
-  position: absolute;
-  top: 3px; left: 50%; transform: translateX(-50%);
-  width: 6px; height: 14px;
-  background: linear-gradient(to bottom, #ff3300, #cc0000);
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0 0 4px rgba(255,50,0,0.4);
-}
-
-/* Eyes */
-.darshan-venkateswara .d-eyes {
-  position: absolute;
-  top: 16px; left: 50%; transform: translateX(-50%);
-  width: 26px; height: 7px;
-  display: flex; justify-content: space-between;
-  z-index: 7;
-}
-
-.darshan-venkateswara .d-eye {
-  width: 8px; height: 6px;
-  background: #fff;
-  border-radius: 50%;
-  border: 1px solid #333;
-  position: relative;
-}
-
-.darshan-venkateswara .d-eye::after {
-  content: '';
-  position: absolute; top: 1px; left: 2px;
-  width: 4px; height: 4px;
-  background: #111;
-  border-radius: 50%;
-}
-
-/* Makara Kundalams (ear ornaments) */
-.darshan-venkateswara .d-kundalam {
-  width: 10px; height: 14px;
-  background: radial-gradient(circle, #ffd700, #daa520);
-  border-radius: 50%;
-  position: absolute;
-  top: 60px; z-index: 6;
-  box-shadow: 0 0 6px rgba(255,215,0,0.5);
-  border: 1px solid #b8860b;
-}
-
-.darshan-venkateswara .d-kundalam-l { left: 25px; }
-.darshan-venkateswara .d-kundalam-r { right: 25px; }
-
-/* Body */
-.darshan-venkateswara .d-body {
-  width: 55px; height: 80px;
-  background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #0d0d0d, #181818);
-  border-radius: 12px;
-  border: 2px solid #333;
-  margin-top: -6px;
-  z-index: 4;
-  box-shadow: 0 0 12px rgba(255,215,0,0.1);
-  position: relative;
-}
-
-/* Necklaces - Haaram */
-.darshan-venkateswara .d-haaram {
-  position: absolute;
-  left: 50%; transform: translateX(-50%);
-  border: 2px solid #ffd700;
-  border-top: none;
-  border-radius: 0 0 50% 50%;
-  box-shadow: 0 0 5px rgba(255,215,0,0.3);
-}
-
-.darshan-venkateswara .d-haaram-1 {
-  width: 30px; height: 8px;
-  top: 5px;
-}
-
-.darshan-venkateswara .d-haaram-2 {
-  width: 38px; height: 12px;
-  top: 15px;
-}
-
-/* Pitambara (golden dhoti) */
-.darshan-venkateswara .d-pitambara {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 35px;
-  background: linear-gradient(to bottom, rgba(255,215,0,0.08), rgba(255,215,0,0.15));
-  border-top: 2px solid rgba(255,215,0,0.25);
-  border-radius: 0 0 12px 12px;
-}
-
-.darshan-venkateswara .d-pitambara::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 30px; height: 2px;
-  background: rgba(255,215,0,0.3);
-}
-
-/* Four Arms */
-.darshan-venkateswara .d-arm {
-  width: 10px; height: 45px;
-  background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
-  border: 1px solid #333;
-  position: absolute;
-  z-index: 3;
-  border-radius: 0 0 3px 3px;
-}
-
-.darshan-venkateswara .d-arm-ul {
-  left: 18px; top: 72px; transform: rotate(20deg);
-}
-
-.darshan-venkateswara .d-arm-ur {
-  right: 18px; top: 72px; transform: rotate(-20deg);
-}
-
-.darshan-venkateswara .d-arm-ll {
-  left: 28px; top: 68px; transform: rotate(40deg); height: 35px;
-}
-
-.darshan-venkateswara .d-arm-lr {
-  right: 28px; top: 68px; transform: rotate(-40deg); height: 35px;
-}
-
-/* Shankha (Conch) */
-.darshan-venkateswara .d-shankha {
-  width: 16px; height: 20px;
-  background: radial-gradient(circle at 40% 40%, #f5f5f5, #ddd, #bbb);
-  border-radius: 50% 50% 30% 30%;
-  position: absolute;
-  left: 10px; top: 105px;
-  z-index: 7;
-  border: 1px solid #999;
-  box-shadow: 0 0 6px rgba(255,255,255,0.3);
-}
-
-.darshan-venkateswara .d-shankha::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 6px; height: 6px;
-  background: #ddd;
-  border-radius: 50%;
-}
-
-/* Chakra (Disc) */
-.darshan-venkateswara .d-chakra {
-  width: 18px; height: 18px;
-  background: radial-gradient(circle, #ffd700, #daa520);
-  border-radius: 50%;
-  border: 2px solid #b8860b;
-  position: absolute;
-  right: 10px; top: 105px;
-  z-index: 7;
-  box-shadow: 0 0 8px rgba(255,215,0,0.5);
-  animation: chakra-spin 3s linear infinite;
-}
-
-.darshan-venkateswara .d-chakra::before {
-  content: '';
-  position: absolute;
-  top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 6px; height: 6px;
-  background: #8b6914;
-  border-radius: 50%;
-}
-
-.darshan-venkateswara .d-chakra::after {
-  content: '+';
-  position: absolute;
-  top: 50%; left: 50%; transform: translate(-50%, -50%);
-  color: #8b6914;
-  font-size: 14px; font-weight: bold;
-  line-height: 1;
-}
-
-@keyframes chakra-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Gadha (Mace) */
-.darshan-venkateswara .d-gadha {
-  position: absolute;
-  left: 22px; top: 100px;
-  width: 4px; height: 30px;
-  background: linear-gradient(to bottom, #daa520, #8b6914);
-  border: 1px solid #6b4f10;
-  z-index: 6;
-  transform: rotate(15deg);
-}
-
-.darshan-venkateswara .d-gadha::before {
-  content: '';
-  position: absolute;
-  top: -5px; left: -3px;
-  width: 10px; height: 8px;
-  background: #daa520;
-  border-radius: 3px;
-  border: 1px solid #8b6914;
-}
-
-/* Padma (Lotus) in hand */
-.darshan-venkateswara .d-padma {
-  width: 14px; height: 14px;
-  position: absolute;
-  right: 22px; top: 100px;
-  z-index: 6;
-}
-
-.darshan-venkateswara .d-padma::before {
-  content: '';
-  position: absolute;
-  width: 10px; height: 10px;
-  background: radial-gradient(circle, #ff69b4, #ff1493);
-  border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255,105,180,0.5);
-}
-
-.darshan-venkateswara .d-padma::after {
-  content: '';
-  position: absolute;
-  top: -3px; left: 2px;
-  width: 6px; height: 6px;
-  background: radial-gradient(circle, #ffcc00, #ff9900);
-  border-radius: 50%;
-}
-
-/* Legs */
-.darshan-venkateswara .d-legs {
-  display: flex; gap: 8px;
-  margin-top: -4px; z-index: 3;
-}
-
-.darshan-venkateswara .d-leg {
-  width: 16px; height: 30px;
-  background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
-  border: 1px solid #333;
-  border-radius: 0 0 4px 4px;
-}
-
-/* Feet with golden anklets */
-.darshan-venkateswara .d-feet {
-  display: flex; gap: 12px;
-  z-index: 3;
-}
-
-.darshan-venkateswara .d-foot {
-  width: 18px; height: 6px;
-  background: #0d0d0d;
-  border: 1px solid #333;
-  border-radius: 0 0 3px 3px;
-  position: relative;
-}
-
-.darshan-venkateswara .d-foot::before {
-  content: '';
-  position: absolute;
-  top: -3px; left: 0; right: 0;
-  height: 3px;
-  background: #ffd700;
-  border-radius: 2px;
-  box-shadow: 0 0 3px rgba(255,215,0,0.4);
-}
-
-/* Pedestal */
-.darshan-venkateswara .d-pedestal {
-  width: 110px; height: 18px;
-  background: linear-gradient(to bottom, #2a2a2a, #111);
-  border: 2px solid #444;
-  border-radius: 3px;
-  margin-top: 5px;
-  position: relative;
-}
-
-.darshan-venkateswara .d-pedestal::before {
-  content: '';
-  position: absolute;
-  top: -4px; left: 50%; transform: translateX(-50%);
-  width: 80px; height: 4px;
-  background: linear-gradient(90deg, transparent, #ffd700, transparent);
-  border-radius: 2px;
-}
-
-/* Golden glow behind entire figure */
-.darshan-venkateswara .d-divine-glow {
-  position: absolute;
-  width: 120px; height: 200px;
-  background: radial-gradient(ellipse, rgba(255,215,0,0.12), rgba(255,180,0,0.04), transparent);
-  top: 30px; left: 50%; transform: translateX(-50%);
-  z-index: 1;
-  animation: glow-pulse 2s ease-in-out infinite;
-}
+#hud{position:fixed;top:12px;left:50%;transform:translateX(-50%);text-align:center;z-index:200;pointer-events:none;}
+#location-name{background:rgba(0,0,0,0.75);color:#ffd700;padding:6px 18px;border-radius:5px;font-size:15px;font-weight:bold;border:1px solid #c4952a;min-width:200px;}
+#time-display{color:rgba(255,255,255,0.7);font-size:11px;margin-top:3px;}
+#instructions{color:rgba(255,255,255,0.5);font-size:10px;margin-top:2px;}
+
+/* ===== Darshan Overlay ===== */
+#darshan-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:300;display:flex;align-items:center;justify-content:center;transition:opacity .6s;cursor:pointer;}
+#darshan-overlay.hidden{opacity:0;pointer-events:none;}
+#darshan-overlay.visible{opacity:1;}
+#darshan-panel{display:flex;flex-direction:column;align-items:center;max-width:400px;width:90%;}
+
+.darshan-sanctum{width:320px;height:380px;background:linear-gradient(to top,#0a0500,#120800,#0a0500);border:3px solid #4a3520;border-radius:8px 8px 0 0;position:relative;display:flex;align-items:flex-end;justify-content:center;padding-bottom:20px;overflow:hidden;}
+.darshan-sanctum::before{content:'';position:absolute;bottom:0;left:0;width:120px;height:200px;background:radial-gradient(ellipse at bottom left,rgba(255,150,50,0.15),transparent);z-index:1;}
+.darshan-sanctum::after{content:'';position:absolute;bottom:0;right:0;width:120px;height:200px;background:radial-gradient(ellipse at bottom right,rgba(255,150,50,0.15),transparent);z-index:1;}
+
+.darshan-arch{position:absolute;top:0;left:0;right:0;height:55px;border-bottom:4px solid #8b6914;background:linear-gradient(to bottom,#2a1a08,#1a0e00);}
+.darshan-arch::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:200px;height:38px;border:3px solid #8b6914;border-bottom:none;border-radius:100px 100px 0 0;}
+.darshan-arch::after{content:'';position:absolute;top:2px;left:50%;transform:translateX(-50%);width:14px;height:14px;background:#ffd700;border-radius:50%;box-shadow:0 0 10px rgba(255,215,0,0.5);}
+
+.d-lamp{position:absolute;bottom:40px;z-index:10;}
+.d-lamp-l{left:25px;}.d-lamp-r{right:25px;}
+.d-lamp::before{content:'';display:block;width:12px;height:22px;background:linear-gradient(to right,#8b6914,#c4952a,#8b6914);border:1px solid #6b4f10;border-radius:0 0 3px 3px;}
+.d-lamp::after{content:'';display:block;width:16px;height:22px;background:radial-gradient(ellipse at bottom,#ff6600,#ff9900,#ffcc00,transparent);border-radius:50% 50% 20% 20%;margin-top:-2px;margin-left:-2px;animation:tflame .6s ease-in-out infinite alternate;}
+
+.darshan-flowers{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:160px;height:10px;background:repeating-linear-gradient(90deg,#ff4444 0,#ff4444 5px,#ffaa00 5px,#ffaa00 10px,#ff6600 10px,#ff6600 15px);border-radius:3px;opacity:.7;z-index:5;}
+
+#darshan-deity{z-index:5;display:flex;align-items:flex-end;justify-content:center;transform:perspective(400px) rotateX(-5deg);transform-origin:bottom center;min-height:250px;}
+#darshan-mantra{color:#ffd700;font-size:20px;font-weight:bold;text-align:center;margin-top:18px;text-shadow:0 0 10px rgba(255,215,0,0.5);font-style:italic;letter-spacing:2px;}
+#darshan-close{color:rgba(255,255,255,0.4);font-size:11px;margin-top:12px;}
+
+/* ===== Darshan Large Deity Styles ===== */
+.dd{display:flex;flex-direction:column;align-items:center;position:relative;}
+.dd .dd-halo{position:absolute;width:180px;height:180px;background:radial-gradient(circle,rgba(255,180,50,0.25),rgba(255,150,50,0.08),transparent);border-radius:50%;top:0;left:50%;transform:translateX(-50%);animation:hglow 2s ease-in-out infinite;}
+.dd .dd-glow{position:absolute;width:120px;height:180px;background:radial-gradient(ellipse,rgba(255,200,50,0.12),transparent);top:30px;left:50%;transform:translateX(-50%);animation:hglow 2s ease-in-out infinite;z-index:1;}
+.dd .dd-crown{width:44px;height:28px;background:linear-gradient(to bottom,#ffd700,#daa520,#b8860b);border-radius:10px 10px 0 0;border:2px solid #8b6914;z-index:10;position:relative;}
+.dd .dd-crown::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:34px;height:3px;background:linear-gradient(90deg,transparent,#ffd700,#fff,#ffd700,transparent);}
+.dd .dd-crown-gem{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:12px;height:12px;background:radial-gradient(circle,#ff3333,#cc0000);border-radius:50%;border:1px solid #990000;box-shadow:0 0 8px rgba(255,0,0,0.5);}
+.dd .dd-head{width:42px;height:42px;background:linear-gradient(135deg,#0a0a0a,#1a1a1a,#0d0d0d);border-radius:50%;border:2px solid #333;z-index:5;margin-top:-5px;box-shadow:0 0 12px rgba(255,180,50,0.12);position:relative;}
+.dd .dd-eyes{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:24px;display:flex;justify-content:space-between;z-index:7;}
+.dd .dd-eye{width:8px;height:5px;background:#fff;border-radius:50%;border:1px solid #333;position:relative;}
+.dd .dd-eye::after{content:'';position:absolute;top:1px;left:2px;width:3px;height:3px;background:#111;border-radius:50%;}
+.dd .dd-body{width:52px;height:75px;background:linear-gradient(135deg,#0a0a0a,#1a1a1a,#0d0d0d);border-radius:10px;border:2px solid #333;margin-top:-5px;z-index:4;box-shadow:0 0 10px rgba(255,180,50,0.08);position:relative;}
+.dd .dd-arm{width:10px;height:42px;background:linear-gradient(to bottom,#0d0d0d,#1a1a1a);border:1px solid #333;position:absolute;z-index:3;border-radius:0 0 3px 3px;}
+.dd .dd-arm-l{left:22px;top:72px;transform:rotate(18deg);}
+.dd .dd-arm-r{right:22px;top:72px;transform:rotate(-18deg);}
+.dd .dd-legs{display:flex;gap:8px;margin-top:-4px;z-index:3;}
+.dd .dd-leg{width:14px;height:28px;background:linear-gradient(to bottom,#0d0d0d,#1a1a1a);border:1px solid #333;border-radius:0 0 3px 3px;}
+.dd .dd-pedestal{width:100px;height:14px;background:linear-gradient(to bottom,#2a2a2a,#111);border:2px solid #444;border-radius:3px;margin-top:4px;position:relative;}
+.dd .dd-pedestal::before{content:'';position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:70px;height:3px;background:linear-gradient(90deg,transparent,#ffd700,transparent);border-radius:2px;}
+
+/* Earrings */
+.dd .dd-earring{width:8px;height:10px;background:#ffd700;border-radius:50%;position:absolute;z-index:6;box-shadow:0 0 4px rgba(255,215,0,0.4);}
+.dd .dd-ear-l{left:24px;top:56px;}.dd .dd-ear-r{right:24px;top:56px;}
+
+/* Necklace */
+.dd .dd-necklace{position:absolute;top:78px;left:50%;transform:translateX(-50%);width:32px;height:8px;border:2px solid #ffd700;border-top:none;border-radius:0 0 50% 50%;z-index:6;box-shadow:0 0 4px rgba(255,215,0,0.3);}
+
+/* ===== Per-deity darshan colors & features ===== */
+
+/* Ganesha - orange halo, ears, trunk */
+.dd-ganesha .dd-halo{background:radial-gradient(circle,rgba(255,150,50,0.3),transparent)!important;}
+.dd-ganesha .dd-ear-big{width:38px;height:44px;background:linear-gradient(135deg,#111,#222);border-radius:50%;border:2px solid #333;position:absolute;top:30px;z-index:3;}
+.dd-ganesha .dd-ear-big-l{left:14px;}.dd-ganesha .dd-ear-big-r{right:14px;}
+.dd-ganesha .dd-trunk{width:12px;height:44px;background:linear-gradient(to right,#111,#222,#111);border:2px solid #333;border-radius:0 0 18px 6px;margin-top:-12px;margin-left:-22px;transform:rotate(12deg);z-index:6;}
+.dd-ganesha .dd-tusk{width:5px;height:14px;background:#e8e8e8;border-radius:0 0 3px 3px;position:absolute;z-index:7;box-shadow:0 0 3px rgba(255,255,255,0.3);}
+.dd-ganesha .dd-tusk-l{left:48px;top:72px;transform:rotate(8deg);}
+.dd-ganesha .dd-tusk-r{right:50px;top:72px;transform:rotate(-8deg);}
+.dd-ganesha .dd-belly{width:50px;height:30px;background:linear-gradient(to bottom,#181818,#111);border-radius:50%;border:1px solid #333;position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:5;}
+.dd-ganesha .dd-modak{width:14px;height:12px;background:radial-gradient(circle,#ffd700,#daa520);border-radius:50%;position:absolute;left:10px;bottom:35px;z-index:7;box-shadow:0 0 6px rgba(255,215,0,0.4);}
+
+/* Shiva Lingam */
+.dd-shiva{justify-content:flex-end;height:240px;}
+.dd-shiva .dd-halo{background:radial-gradient(circle,rgba(255,200,100,0.25),transparent)!important;}
+.dd-shiva .dd-lingam{width:50px;height:80px;background:linear-gradient(135deg,#0a0a0a,#222,#0d0d0d);border-radius:50% 50% 5px 5px;border:2px solid #333;z-index:4;box-shadow:0 0 15px rgba(255,200,80,0.15);}
+.dd-shiva .dd-avudaiyar{width:90px;height:18px;background:linear-gradient(to bottom,#1a1a1a,#0a0a0a);border:2px solid #333;margin-top:-3px;z-index:3;}
+.dd-shiva .dd-base{width:110px;height:18px;background:linear-gradient(to bottom,#111,#080808);border:2px solid #333;border-radius:3px;margin-top:-2px;}
+.dd-shiva .dd-naga{width:50px;height:45px;border:3px solid #222;border-bottom:none;border-radius:50% 50% 0 0;z-index:3;position:relative;}
+.dd-shiva .dd-naga::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:16px;height:8px;background:#222;border-radius:50%;}
+.dd-shiva .dd-bilva{width:12px;height:10px;position:absolute;top:15px;z-index:5;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid #2d7a1e;border-radius:0 0 50% 50%;}
+
+/* Venkateswara - tall kiritam, namam, 4 arms */
+.dd-venkat .dd-halo{background:radial-gradient(circle,rgba(255,215,0,0.3),transparent)!important;}
+.dd-venkat .dd-kiritam{width:48px;height:50px;background:linear-gradient(to bottom,#ffd700,#daa520,#b8860b);border:2px solid #8b6914;border-radius:6px 6px 0 0;z-index:10;position:relative;}
+.dd-venkat .dd-kiritam::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:20px;height:16px;background:linear-gradient(to top,#daa520,#ffd700);border-radius:50% 50% 0 0;border:2px solid #b8860b;}
+.dd-venkat .dd-kiritam::after{content:'';position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:radial-gradient(circle,#ff3333,#cc0000);border-radius:50%;box-shadow:0 0 8px rgba(255,0,0,0.5);}
+.dd-venkat .dd-namam{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:14px;height:18px;z-index:8;border-left:3px solid #fff;border-right:3px solid #fff;border-radius:0 0 6px 6px;}
+.dd-venkat .dd-namam::after{content:'';position:absolute;top:2px;left:50%;transform:translateX(-50%);width:5px;height:13px;background:linear-gradient(to bottom,#ff3300,#cc0000);border-radius:0 0 3px 3px;}
+.dd-venkat .dd-shankha{width:14px;height:18px;background:radial-gradient(circle at 40%,#f5f5f5,#ccc);border-radius:50% 50% 30% 30%;position:absolute;left:12px;top:108px;z-index:7;border:1px solid #999;box-shadow:0 0 5px rgba(255,255,255,0.3);}
+.dd-venkat .dd-chakra{width:16px;height:16px;background:radial-gradient(circle,#ffd700,#daa520);border-radius:50%;border:2px solid #b8860b;position:absolute;right:12px;top:108px;z-index:7;box-shadow:0 0 8px rgba(255,215,0,0.5);animation:cspin 3s linear infinite;}
+@keyframes cspin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.dd-venkat .dd-haaram{position:absolute;left:50%;transform:translateX(-50%);border:2px solid #ffd700;border-top:none;border-radius:0 0 50% 50%;box-shadow:0 0 4px rgba(255,215,0,0.3);}
+.dd-venkat .dd-haaram-1{width:28px;height:8px;top:5px;}.dd-venkat .dd-haaram-2{width:36px;height:12px;top:16px;}
+
+/* Parvati */
+.dd-parvati .dd-halo{background:radial-gradient(circle,rgba(255,100,200,0.25),transparent)!important;}
+.dd-parvati .dd-bindi{width:6px;height:6px;background:radial-gradient(circle,#ff3333,#cc0000);border-radius:50%;position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:8;box-shadow:0 0 4px rgba(255,0,0,0.5);}
+.dd-parvati .dd-lotus{width:16px;height:16px;background:radial-gradient(circle,#ff69b4,#ff1493);border-radius:50%;position:absolute;right:8px;top:100px;z-index:7;box-shadow:0 0 8px rgba(255,105,180,0.4);}
+
+/* Murugan */
+.dd-murugan .dd-halo{background:radial-gradient(circle,rgba(255,80,0,0.25),transparent)!important;}
+.dd-murugan .dd-vel{position:absolute;right:20px;top:8px;width:4px;height:110px;background:linear-gradient(to bottom,#ddd,#999);border:1px solid #888;z-index:8;}
+.dd-murugan .dd-vel::before{content:'';position:absolute;top:-12px;left:-7px;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:18px solid #ddd;filter:drop-shadow(0 0 4px rgba(255,255,255,0.3));}
+.dd-murugan .dd-peacock{position:absolute;bottom:15px;left:5px;z-index:3;}
+.dd-murugan .dd-pk-body{width:22px;height:18px;background:linear-gradient(135deg,#006699,#003355);border-radius:50%;border:1px solid #003355;}
+.dd-murugan .dd-pk-head{width:10px;height:10px;background:#006699;border-radius:50%;margin-top:-6px;border:1px solid #004466;}
+.dd-murugan .dd-pk-tail{display:flex;gap:2px;margin-top:-12px;margin-left:12px;}
+.dd-murugan .dd-pk-feather{width:10px;height:18px;background:radial-gradient(circle at 50% 30%,#00ff66,#0088ff,#004488);border-radius:50%;border:1px solid #003366;box-shadow:0 0 4px rgba(0,255,100,0.3);}
+
+/* Krishna */
+.dd-krishna .dd-halo{background:radial-gradient(circle,rgba(0,100,255,0.2),transparent)!important;}
+.dd-krishna .dd-crown{background:linear-gradient(to bottom,#00aa44,#ffd700,#daa520)!important;}
+.dd-krishna .dd-feather{width:6px;height:20px;background:linear-gradient(to top,#006622,#00cc44);border-radius:50%;position:absolute;top:-18px;left:50%;transform:translateX(-50%) rotate(10deg);z-index:11;box-shadow:0 0 4px rgba(0,200,50,0.4);}
+.dd-krishna .dd-flute{width:35px;height:5px;background:linear-gradient(to right,#8b6914,#c4952a);border:1px solid #6b4f10;border-radius:3px;position:absolute;left:45px;top:88px;z-index:7;transform:rotate(-15deg);}
+.dd-krishna .dd-flute::before{content:'';position:absolute;top:-1px;left:5px;width:3px;height:3px;background:#6b4f10;border-radius:50%;box-shadow:8px 0 0 #6b4f10,16px 0 0 #6b4f10;}
+
+/* Rama */
+.dd-rama .dd-halo{background:radial-gradient(circle,rgba(0,100,200,0.2),transparent)!important;}
+.dd-rama .dd-bow{width:30px;height:40px;border:3px solid #8b4513;border-right:none;border-radius:50% 0 0 50%;position:absolute;left:8px;top:75px;z-index:7;}
+.dd-rama .dd-arrow{width:2px;height:45px;background:#8b4513;position:absolute;left:36px;top:72px;z-index:7;transform:rotate(-5deg);}
+.dd-rama .dd-arrow::before{content:'';position:absolute;top:-4px;left:-3px;width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:8px solid #8b4513;}
+
+/* Durga */
+.dd-durga .dd-halo{background:radial-gradient(circle,rgba(255,50,50,0.25),transparent)!important;}
+.dd-durga .dd-trishul{position:absolute;right:15px;top:5px;width:4px;height:100px;background:linear-gradient(to bottom,#ddd,#999);border:1px solid #888;z-index:8;}
+.dd-durga .dd-trishul::before{content:'';position:absolute;top:-8px;left:-8px;width:20px;height:12px;border:3px solid #ddd;border-bottom:none;border-radius:50% 50% 0 0;}
+.dd-durga .dd-lion{width:30px;height:20px;background:linear-gradient(to bottom,#daa520,#b8860b);border-radius:8px;position:absolute;bottom:20px;left:5px;z-index:3;border:1px solid #8b6914;}
+.dd-durga .dd-lion::before{content:'';position:absolute;left:-5px;top:3px;width:10px;height:10px;background:#daa520;border-radius:50%;}
+
+/* Lakshmi */
+.dd-lakshmi .dd-halo{background:radial-gradient(circle,rgba(255,215,0,0.3),transparent)!important;}
+.dd-lakshmi .dd-lotus-seat{width:80px;height:20px;background:radial-gradient(ellipse,#ff69b4,#ff1493,transparent);border-radius:50%;position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:2;opacity:.6;}
+.dd-lakshmi .dd-coin{width:8px;height:8px;background:#ffd700;border-radius:50%;border:1px solid #b8860b;position:absolute;z-index:7;box-shadow:0 0 4px rgba(255,215,0,0.5);}
+.dd-lakshmi .dd-coin-1{left:20px;top:95px;}.dd-lakshmi .dd-coin-2{left:15px;top:105px;}.dd-lakshmi .dd-coin-3{left:25px;top:110px;}
+
+/* Saraswati */
+.dd-saraswati .dd-halo{background:radial-gradient(circle,rgba(255,255,255,0.2),transparent)!important;}
+.dd-saraswati .dd-crown{background:linear-gradient(to bottom,#fff,#ddd,#bbb)!important;border-color:#999!important;}
+.dd-saraswati .dd-veena{width:8px;height:55px;background:linear-gradient(to bottom,#8b4513,#a0522d);border:1px solid #6b3310;border-radius:3px;position:absolute;left:12px;top:70px;z-index:7;transform:rotate(10deg);}
+.dd-saraswati .dd-veena::before{content:'';position:absolute;top:-6px;left:-4px;width:16px;height:12px;background:#8b4513;border-radius:50%;border:1px solid #6b3310;}
+.dd-saraswati .dd-book{width:14px;height:10px;background:#fff;border:1px solid #ddd;position:absolute;right:14px;top:108px;z-index:7;box-shadow:0 0 4px rgba(255,255,255,0.3);}
+
+/* Hanuman */
+.dd-hanuman .dd-halo{background:radial-gradient(circle,rgba(255,100,0,0.3),transparent)!important;}
+.dd-hanuman .dd-tail{width:6px;height:50px;background:linear-gradient(to bottom,#111,#222);border:1px solid #333;border-radius:3px;position:absolute;right:10px;bottom:30px;z-index:3;transform:rotate(-20deg);transform-origin:bottom;}
+.dd-hanuman .dd-tail::after{content:'';position:absolute;top:-4px;left:-3px;width:12px;height:8px;background:#111;border-radius:50%;}
+.dd-hanuman .dd-mace{width:6px;height:55px;background:linear-gradient(to bottom,#8b4513,#6b3310);border:1px solid #5a2a0a;position:absolute;left:12px;top:65px;z-index:7;transform:rotate(15deg);}
+.dd-hanuman .dd-mace::before{content:'';position:absolute;top:-8px;left:-5px;width:16px;height:14px;background:#8b4513;border-radius:4px;border:1px solid #6b3310;}
+
+/* Ayyappa */
+.dd-ayyappa .dd-halo{background:radial-gradient(circle,rgba(0,150,50,0.2),transparent)!important;}
+.dd-ayyappa .dd-crown{background:linear-gradient(to bottom,#ffd700,#228833)!important;}
+.dd-ayyappa .dd-tiger{width:30px;height:16px;background:linear-gradient(to bottom,#daa520,#b8860b);border-radius:6px;position:absolute;bottom:20px;left:5px;z-index:3;border:1px solid #8b6914;}
+.dd-ayyappa .dd-tiger::before{content:'';position:absolute;width:100%;height:100%;background:repeating-linear-gradient(90deg,transparent,transparent 4px,rgba(0,0,0,0.2) 4px,rgba(0,0,0,0.2) 6px);border-radius:6px;}
+
+/* Navagraha */
+.dd-navagraha{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:8px;width:220px;height:200px;align-items:center;padding-top:20px;}
+.dd-navagraha .dd-graha{width:30px;height:35px;display:flex;flex-direction:column;align-items:center;}
+.dd-navagraha .dd-graha-stone{width:16px;height:22px;background:linear-gradient(135deg,#0a0a0a,#222,#0d0d0d);border-radius:50% 50% 3px 3px;border:1px solid #333;box-shadow:0 0 5px rgba(255,180,50,0.1);}
+.dd-navagraha .dd-graha-base{width:22px;height:5px;background:#222;border:1px solid #333;border-radius:2px;margin-top:2px;}
+.dd-navagraha .dd-graha-name{font-size:6px;color:#ffd700;margin-top:2px;}
+.dd-navagraha .dd-platform{width:200px;height:12px;background:linear-gradient(to bottom,#222,#111);border:2px solid #444;border-radius:3px;margin-top:8px;}
